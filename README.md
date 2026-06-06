@@ -1,4 +1,4 @@
-# hsc-gpa-calculator
+# HSC GPA Calculator
 A clean, high-performance open-source JavaScript logic built to calculate the Higher Secondary Certificate (HSC) GPA accurately based on the official Ministry of Education and Intermediate and Secondary Education Boards guidelines in Bangladesh.
 
 ## 🚀 Live Tool
