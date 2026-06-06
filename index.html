@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="logo.svg">
+  
+  <!-- Primary SEO Meta Tags -->
+  <title>HSC GPA Calculator 2026 Online - Science, Business, Humanities</title>
+  <meta name="description" content="Calculate your Bangladeshi HSC 2026 exam GPA instantly. Supports Science, Business, and Humanities with the official 4th subject rule. Try it now!">
+  <meta name="keywords" content="HSC GPA Calculator, HSC result calculator, BD HSC GPA counter, 4th subject rules HSC, HSC grading system Bangladesh, HSC GPA 5 calculator, gpa calculator bd">
+  <link rel="canonical" href="https://hscgpacalculator.com/">
+
+  <!-- Facebook / Meta Open Graph Tags -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://hscgpacalculator.com/">
+  <meta property="og:title" content="HSC GPA Calculator 2026 Online - Calculate GPA 5.00 easily">
+  <meta property="og:description" content="Fast, accurate interactive web calculator for Bangladeshi HSC candidates. Includes 4th subject contribution rule adjustments automatically.">
+  <meta property="og:image" content="https://hscgpacalculator.com/og-image.png">
+
+  <!-- Twitter Card Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://hscgpacalculator.com/">
+  <meta name="twitter:title" content="HSC GPA Calculator 2026 Online">
+  <meta name="twitter:description" content="Check your HSC exam GPA with the official BD board rules. Supports all major academic groups.">
+  <meta name="twitter:image" content="https://hscgpacalculator.com/og-image.png">
+
+  <!-- Structured Data / JSON-LD WebApplication Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "HSC GPA Calculator",
+    "url": "https://hscgpacalculator.com",
+    "description": "An interactive web calculator to calculate the GPA of Bangladeshi HSC candidates based on official board rules.",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "All",
+    "browserRequirements": "Requires JavaScript. Requires HTML5.",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+  </script>
+
+  <!-- Structured Data / JSON-LD FAQ Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What happens if I fail in my 4th subject in HSC?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "If you fail (get an F grade) in your 4th or optional subject, you will still pass the overall HSC examination provided you pass all your mandatory subjects. An F grade in your optional track contributes 0 points to your average pool, but it never drags down your mandatory core results."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I get a total GPA of 5.00 if I get an A- in a main subject?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes! If your 4th subject scores an A+ (5.00), it yields a surplus of 3.00 points (5.00 - 2.00). These 3.00 bonus points can cover grade point shortages across your main subjects, successfully bumping your overall average up to a GPA 5.00."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How are the marks split for ICT in HSC 2026?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Information and Communication Technology (ICT) is evaluated out of a maximum of 100 marks total (combining Creative, MCQ, and Practical segments). Core group subjects span across two separate 100-mark paper sets totaling 200 marks maximum."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <!-- Google Fonts Optimization via Preload -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&display=swap">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg: #FFDE4D;
+      --card-bg: #FFFFFF;
+      --text: #000000;
+      --accent: #FF5A5F;
+      --accent-hover: #E0484D;
+      --secondary: #3D5A80;
+      --border-thickness: 3px;
+      --neo-shadow: 6px 6px 0px #000000;
+      --neo-shadow-clickable: 3px 3px 0px #000000;
+      --success-banner: #60CD82;
+      --fail-banner: #FF5A5F;
+      --input-focus: #98E2C6;
+    }
+
+    body.dark-mode {
+      --bg: #121214;
+      --card-bg: #1E1E24;
+      --text: #FFFFFF;
+      --accent: #FF5A5F;
+      --accent-hover: #FF7377;
+      --secondary: #A7C957;
+      --neo-shadow: 6px 6px 0px #FFDE4D;
+      --neo-shadow-clickable: 3px 3px 0px #FFDE4D;
+      --success-banner: #2A7B46;
+      --fail-banner: #9B2226;
+      --input-focus: #3D5A80;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 40px 20px;
+    }
+
+    .top-bar {
+      display: flex;
+      width: 100%;
+      max-width: 550px;
+      justify-content: flex-end;
+      margin-bottom: 15px;
+    }
+
+    .dark-mode-toggle {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      background: var(--card-bg);
+      padding: 8px 14px;
+      border: var(--border-thickness) solid #000000;
+      box-shadow: var(--neo-shadow-clickable);
+      cursor: pointer;
+    }
+
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 36px;
+      height: 20px;
+    }
+
+    .switch input { opacity: 0; width: 0; height: 0; }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: #000000;
+      transition: 0.15s;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 12px;
+      width: 12px;
+      left: 3px;
+      bottom: 2px;
+      background-color: #FFFFFF;
+      transition: 0.15s;
+    }
+
+    input:checked + .slider { background-color: var(--accent); }
+    input:checked + .slider:before { transform: translateX(14px); }
+
+    .container {
+      background: var(--card-bg);
+      width: 100%;
+      max-width: 550px;
+      padding: 30px;
+      border: var(--border-thickness) solid #000000;
+      box-shadow: var(--neo-shadow);
+      margin-bottom: 30px;
+    }
+
+    h1 { 
+      font-size: 1.8rem; 
+      font-weight: 800; 
+      margin-bottom: 25px; 
+      text-transform: uppercase;
+      letter-spacing: -1px;
+      text-align: left;
+    }
+
+    label, .section-heading {
+      display: block;
+      text-align: left;
+      font-weight: 800;
+      margin-top: 18px;
+      margin-bottom: 6px;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    select, input {
+      width: 100%;
+      padding: 12px;
+      border: var(--border-thickness) solid #000000;
+      background-color: var(--card-bg);
+      color: var(--text);
+      font-size: 1rem;
+      font-weight: 700;
+      outline: none;
+    }
+
+    select:focus, input:focus {
+      background-color: var(--input-focus);
+    }
+
+    .subject-row {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 10px;
+      margin-bottom: 4px;
+    }
+
+    .hide-row {
+      display: none !important;
+    }
+
+    button {
+      width: 100%;
+      padding: 16px;
+      border: var(--border-thickness) solid #000000;
+      font-size: 1.1rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      margin-top: 25px;
+      background-color: #0056b3;
+      color: #FFFFFF;
+      box-shadow: var(--neo-shadow-clickable);
+      position: relative;
+    }
+
+    button:hover { background-color: var(--accent-hover); }
+    button:active { top: 2px; left: 2px; box-shadow: 1px 1px 0px #000000; }
+
+    #saveImageBtn { background-color: var(--secondary); margin-top: 12px; }
+
+    #resultContainer { margin-top: 25px; border: var(--border-thickness) solid #000000; display: none; }
+    #result { font-size: 1.6rem; font-weight: 800; padding: 18px; text-transform: uppercase; }
+    #totalMarks { font-size: 1rem; padding: 0 18px 14px 18px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+
+    .status-pass { background-color: var(--success-banner) !important; color: #FFFFFF !important; display: block !important; }
+    .status-fail { background-color: var(--fail-banner) !important; color: #FFFFFF !important; display: block !important; }
+
+    .seo-content {
+      width: 100%;
+      max-width: 750px;
+      background: var(--card-bg);
+      padding: 35px;
+      border: var(--border-thickness) solid #000000;
+      box-shadow: var(--neo-shadow);
+      text-align: left;
+      line-height: 1.7;
+    }
+
+    .seo-content h2 { 
+      font-size: 1.5rem; 
+      font-weight: 800;
+      margin-top: 30px; 
+      margin-bottom: 12px; 
+      text-transform: uppercase;
+      letter-spacing: -0.5px;
+      border-bottom: 2px solid #000000;
+      padding-bottom: 4px;
+    }
+    
+    .seo-content h3 { font-size: 1.15rem; font-weight: 800; margin-top: 20px; margin-bottom: 8px; text-transform: uppercase; }
+    .seo-content p { margin-bottom: 15px; font-size: 0.95rem; font-weight: 500; }
+    .seo-content ul { margin-left: 20px; margin-bottom: 15px; font-size: 0.95rem; }
+    .seo-content li { margin-bottom: 6px; font-weight: 600; }
+    
+    .seo-table { width: 100%; border-collapse: collapse; margin-top: 15px; margin-bottom: 20px; }
+    .seo-table th, .seo-table td { padding: 12px; border: 2px solid #000000; font-weight: 700; text-align: left; }
+    .seo-table th { background-color: var(--bg); color: #000000; text-transform: uppercase; font-size: 0.85rem; }
+	
+	
+	.cross-linking-footer {
+  width: 100%;
+  max-width: 750px;
+  background: var(--card-bg);
+  margin-top: 30px;
+  padding: 25px;
+  border: var(--border-thickness) solid #000000;
+  box-shadow: var(--neo-shadow);
+  text-align: center;
+}
+.cross-linking-footer h3 {
+  font-size: 1.2rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  letter-spacing: -0.5px;
+}
+.cross-linking-footer p {
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+.footer-btn-container {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.footer-link-btn {
+  display: inline-block;
+  text-decoration: none;
+  padding: 12px 24px;
+  font-size: 0.9rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  border: var(--border-thickness) solid #000000;
+  box-shadow: var(--neo-shadow-clickable);
+  color: #FFFFFF;
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+.btn-gpa { background-color: var(--secondary); }
+.btn-gpa:hover { background-color: #2b405c; }
+.footer-link-btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0px #000000;
+}
+	
+	
+	/* Cross-Linking Footer Navigation Grid Section */
+    .cross-linking-footer {
+      width: 100%;
+      max-width: 750px;
+      background: var(--card-bg);
+      margin-top: 30px;
+      padding: 30px;
+      border: var(--border-thickness) solid #000000;
+      box-shadow: var(--neo-shadow);
+    }
+    .cross-linking-footer h2 {
+      font-size: 1.4rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      letter-spacing: -0.5px;
+      text-align: left;
+    }
+    .cross-linking-footer p {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 25px;
+      line-height: 1.5;
+      text-align: left;
+    }
+    .calculators-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 15px;
+    }
+    .calc-link {
+      display: block;
+      text-decoration: none;
+      padding: 16px;
+      font-size: 0.95rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      border: var(--border-thickness) solid #000000;
+      box-shadow: var(--neo-shadow-clickable);
+      color: #000000;
+      text-align: center;
+      position: relative;
+      transition: none;
+    }
+    body.dark-mode .calc-link {
+      color: #FFFFFF;
+    }
+    .calc-link:active {
+      top: 2px;
+      left: 2px;
+      box-shadow: 1px 1px 0px #000000;
+    }
+    body.dark-mode .calc-link:active {
+      box-shadow: 1px 1px 0px #FFDE4D;
+    }
+    /* Dynamic styling varieties matching your system properties */
+    .link-primary { background-color: var(--bg); }
+    .link-secondary { background-color: var(--secondary); color: #FFFFFF !important; }
+    .link-accent { background-color: var(--accent); color: #FFFFFF !important; }
+	
+  </style>
+
+  
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TY98R8BG8Z"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TY98R8BG8Z');
+  </script>
+</head>
+
+<body>
+
+  <div class="top-bar">
+    <div class="dark-mode-toggle" aria-label="Toggle dark mode" tabindex="0">
+      <span style="user-select:none;">Dark Mode</span>
+      <label class="switch" for="toggle-dark-mode">
+        <input type="checkbox" id="toggle-dark-mode" aria-label="Toggle Dark Mode">
+        <span class="slider"></span>
+      </label>
+    </div>
+  </div>
+
+  <main class="container" role="main" aria-labelledby="main-title">
+    <h1 id="main-title">⚡ HSC GPA Calculator 2026</h1>
+
+    <label for="groupSelect">Select Track / Group</label>
+    <select id="groupSelect" aria-required="true" autocomplete="off">
+      <option value="science">Science</option>
+      <option value="business">Business Studies</option>
+      <option value="humanities">Humanities</option>
+    </select>
+
+    <form id="subjectsForm" onsubmit="return false;" aria-live="polite" aria-atomic="true">
+      <!-- Compulsory Core Section -->
+      <label for="bangla_grade">Bangla</label>
+      <div class="subject-row">
+        <select id="bangla_grade">
+          <option value="">Select Grade</option>
+          <option value="5">A+ (5.00)</option>
+          <option value="4">A (4.00)</option>
+          <option value="3.5">A- (3.50)</option>
+          <option value="3">B (3.00)</option>
+          <option value="2">C (2.00)</option>
+          <option value="1">D (1.00)</option>
+          <option value="0">F (0.00)</option>
+        </select>
+        <input type="number" min="0" max="200" placeholder="Marks (0-200)" id="bangla_marks">
+      </div>
+
+      <label for="english_grade">English</label>
+      <div class="subject-row">
+        <select id="english_grade">
+          <option value="">Select Grade</option>
+          <option value="5">A+ (5.00)</option>
+          <option value="4">A (4.00)</option>
+          <option value="3.5">A- (3.50)</option>
+          <option value="3">B (3.00)</option>
+          <option value="2">C (2.00)</option>
+          <option value="1">D (1.00)</option>
+          <option value="0">F (0.00)</option>
+        </select>
+        <input type="number" min="0" max="200" placeholder="Marks (0-200)" id="english_marks">
+      </div>
+
+      <label for="ict_grade">ICT</label>
+      <div class="subject-row">
+        <select id="ict_grade">
+          <option value="">Select Grade</option>
+          <option value="5">A+ (5.00)</option>
+          <option value="4">A (4.00)</option>
+          <option value="3.5">A- (3.50)</option>
+          <option value="3">B (3.00)</option>
+          <option value="2">C (2.00)</option>
+          <option value="1">D (1.00)</option>
+          <option value="0">F (0.00)</option>
+        </select>
+        <input type="number" min="0" max="100" placeholder="Marks (0-100)" id="ict_marks">
+      </div>
+
+      <!-- Elective Block Section -->
+      <div class="section-heading">Select Your 3 Group Elective Subjects</div>
+
+      <!-- Elective 1 -->
+      <label for="elective_1_select">Elective Subject 1</label>
+      <select id="elective_1_select" class="elective-subject-dropdown">
+        <option value="">Choose Elective 1</option>
+      </select>
+      <div id="elective_1_inputs_wrapper" class="subject-row hide-row" style="margin-top: 6px;">
+        <select id="elective_1_grade">
+          <option value="">Select Grade</option>
+          <option value="5">A+ (5.00)</option>
+          <option value="4">A (4.00)</option>
+          <option value="3.5">A- (3.50)</option>
+          <option value="3">B (3.00)</option>
+          <option value="2">C (2.00)</option>
+          <option value="1">D (1.00)</option>
+          <option value="0">F (0.00)</option>
+        </select>
+        <input type="number" min="0" max="200" placeholder="Marks (0-200)" id="elective_1_marks">
+      </div>
+
+      <!-- Elective 2 -->
+      <label for="elective_2_select">Elective Subject 2</label>
+      <select id="elective_2_select" class="elective-subject-dropdown">
+        <option value="">Choose Elective 2</option>
+      </select>
+      <div id="elective_2_inputs_wrapper" class="subject-row hide-row" style="margin-top: 6px;">
+        <select id="elective_2_grade">
+          <option value="">Select Grade</option>
+          <option value="5">A+ (5.00)</option>
+          <option value="4">A (4.00)</option>
+          <option value="3.5">A- (3.50)</option>
+          <option value="3">B (3.00)</option>
+          <option value="2">C (2.00)</option>
+          <option value="1">D (1.00)</option>
+          <option value="0">F (0.00)</option>
+        </select>
+        <input type="number" min="0" max="200" placeholder="Marks (0-200)" id="elective_2_marks">
+      </div>
+
+      <!-- Elective 3 -->
+      <label for="elective_3_select">Elective Subject 3</label>
+      <select id="elective_3_select" class="elective-subject-dropdown">
+        <option value="">Choose Elective 3</option>
+      </select>
+      <div id="elective_3_inputs_wrapper" class="subject-row hide-row" style="margin-top: 6px;">
+        <select id="elective_3_grade">
+          <option value="">Select Grade</option>
+          <option value="5">A+ (5.00)</option>
+          <option value="4">A (4.00)</option>
+          <option value="3.5">A- (3.50)</option>
+          <option value="3">B (3.00)</option>
+          <option value="2">C (2.00)</option>
+          <option value="1">D (1.00)</option>
+          <option value="0">F (0.00)</option>
+        </select>
+        <input type="number" min="0" max="200" placeholder="Marks (0-200)" id="elective_3_marks">
+      </div>
+
+      <!-- Optional 4th Subject Section -->
+      <label for="optional_subject">Optional Subject (4th Subject)</label>
+      <select id="optional_subject">
+        <option value="">Select Optional Subject</option>
+      </select>
+      <div id="optional_inputs_wrapper" class="subject-row hide-row" style="margin-top: 10px;">
+        <select id="optional_grade">
+          <option value="">Select Grade</option>
+          <option value="5">A+ (5.00)</option>
+          <option value="4">A (4.00)</option>
+          <option value="3.5">A- (3.50)</option>
+          <option value="3">B (3.00)</option>
+          <option value="2">C (2.00)</option>
+          <option value="1">D (1.00)</option>
+          <option value="0">F (0.00)</option>
+        </select>
+        <input type="number" min="0" max="200" placeholder="Marks (0-200)" id="optional_marks">
+      </div>
+    </form>
+
+    <button type="button" id="calculateBtn" aria-label="Calculate GPA">💥 Compute Score</button>
+
+    <div id="resultContainer" aria-live="polite" aria-atomic="true">
+      <div id="result"></div>
+      <div id="totalMarks"></div>
+    </div>
+
+    <button type="button" id="saveImageBtn" aria-label="Save GPA result as picture" style="display: none;">📸 Share Result</button>
+  </main>
+
+  <section class="seo-content" aria-label="Educational Information regarding HSC Grading System">
+    <h2>How to Calculate HSC 2026 GPA with 4th Subject Rule</h2>
+    <p>The Higher Secondary Certificate (HSC) grading profile in Bangladesh uses a grade point scale running up to 5.00 (GPA 5). While primary main subjects impact the core tally directly, calculating your total score requires dealing with your selective <strong>Optional (4th) Subject</strong> rules correctly. Our online web application features live automated calculations mapping structural board adjustments directly.</p>
+    
+    <h3>Official Bangladeshi HSC Grading System Matrix</h3>
+    <p>Search engines and board rules track calculations out of a standardized scale. Below is the conversion table used by our tool to parse your marks instantly:</p>
+    
+    <table class="seo-table">
+      <thead>
+        <tr>
+          <th>Class Marks Interval</th>
+          <th>Letter Grade</th>
+          <th>Grade Point Value</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>80% or higher</td><td>A+</td><td>5.00</td></tr>
+        <tr><td>70% to 79%</td><td>A</td><td>4.00</td></tr>
+        <tr><td>60% to 69%</td><td>A-</td><td>3.50</td></tr>
+        <tr><td>50% to 59%</td><td>B</td><td>3.00</td></tr>
+        <tr><td>40% to 49%</td><td>C</td><td>2.00</td></tr>
+        <tr><td>33% to 39%</td><td>D</td><td>1.00</td></tr>
+        <tr><td>Below 33%</td><td>F</td><td>0.00 (Failing Grade)</td></tr>
+      </tbody>
+    </table>
+
+    <h2>The 4th Subject GPA Contribution Rule Explained</h2>
+    <p>According to the Board of Intermediate and Secondary Education rules, your 4th subject works to boost your score safely without penalizing your average pool if you score weakly. Specifically, <strong>2 points are deducted</strong> from your earned optional grade value. The points that remain over 2.00 add straight to your cumulative total before dividing your points pool across your 6 mandatory subject rows.</p>
+    <p><em>Example:</em> If you hit an A+ (5.00) in your chosen optional class, 3 points (5.00 - 2.00) pool straight into your core metrics. If you achieve a C (2.00) or under, it contributes zero additional points to your tally, but does not drag your average down.</p>
+
+    <h3>Critical Failure Warning</h3>
+    <p>Please note that if you hit an <strong>F grade (0.00)</strong> in any mandatory main subject row, your aggregated global performance drops strictly to a <strong>GPA 0.00</strong>, indicating an overall fail result. This calculator correctly accounts for this dependency to prevent inaccurate estimates.</p>
+
+    <noscript>
+      <h3>Supported Board Subjects Index Checklist</h3>
+      <p>This web processing platform indexes and calculates values for: Bangla, English, ICT (Information and Communication Technology), Physics, Chemistry, Higher Mathematics, Biology, Accounting, Business Organization & Management, Finance Banking & Insurance, Production Management & Entrepreneurship, Economics, Civics & Good Governance, History of Bangladesh, Islamic History, Geography, Logic, Sociology, Psychology, Social Work, and Agriculture Studies.</p>
+    </noscript>
+
+    <h2>Frequently Asked Questions (FAQs)</h2>
+    
+    <h3>What happens if I fail in my 4th subject in HSC?</h3>
+    <p>If you fail (get an F grade) in your 4th or optional subject, you will still pass the overall HSC examination provided you pass all your mandatory subjects. An F grade in your optional track contributes 0 points to your average pool, but it never drags down your mandatory core results.</p>
+
+    <h3>Can I get a total GPA of 5.00 if I get an A- in a main subject?</h3>
+    <p>Yes! If your 4th subject scores an A+ (5.00), it yields a surplus of 3.00 points (5.00 - 2.00). These 3.00 bonus points can cover grade point shortages across your main subjects, successfully bumping your overall average up to a GPA 5.00.</p>
+
+    <h3>How are the marks split for ICT in HSC 2026?</h3>
+    <p>Information and Communication Technology (ICT) is evaluated out of a maximum of 100 marks total (combining Creative, MCQ, and Practical segments). Core group subjects span across two separate 100-mark paper sets totaling 200 marks maximum.</p>
+  </section>
+  
+  <!-- Cross-Linking Navigation Footer Section for Home Page -->
+<footer class="cross-linking-footer" aria-label="Explore other structural calculators">
+    <h2>📈 Explore More Academic Tools &amp; Calculators</h2>
+    <p>Contextual internal verification requirements help track performance markers smoothly. Quickly look up your explicit benchmarks across our other platforms:</p>
+    <div class="calculators-grid">
+	<a href="https://hscgpacalculator.com/ssc-gpa-calculator" class="calc-link link-primary">📝 SSC GPA Calculator</a>
+      <a href="https://hscgpacalculator.com/ielts-score-calculator" class="calc-link link-secondary">📊 IELTS Score Calculator</a>
+      
+      <a href="https://hscgpacalculator.com/cgpa-calculator" class="calc-link link-secondary">🔄 CGPA Calculator</a>
+      <a href="https://hscgpacalculator.com/bracu-cgpa-calculator" class="calc-link link-primary">🏫 BRACU CGPA Calculator</a>
+	  <a href="https://hscgpacalculator.com/uiu-cgpa-calculator" class="calc-link link-primary">🏫 UIU CGPA Calculator</a>
+	  <a href="https://hscgpacalculator.com/nu-cgpa-calculator" class="calc-link link-secondary">🏫 NU CGPA Calculator</a>
+	  <a href="https://hscgpacalculator.com/age-calculator-bd" class="calc-link link-secondary">🎂 Age Calculator BD</a>
+    </div>
+  </footer>
+  
+  
+
+  <!-- Optimized Logic Handler Execution Block -->
+  <script>
+    const groups = {
+      science: {
+        main: ["Physics", "Chemistry", "Higher Mathematics", "Biology"],
+        optional: ["Higher Mathematics", "Biology", "Agriculture Studies", "Computer Science", "Engineering Drawing"]
+      },
+      business: {
+        main: ["Accounting", "Business Organization & Management", "Finance, Banking & Insurance", "Production Management & Entrepreneurship"],
+        optional: ["Finance, Banking & Insurance", "Production Management & Entrepreneurship", "Economics", "Statistics", "Agriculture Studies"]
+      },
+      humanities: {
+        main: ["Civics & Good Governance", "History of Bangladesh & World Civilization", "Islamic History & Culture", "Geography", "Economics", "Logic", "Sociology"],
+        optional: ["Civics & Good Governance", "History of Bangladesh & World Civilization", "Geography", "Economics", "Logic", "Sociology", "Psychology", "Social Work", "Agriculture Studies"]
+      }
+    };
+
+    const groupSelect = document.getElementById("groupSelect");
+    const calculateBtn = document.getElementById("calculateBtn");
+    const saveImageBtn = document.getElementById("saveImageBtn");
+    const resultBox = document.getElementById("result");
+    const totalMarksBox = document.getElementById("totalMarks");
+    const resultContainer = document.getElementById("resultContainer");
+
+    function marksToGPA(mark) {
+      if (mark >= 80) return 5;
+      if (mark >= 70) return 4;
+      if (mark >= 60) return 3.5;
+      if (mark >= 50) return 3;
+      if (mark >= 40) return 2;
+      if (mark >= 33) return 1;
+      return 0;
+    }
+
+    function setupSyncListeners(prefix) {
+      const markInput = document.getElementById(`${prefix}_marks`);
+      const gradeSelect = document.getElementById(`${prefix}_grade`);
+      const isIct = prefix === 'ict';
+
+      markInput.addEventListener("input", () => {
+        let mark = parseFloat(markInput.value);
+        if (!isNaN(mark)) {
+          let avg = isIct ? mark : mark / 2;
+          gradeSelect.value = marksToGPA(avg);
+        } else {
+          gradeSelect.value = "";
+        }
+      });
+
+      gradeSelect.addEventListener("change", () => {
+        if (gradeSelect.value !== "") markInput.value = "";
+      });
+    }
+
+    // Set up listeners for hardcoded rows directly
+    setupSyncListeners('bangla');
+    setupSyncListeners('english');
+    setupSyncListeners('ict');
+    setupSyncListeners('elective_1');
+    setupSyncListeners('elective_2');
+    setupSyncListeners('elective_3');
+
+    // Handle optional row separate sync setup
+    document.getElementById("optional_marks").addEventListener("input", function() {
+      let mark = parseFloat(this.value);
+      if (!isNaN(mark)) {
+        document.getElementById("optional_grade").value = marksToGPA(mark / 2);
+      } else {
+        document.getElementById("optional_grade").value = "";
+      }
+    });
+    document.getElementById("optional_grade").addEventListener("change", function() {
+      if (this.value !== "") document.getElementById("optional_marks").value = "";
+    });
+
+    function populateGroupData(group) {
+      const selectedGroup = groups[group];
+      
+      // Update Elective Select Boxes Options
+      for (let i = 1; i <= 3; i++) {
+        const selectEl = document.getElementById(`elective_${i}_select`);
+        selectEl.innerHTML = `<option value="">Choose Elective ${i}</option>`;
+        selectedGroup.main.forEach(sub => {
+          const opt = document.createElement("option");
+          opt.value = sub;
+          opt.textContent = sub;
+          selectEl.appendChild(opt);
+        });
+      }
+
+      // Update Optional Select Box Options
+      const optSelect = document.getElementById("optional_subject");
+      optSelect.innerHTML = '<option value="">Select Optional Subject</option>';
+      selectedGroup.optional.forEach(sub => {
+        const opt = document.createElement("option");
+        opt.value = sub;
+        opt.textContent = sub;
+        optSelect.appendChild(opt);
+      });
+    }
+
+    // Toggle Dropdown Display Wrappers without using dynamic innerHTML mutations
+    function handleDropdownToggleListener(selectId, wrapperId, gradeId, markId) {
+      const select = document.getElementById(selectId);
+      const wrapper = document.getElementById(wrapperId);
+      select.addEventListener("change", () => {
+        if (select.value === "") {
+          wrapper.classList.add("hide-row");
+          document.getElementById(gradeId).value = "";
+          document.getElementById(markId).value = "";
+        } else {
+          wrapper.classList.remove("hide-row");
+        }
+      });
+    }
+
+    handleDropdownToggleListener('elective_1_select', 'elective_1_inputs_wrapper', 'elective_1_grade', 'elective_1_marks');
+    handleDropdownToggleListener('elective_2_select', 'elective_2_inputs_wrapper', 'elective_2_grade', 'elective_2_marks');
+    handleDropdownToggleListener('elective_3_select', 'elective_3_inputs_wrapper', 'elective_3_grade', 'elective_3_marks');
+
+    document.getElementById("optional_subject").addEventListener("change", function() {
+      const wrapper = document.getElementById("optional_inputs_wrapper");
+      if (this.value === "") {
+        wrapper.classList.add("hide-row");
+        document.getElementById("optional_grade").value = "";
+        document.getElementById("optional_marks").value = "";
+      } else {
+        wrapper.classList.remove("hide-row");
+      }
+    });
+
+    function calculateGPA() {
+      let totalPoints = 0;
+      let optionalPoint = 0;
+      let totalMarks = 0;
+      let studentFailed = false;
+
+      const coreIds = ["bangla", "english", "ict"];
+      for (let id of coreIds) {
+        let gradeVal = document.getElementById(id + "_grade").value;
+        let markVal = parseFloat(document.getElementById(id + "_marks").value);
+
+        if (gradeVal === "" && isNaN(markVal)) {
+          alert(`Please complete fields for core compulsory items.`);
+          return;
+        }
+
+        if (gradeVal === "") {
+          let avg = (id === "ict") ? markVal : markVal / 2;
+          gradeVal = marksToGPA(avg);
+        } else {
+          gradeVal = parseFloat(gradeVal);
+        }
+
+        if (gradeVal === 0) studentFailed = true;
+        totalPoints += gradeVal;
+
+        if (!isNaN(markVal)) {
+          totalMarks += markVal;
+        } else {
+          totalMarks += (id === "ict") ? (gradeVal * 20) : (gradeVal * 40);
+        }
+      }
+
+      let electedSubs = [];
+      for (let i = 1; i <= 3; i++) {
+        const selVal = document.getElementById(`elective_${i}_select`).value;
+        if (!selVal) {
+          alert("Please select your 3 core Group Elective choices.");
+          return;
+        }
+        if (electedSubs.includes(selVal)) {
+          alert("Error: Duplicate choices selected inside Elective Blocks!");
+          return;
+        }
+        electedSubs.push(selVal);
+
+        let gradeVal = document.getElementById(`elective_${i}_grade`).value;
+        let markVal = parseFloat(document.getElementById(`elective_${i}_marks`).value);
+
+        if (gradeVal === "" && isNaN(markVal)) {
+          alert(`Please insert details for Elective choice: ${selVal}`);
+          return;
+        }
+
+        if (gradeVal === "") {
+          gradeVal = marksToGPA(markVal / 2);
+        } else {
+          gradeVal = parseFloat(gradeVal);
+        }
+
+        if (gradeVal === 0) studentFailed = true;
+        totalPoints += gradeVal;
+
+        if (!isNaN(markVal)) {
+          totalMarks += markVal;
+        } else {
+          totalMarks += (gradeVal * 40);
+        }
+      }
+
+      const optionalSub = document.getElementById("optional_subject").value;
+      if (optionalSub !== "") {
+        if (electedSubs.includes(optionalSub)) {
+          alert("Your optional 4th subject choice cannot overlap with selected Group Electives.");
+          return;
+        }
+
+        let gradeValOpt = document.getElementById("optional_grade").value;
+        let markValOpt = parseFloat(document.getElementById("optional_marks").value);
+
+        if (gradeValOpt === "" && isNaN(markValOpt)) {
+          alert(`Please add grades or marks for your optional choice.`);
+          return;
+        }
+
+        if (gradeValOpt === "") {
+          gradeValOpt = marksToGPA(markValOpt / 2);
+        } else {
+          gradeValOpt = parseFloat(gradeValOpt);
+        }
+
+        if (!isNaN(markValOpt)) {
+          totalMarks += markValOpt;
+        } else {
+          totalMarks += (gradeValOpt * 40);
+        }
+
+        optionalPoint = gradeValOpt > 2 ? (gradeValOpt - 2) : 0;
+      }
+
+      let finalGPA = 0;
+      resultContainer.className = "";
+
+      if (studentFailed) {
+        resultBox.textContent = `GPA Score: 0.00 (Failed)`;
+        resultContainer.classList.add("status-fail");
+      } else {
+        finalGPA = (totalPoints + optionalPoint) / 6;
+        if (finalGPA > 5) finalGPA = 5;
+        resultBox.textContent = `GPA Score: ${finalGPA.toFixed(2)}`;
+        resultContainer.classList.add("status-pass");
+      }
+
+      totalMarksBox.textContent = `Total Marks Captured: ~${Math.round(totalMarks)}`;
+      saveImageBtn.style.display = "block";
+    }
+
+    groupSelect.addEventListener("change", () => {
+      populateGroupData(groupSelect.value);
+      resultBox.textContent = "";
+      totalMarksBox.textContent = "";
+      resultContainer.className = "";
+      resultContainer.style.display = "none";
+      saveImageBtn.style.display = "none";
+
+      for (let i = 1; i <= 3; i++) {
+        document.getElementById(`elective_${i}_inputs_wrapper`).classList.add("hide-row");
+      }
+      document.getElementById("optional_inputs_wrapper").classList.add("hide-row");
+    });
+
+    calculateBtn.addEventListener("click", calculateGPA);
+
+    const toggleDarkMode = document.getElementById("toggle-dark-mode");
+
+    function applyDarkMode(state) {
+      if (state) {
+        document.body.classList.add("dark-mode");
+        toggleDarkMode.checked = true;
+      } else {
+        document.body.classList.remove("dark-mode");
+        toggleDarkMode.checked = false;
+      }
+      localStorage.setItem("darkMode", state ? "enabled" : "disabled");
+    }
+
+    toggleDarkMode.addEventListener("change", () => {
+      applyDarkMode(toggleDarkMode.checked);
+    });
+
+    window.addEventListener("DOMContentLoaded", () => {
+      const saved = localStorage.getItem("darkMode");
+      applyDarkMode(saved === "enabled");
+      populateGroupData(groupSelect.value);
+    });
+
+    async function saveAsPicture() {
+      if (!window.html2canvas) {
+        await new Promise(resolve => {
+          const script = document.createElement("script");
+          script.src = "https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js";
+          script.onload = resolve;
+          document.body.appendChild(script);
+        });
+      }
+
+      calculateBtn.style.visibility = "hidden";
+      saveImageBtn.style.visibility = "hidden";
+      await new Promise(r => setTimeout(r, 200));
+
+      const container = document.querySelector(".container");
+      const canvas = await html2canvas(container, { 
+        backgroundColor: document.body.classList.contains("dark-mode") ? "#1E1E24" : "#FFFFFF", 
+        scale: 2 
+      });
+
+      calculateBtn.style.visibility = "visible";
+      saveImageBtn.style.visibility = "visible";
+
+      const link = document.createElement("a");
+      link.download = "hsc_gpa_result.png";
+      link.href = canvas.toDataURL("image/png");
+      link.click();
+    }
+
+    saveImageBtn.addEventListener("click", saveAsPicture);
+  </script>
+</body>
+</html>
