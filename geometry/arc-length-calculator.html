@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="../logo.svg">
+  
+  <title>Arc Length Calculator with Steps - Free Geometry Tool</title>
+  <meta name="description" content="Calculate the arc length of a circle instantly using degrees or radians with our free Arc Length Calculator with Steps. View detailed formula derivations and fractional breakdown steps.">
+  <meta name="keywords" content="arc length calculator, calculate arc length, find arc length, circle arc calculator, geometry solver, step by step arc length tool, arc length formula">
+  <link rel="canonical" href="https://hscgpacalculator.com/geometry/arc-length-calculator">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Arc Length Calculator with Steps - HSC GPA Calculator",
+    "url": "https://hscgpacalculator.com/geometry/arc-length-calculator",
+    "description": "An interactive geometric evaluation web application built to analyze circular arcs and extract exact arc length calculations using mathematical sector workflows.",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "All",
+    "browserRequirements": "Requires JavaScript. Requires HTML5.",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What formula does the engine use for arc length calculations in degrees?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "For angle measurements input in degrees, the engine deploys the traditional fractional formulation: s = 2 × π × r × (θ / 360), mapping the segment cleanly as a fraction of the circle's absolute circumference perimeter."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What happens if my central angle exceeds a full 360-degree rotation?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Our calculation engine supports major helical coils and multi-rotation angles cleanly, treating large angular inputs as continuous compounding linear arcs around the radius vector."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght=500;700;800&display=swap">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght=500;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg: #FFDE4D;
+      --card-bg: #FFFFFF;
+      --text: #000000;
+      --accent: #FF5A5F;
+      --accent-hover: #E0484D;
+      --secondary: #3D5A80;
+      --border-thickness: 3px;
+      --neo-shadow: 6px 6px 0px #000000;
+      --neo-shadow-clickable: 3px 3px 0px #000000;
+      --success-banner: #60CD82;
+      --fail-banner: #FF5A5F;
+      --input-focus: #98E2C6;
+    }
+
+    body.dark-mode {
+      --bg: #121214;
+      --card-bg: #1E1E24;
+      --text: #FFFFFF;
+      --accent: #FF5A5F;
+      --accent-hover: #FF7377;
+      --secondary: #A7C957;
+      --neo-shadow: 6px 6px 0px #FFDE4D;
+      --neo-shadow-clickable: 3px 3px 0px #FFDE4D;
+      --success-banner: #2A7B46;
+      --fail-banner: #9B2226;
+      --input-focus: #3D5A80;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 40px 20px;
+    }
+
+    .top-bar {
+      display: flex;
+      width: 100%;
+      max-width: 550px;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .back-home {
+      font-size: 0.85rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--text);
+      background: var(--card-bg);
+      padding: 8px 14px;
+      border: var(--border-thickness) solid #000000;
+      box-shadow: var(--neo-shadow-clickable);
+    }
+
+    .dark-mode-toggle {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      background: var(--card-bg);
+      padding: 8px 14px;
+      border: var(--border-thickness) solid #000000;
+      box-shadow: var(--neo-shadow-clickable);
+      cursor: pointer;
+    }
+
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 36px;
+      height: 20px;
+    }
+
+    .switch input { opacity: 0; width: 0; height: 0; }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: #000000;
+      transition: 0.15s;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 12px;
+      width: 12px;
+      left: 3px;
+      bottom: 2px;
+      background-color: #FFFFFF;
+      transition: 0.15s;
+    }
+
+    input:checked + .slider { background-color: var(--accent); }
+    input:checked + .slider:before { transform: translateX(14px); }
+
+    .container {
+      background: var(--card-bg);
+      width: 100%;
+      max-width: 550px;
+      padding: 30px;
+      border: var(--border-thickness) solid #000000;
+      box-shadow: var(--neo-shadow);
+      margin-bottom: 30px;
+    }
+
+    h1 { 
+      font-size: 1.8rem; 
+      font-weight: 800; 
+      margin-bottom: 25px; 
+      text-transform: uppercase;
+      letter-spacing: -1px;
+      text-align: left;
+    }
+
+    label, .section-heading {
+      display: block;
+      text-align: left;
+      font-weight: 800;
+      margin-top: 18px;
+      margin-bottom: 6px;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    select, input {
+      width: 100%;
+      padding: 12px;
+      border: var(--border-thickness) solid #000000;
+      background-color: var(--card-bg);
+      color: var(--text);
+      font-size: 1rem;
+      font-weight: 700;
+      outline: none;
+    }
+
+    select:focus, input:focus {
+      background-color: var(--input-focus);
+    }
+
+    .input-group {
+      margin-bottom: 15px;
+    }
+
+    .mode-select {
+      margin-bottom: 15px;
+    }
+
+    .radio-group {
+      display: flex;
+      gap: 15px;
+      margin-top: 5px;
+      margin-bottom: 5px;
+    }
+
+    .radio-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 0.9rem;
+      cursor: pointer;
+      margin: 0;
+    }
+
+    .radio-label input {
+      width: auto;
+      cursor: pointer;
+    }
+
+    button {
+      width: 100%;
+      padding: 16px;
+      border: var(--border-thickness) solid #000000;
+      font-size: 1.1rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      margin-top: 25px;
+      background-color: #0056b3;
+      color: #FFFFFF;
+      box-shadow: var(--neo-shadow-clickable);
+      position: relative;
+    }
+
+    button:hover { background-color: var(--accent-hover); }
+    button:active { top: 2px; left: 2px; box-shadow: 1px 1px 0px #000000; }
+
+    #shareResultBtn { background-color: var(--secondary); margin-top: 12px; }
+
+    #resultContainer { margin-top: 25px; border: var(--border-thickness) solid #000000; display: none; background-color: var(--card-bg); color: var(--text); }
+    #result { font-size: 1.35rem; font-weight: 800; padding: 18px; text-transform: uppercase; line-height: 1.4; }
+    #metricBreakdown { font-size: 0.95rem; padding: 0 18px 14px 18px; font-weight: 700; text-transform: none; letter-spacing: 0.5px; line-height: 1.6; border-top: 2px dashed #000000; padding-top: 12px;}
+
+    .status-active { background-color: var(--success-banner) !important; color: #FFFFFF !important; display: block !important; }
+    .status-error { background-color: var(--fail-banner) !important; color: #FFFFFF !important; display: block !important; }
+
+    .seo-content {
+      width: 100%;
+      max-width: 750px;
+      background: var(--card-bg);
+      padding: 35px;
+      border: var(--border-thickness) solid #000000;
+      box-shadow: var(--neo-shadow);
+      text-align: left;
+      line-height: 1.7;
+    }
+
+    .seo-content h2 { 
+      font-size: 1.5rem; 
+      font-weight: 800;
+      margin-top: 30px; 
+      margin-bottom: 12px; 
+      text-transform: uppercase;
+      letter-spacing: -0.5px;
+      border-bottom: 2px solid #000000;
+      padding-bottom: 4px;
+    }
+    
+    .seo-content h3 { font-size: 1.15rem; font-weight: 800; margin-top: 20px; margin-bottom: 8px; text-transform: uppercase; }
+    .seo-content p { margin-bottom: 15px; font-size: 0.95rem; font-weight: 500; }
+    .seo-content ul { margin-left: 20px; margin-bottom: 15px; font-size: 0.95rem; }
+    .seo-content li { margin-bottom: 6px; font-weight: 600; }
+    
+    .seo-table { width: 100%; border-collapse: collapse; margin-top: 15px; margin-bottom: 20px; }
+    .seo-table th, .seo-table td { padding: 12px; border: 2px solid #000000; font-weight: 700; text-align: left; }
+    .seo-table th { background-color: var(--bg); color: #000000; text-transform: uppercase; font-size: 0.85rem; }
+
+    .cross-linking-footer {
+      width: 100%;
+      max-width: 750px;
+      background: var(--card-bg);
+      margin-top: 30px;
+      padding: 30px;
+      border: var(--border-thickness) solid #000000;
+      box-shadow: var(--neo-shadow);
+    }
+    .cross-linking-footer h2 {
+      font-size: 1.4rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      letter-spacing: -0.5px;
+      text-align: left;
+    }
+    .cross-linking-footer p {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 25px;
+      line-height: 1.5;
+      text-align: left;
+    }
+    .calculators-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px 20px;
+    }
+    .calc-link {
+      display: inline-block;
+      text-decoration: underline;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text) !important;
+      background: none !important;
+      border: none !important;
+      box-shadow: none !important;
+      text-align: left;
+      padding: 4px 0;
+    }
+    .calc-link:hover {
+      color: var(--accent) !important;
+    }
+  </style>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TY98R8BG8Z"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TY98R8BG8Z');
+  </script>
+
+<script>(function(s){s.dataset.zone='11171600',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script></head>
+
+<body>
+
+  <div class="top-bar">
+    <a href="/" class="back-home">⬅ GPA Calc</a>
+    <div class="dark-mode-toggle" aria-label="Toggle dark mode" tabindex="0">
+      <span style="user-select:none;">Dark Mode</span>
+      <label class="switch" for="toggle-dark-mode">
+        <input type="checkbox" id="toggle-dark-mode" aria-label="Toggle Dark Mode">
+        <span class="slider"></span>
+      </label>
+    </div>
+  </div>
+
+  <main class="container" role="main" aria-labelledby="main-title">
+    <h1 id="main-title">⚡ Arc Length Calculator</h1>
+
+    <form id="arcLengthForm" onsubmit="return false;" aria-live="polite" aria-atomic="true">
+      
+      <div class="mode-select">
+        <label for="calcMode">Select Output Display</label>
+        <select id="calcMode" aria-label="Calculator Mode">
+          <option value="steps">Show Step-by-Step Breakdown</option>
+          <option value="direct">Show Direct Answer Only</option>
+        </select>
+      </div>
+
+      <div class="input-group">
+        <label>Angle Measurement System</label>
+        <div class="radio-group">
+          <label class="radio-label">
+            <input type="radio" name="angleUnit" value="degrees" checked> Degrees (°)
+          </label>
+          <label class="radio-label">
+            <input type="radio" name="angleUnit" value="radians"> Radians (rad)
+          </label>
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label for="radiusInput">Circle Radius (r)</label>
+        <input type="text" id="radiusInput" value="5" placeholder="e.g., 10, 3.5">
+      </div>
+
+      <div class="input-group">
+        <label id="inputLabel" for="angleInput">Central Angle (θ)</label>
+        <input type="text" id="angleInput" value="60" placeholder="e.g., 90, 180, 1.05">
+      </div>
+
+    </form>
+
+    <button type="button" id="calculateBtn" aria-label="Execute Arc Length Evaluation">💥 Compute Arc Length</button>
+
+    <div id="resultContainer" aria-live="polite" aria-atomic="true">
+      <div id="result"></div>
+      <div id="metricBreakdown"></div>
+    </div>
+
+    <button type="button" id="shareResultBtn" aria-label="Share current calculation results" style="display: none;">📸 Share Result</button>
+  </main>
+
+  <section class="seo-content" aria-label="Geometry Information Hub">
+    <h2>Utilizing the Arc Length Calculator with Steps for Geometric Curvature Analysis</h2>
+    <p>In spatial mapping, structural design engineering, and foundational plane geometry, calculating the exact absolute linear distance along a curved perimeter line segment requires a rigorous execution layout. Our specialized <strong>arc length calculator</strong> accurately maps curvature operations across custom variable limits instantly, delivering localized fraction conversions and step tracing transparently.</p>
+    
+    <h3>Circular Segment Metric Formulations</h3>
+    <p>An arc's distinct spatial properties vary depending on whether the rotational central angle is mapped in degrees or radians. Review our structural parameters baseline here:</p>
+    
+    <table class="seo-table">
+      <thead>
+        <tr>
+          <th>Input Angle Unit</th>
+          <th>Standard Core Equation</th>
+          <th>Core Analytical Framework Rules</th>
+          <th>Analysis Outcome Standard</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Degrees (°)</td><td>s = 2 × π × r × (θ / 360)</td><td>Isolates a exact fractional arc slice out of 360°</td><td>Extract Sub-Segment Perimeter Length</td></tr>
+        <tr><td>Radians (rad)</td><td>s = r × θ</td><td>Multiplies core scaling factors directly to vectors</td><td>Isolate Pure Radial Boundary Track</td></tr>
+      </tbody>
+    </table>
+
+    <h2>How the Geometry Engine Tracks and Maps Value Transformations</h2>
+    <p>The system processing architecture handles input inputs systematically. When executing equations via our <strong>circular arc length function solver</strong>, operational steps process variables cleanly to preserve algebraic validation limits:</p>
+    <p><em>Mechanics Walkthrough:</em> First, input field strings are scanned to detach numerical data from unexpected alphabetic text clutter safely. Second, the system evaluates the selected angle mode; if radians are active, the metric runs through direct scalar multiplication. If degree paths are active, the engine determines the fractional segment profile via <code>θ / 360</code> parameters before computing the final circumference slice.</p>
+
+    <h3>Essential Formatting Guidelines for Input Values</h3>
+    <p>Always provide positive absolute numbers inside the circle dimension spaces. Merging text letters, symbol layers, or incomplete special variables inside evaluation frames triggers input errors to ensure mathematical accuracy throughout parsing routines.</p>
+
+    <noscript>
+      <h3>System Functional Features Checklist</h3>
+      <p>This layout module tracks geometric properties natively for: circular fraction calculations, radial segment scales, algebraic workflow traces, and circumference segment mapping.</p>
+    </noscript>
+
+    <h2>Frequently Asked Questions (FAQs)</h2>
+    
+    <h3>Why does using radians make the arc calculation much shorter?</h3>
+    <p>Radians are fundamentally defined by the ratio of an arc length to the radius of its circle. Because of this intrinsic relationship, the operational equation scales directly via <code>s = r × θ</code> without needing arbitrary 360-degree fractional conversions.</p>
+
+    <h3>Can this tool compute large helical loops over 360 degrees?</h3>
+    <p>Yes. The tracking script natively accepts central angles that surpass complete orbital revolutions, outputting the total linear distance traveled around the curved pathway sequentially.</p>
+  </section>
+
+  <footer class="cross-linking-footer" aria-label="Explore other tools and calculators">
+    <h2>🚀 Explore More Free Tools &amp; Calculators</h2>
+    <p>Need to calculate something else? Check out our other fast, free academic, math, and everyday tools below to get instant results 👇</p>
+    
+    
+
+<div class="footer-categories-container">
+
+<!-- Geometry Calculators -->
+<div class="calc-category-group">
+    <h3 style="text-align:left;margin-bottom:10px">📐 Geometry Calculators</h3>
+    <div class="calculators-grid">
+        <a href="https://hscgpacalculator.com/geometry/arc-length-calculator" class="calc-link">📏 Arc Length Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/area-of-a-circle-calculator" class="calc-link">⚪ Area of a Circle Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/cos-calculator" class="calc-link">📐 Cos Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/coterminal-angle-calculator" class="calc-link">🔄 Coterminal Angle Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/distance-formula-calculator" class="calc-link">📏 Distance Formula Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/hyperbola-calculator" class="calc-link">🔄 Hyperbola Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/law-of-cosines-calculator" class="calc-link">🔺 Law of Cosines Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/law-of-sines-calculator" class="calc-link">🔺 Law of Sines Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/midpoint-calculator" class="calc-link">📍 Midpoint Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/parabola-calculator" class="calc-link">📈 Parabola Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/perimeter-calculator" class="calc-link">📏 Perimeter Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/sin-calculator" class="calc-link">📐 Sin Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/sin-inverse-calculator" class="calc-link">🔄 Sin Inverse Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/slope-calculator" class="calc-link">📈 Slope Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/surface-area-calculator" class="calc-link">🔲 Surface Area Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/triangle-area-calculator" class="calc-link">🔺 Triangle Area Calculator</a>
+    </div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+      </div>
+
+      <!-- Calculus & Conversions -->
+      <div class="calc-category-group" style="margin-top:25px;margin-bottom:10px">
+          <h3 style="text-align:left;margin-bottom:10px">🔄 Calculus &amp; Academic Scores</h3>
+          <div class="calculators-grid">
+              <a href="https://hscgpacalculator.com/calculus/derivative-calculator" class="calc-link">📉 Derivative Calculator</a>
+              <a href="https://hscgpacalculator.com/calculus/integral-calculator" class="calc-link">🔍 Integral Calculator</a>
+              <a href="https://hscgpacalculator.com/test-score-calculator" class="calc-link">🎯 Test Score Calculator</a>
+              <a href="https://hscgpacalculator.com/percentage-to-gpa" class="calc-link">🔀 Percentage to GPA Calculator</a>
+              <a href="https://hscgpacalculator.com/marks-percentage-calculator" class="calc-link">💯 Marks Percentage Calculator</a>
+              <a href="https://hscgpacalculator.com/gpa-to-percentage" class="calc-link">🔀 GPA to Percentage Calculator</a>
+          </div>
+      </div>
+    </div>
+  <div style="margin-top: 30px; padding-top: 20px; border-top: 2px dashed #000000; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+    <!-- Copyright Line -->
+    <span style="font-size: 0.85rem; font-weight: 700; text-transform: uppercase; color: var(--text); opacity: 0.8;">
+        © 2026 HSC GPA Calculator
+    </span>
+
+    <!-- Social Links & Developer Profile Container -->
+    <div style="display: flex; align-items: center; gap: 14px; flex-wrap: wrap;">
+        <!-- Facebook Link -->
+        <a href="https://www.facebook.com/profile.php?id=61593406822999" target="_blank" rel="noopener noreferrer" class="calc-link" aria-label="Facebook" style="font-size: 0.85rem; text-transform: uppercase; display: inline-flex; align-items: center; gap: 5px;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" style="display: block;">
+                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+            </svg>
+            <span>Facebook</span>
+        </a>
+
+        <!-- X (Twitter) Link -->
+        <a href="https://x.com/hscgpacalc" target="_blank" rel="noopener noreferrer" class="calc-link" aria-label="X (Twitter)" style="font-size: 0.85rem; text-transform: uppercase; display: inline-flex; align-items: center; gap: 5px;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display: block;">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+            </svg>
+            <span>X</span>
+        </a>
+
+        <!-- Tumblr Link -->
+        <a href="https://www.tumblr.com/hscgpacalculator" target="_blank" rel="noopener noreferrer" class="calc-link" aria-label="Tumblr" style="font-size: 0.85rem; text-transform: uppercase; display: inline-flex; align-items: center; gap: 5px;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display: block;">
+                <path d="M14.563 24c-5.093 0-7.09-3.576-7.09-6.845v-8.081H4.492V5.592c4.157-.84 5.385-3.86 5.568-5.592h4.341v5.122h4.949v3.962h-4.949v7.195c0 1.636.852 2.502 2.392 2.502.99 0 2.053-.255 2.684-.576l1.012 3.867C19.39 23.463 16.927 24 14.563 24z"/>
+            </svg>
+            <span>Tumblr</span>
+        </a>
+
+        <!-- Developer Profile Link -->
+        <a href="https://github.com/aryusuf001" target="_blank" rel="noopener noreferrer" class="calc-link" style="font-size: 0.85rem; text-transform: uppercase; display: inline-flex; align-items: center; gap: 5px;">
+            🛠️ Developer Profile
+        </a>
+    </div>
+</div>
+</footer>
+
+  <script>
+    const calcModeSelect = document.getElementById("calcMode");
+    const radiusInput = document.getElementById("radiusInput");
+    const angleInput = document.getElementById("angleInput");
+    const container = document.getElementById("resultContainer");
+    const shareBtn = document.getElementById("shareResultBtn");
+
+    function clearOutputs() {
+      container.style.display = "none";
+      shareBtn.style.display = "none";
+    }
+
+    calcModeSelect.addEventListener("change", clearOutputs);
+    radiusInput.addEventListener("input", clearOutputs);
+    angleInput.addEventListener("input", clearOutputs);
+
+    document.querySelectorAll('input[name="angleUnit"]').forEach(elem => {
+      elem.addEventListener("change", () => {
+        clearOutputs();
+        const unit = document.querySelector('input[name="angleUnit"]:checked').value;
+        const angleFieldLabel = document.getElementById("inputLabel");
+        if (unit === "degrees") {
+          angleInput.value = "60";
+          angleFieldLabel.innerHTML = "Central Angle (θ) in Degrees";
+        } else {
+          angleInput.value = "1.047198";
+          angleFieldLabel.innerHTML = "Central Angle (θ) in Radians";
+        }
+      });
+    });
+
+    function processArcLengthCalculation() {
+      const mode = calcModeSelect.value;
+      const rawRadius = radiusInput.value.trim();
+      const rawAngle = angleInput.value.trim();
+      const unit = document.querySelector('input[name="angleUnit"]:checked').value;
+      const resultBox = document.getElementById("result");
+      const breakdownBox = document.getElementById("metricBreakdown");
+
+      if (!rawRadius || !rawAngle) {
+        alert("Please map valid metrics inside both calculation input rows.");
+        return;
+      }
+
+      container.className = "";
+
+      try {
+        let r = Number(rawRadius);
+        let theta = Number(rawAngle);
+
+        if (isNaN(r) || isNaN(theta) || r <= 0 || theta <= 0) {
+          throw new Error("Invalid parameters: input metrics must contain clear positive numerical values.");
+        }
+
+        let structuralSteps = [];
+        let arcLength = 0;
+        
+        structuralSteps.push(`• Step 1: Extract basic circular scalar values: Radius <code>r = ${r}</code>, Central Angle <code>θ = ${theta}</code> (${unit}).`);
+
+        if (unit === "degrees") {
+          // Arc length formula in degrees: s = 2 * pi * r * (theta / 360) = pi * r * (theta / 180)
+          arcLength = (2 * Math.PI * r * theta) / 360;
+          let circumference = 2 * Math.PI * r;
+          let fractionalFactor = theta / 360;
+          
+          structuralSteps.push(`• Step 2: Compute full boundary perimeter context (Circumference):<br>&nbsp;&nbsp;&nbsp;&nbsp;<code>C = 2 × π × r = 2 × 3.141592... × ${r} = ${circumference.toFixed(6)}</code>.`);
+          structuralSteps.push(`• Step 3: Determine the sub-segment angular slice ratio:<br>&nbsp;&nbsp;&nbsp;&nbsp;<code>Ratio = ${theta}° / 360° = ${fractionalFactor.toFixed(6)}</code>.`);
+          structuralSteps.push(`• Step 4: Isolate complete targeted curve track length:<br>&nbsp;&nbsp;&nbsp;&nbsp;<code>s = Circumference × Ratio = ${circumference.toFixed(6)} × ${fractionalFactor.toFixed(6)} = ${arcLength.toFixed(6)}</code>.`);
+        } else {
+          // Arc length formula in radians: s = r * theta
+          arcLength = r * theta;
+          structuralSteps.push(`• Step 2: Leverage structural analytical radian formulas directly: <code>s = r × θ</code>.`);
+          structuralSteps.push(`• Step 3: Multiply physical distance components natively:<br>&nbsp;&nbsp;&nbsp;&nbsp;<code>s = ${r} × ${theta} = ${arcLength.toFixed(6)}</code>.`);
+        }
+
+        let formattedResult = Number.isInteger(arcLength) ? arcLength : parseFloat(arcLength.toFixed(6));
+
+        resultBox.innerHTML = `✨ Arc Length (s) = ${formattedResult}`;
+
+        if (mode === "steps") {
+          breakdownBox.innerHTML = `
+            <strong>Step-by-Step Curvature Function Solution Breakdown:</strong><br>
+            • System Coordinate Type: <code>[${unit.toUpperCase()}]</code><br>
+            ${structuralSteps.join('<br>')}<br>
+            • System structural layout paths tracked and saved downstream successfully.
+          `;
+          breakdownBox.style.display = "block";
+        } else {
+          breakdownBox.style.display = "none";
+        }
+
+        container.classList.add("status-active");
+        shareBtn.style.display = "block";
+
+      } catch (err) {
+        resultBox.innerHTML = `⚠️ Value Resolution Error`;
+        breakdownBox.innerHTML = `<strong>System Evaluation Notice:</strong> ${err.message || "Ensure coordinate elements trace actual physical geometry rules accurately without alphanumeric string pollution."}`;
+        container.classList.add("status-error");
+        breakdownBox.style.display = "block";
+        shareBtn.style.display = "none";
+      }
+    }
+
+    document.getElementById("calculateBtn").addEventListener("click", processArcLengthCalculation);
+
+    // Neobrutalist Theme Local Switch Tracker
+    const toggleDarkMode = document.getElementById("toggle-dark-mode");
+
+    function applyDarkMode(state) {
+      if (state) {
+        document.body.classList.add("dark-mode");
+        toggleDarkMode.checked = true;
+      } else {
+        document.body.classList.remove("dark-mode");
+        toggleDarkMode.checked = false;
+      }
+      localStorage.setItem("darkMode", state ? "enabled" : "disabled");
+    }
+
+    toggleDarkMode.addEventListener("change", () => {
+      applyDarkMode(toggleDarkMode.checked);
+    });
+
+    if (localStorage.getItem("darkMode") === "enabled") {
+      applyDarkMode(true);
+    }
+  </script>
+</body>
+</html>

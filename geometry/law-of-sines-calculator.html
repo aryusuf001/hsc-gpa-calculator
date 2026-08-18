@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="../logo.svg">
+  
+  <title>Law of Sines Calculator with Steps - Free Online Triangle Solver</title>
+  <meta name="description" content="Solve oblique or right triangles instantly using our free Law of Sines Calculator with Steps. Calculate missing sides and angles with comprehensive geometric workflows.">
+  <meta name="keywords" content="law of sines calculator, sine rule solver, triangle calculator, solve triangle sides, find triangle angles, step by step law of sines, ambiguous case triangle">
+  <link rel="canonical" href="https://hscgpacalculator.com/geometry/law-of-sines-calculator">
+
+  
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Law of Sines Calculator with Steps - HSC GPA Calculator",
+    "url": "https://hscgpacalculator.com/geometry/law-of-sines-calculator",
+    "description": "An interactive geometric evaluation web application built to analyze oblique triangle dimensions and extract exact Law of Sines math calculations using proportional ratios.",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "All",
+    "browserRequirements": "Requires JavaScript. Requires HTML5.",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is the ambiguous case (SSA) in the Law of Sines?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The ambiguous case occurs when two sides and an opposite non-included angle (SSA) are given. Depending on the dimensions, this configuration can produce zero, one unique, or two distinct valid triangles. This engine processes and states these variations cleanly."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can the Law of Sines be applied directly to right-angled triangles?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes! Because the sine of 90 degrees equals 1, the standard Law of Sines formula yields the exact same side-to-angle relationships as standard right-triangle definitions (SOH CAH TOA)."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght=500;700;800&display=swap">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght=500;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg: #FFDE4D;
+      --card-bg: #FFFFFF;
+      --text: #000000;
+      --accent: #FF5A5F;
+      --accent-hover: #E0484D;
+      --secondary: #3D5A80;
+      --border-thickness: 3px;
+      --neo-shadow: 6px 6px 0px #000000;
+      --neo-shadow-clickable: 3px 3px 0px #000000;
+      --success-banner: #60CD82;
+      --fail-banner: #FF5A5F;
+      --input-focus: #98E2C6;
+    }
+
+    body.dark-mode {
+      --bg: #121214;
+      --card-bg: #1E1E24;
+      --text: #FFFFFF;
+      --accent: #FF5A5F;
+      --accent-hover: #FF7377;
+      --secondary: #A7C957;
+      --neo-shadow: 6px 6px 0px #FFDE4D;
+      --neo-shadow-clickable: 3px 3px 0px #FFDE4D;
+      --success-banner: #2A7B46;
+      --fail-banner: #9B2226;
+      --input-focus: #3D5A80;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 40px 20px;
+    }
+
+    .top-bar {
+      display: flex;
+      width: 100%;
+      max-width: 550px;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .back-home {
+      font-size: 0.85rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--text);
+      background: var(--card-bg);
+      padding: 8px 14px;
+      border: var(--border-thickness) solid #000000;
+      box-shadow: var(--neo-shadow-clickable);
+    }
+
+    .dark-mode-toggle {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      background: var(--card-bg);
+      padding: 8px 14px;
+      border: var(--border-thickness) solid #000000;
+      box-shadow: var(--neo-shadow-clickable);
+      cursor: pointer;
+    }
+
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 36px;
+      height: 20px;
+    }
+
+    .switch input { opacity: 0; width: 0; height: 0; }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: #000000;
+      transition: 0.15s;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 12px;
+      width: 12px;
+      left: 3px;
+      bottom: 2px;
+      background-color: #FFFFFF;
+      transition: 0.15s;
+    }
+
+    input:checked + .slider { background-color: var(--accent); }
+    input:checked + .slider:before { transform: translateX(14px); }
+
+    .container {
+      background: var(--card-bg);
+      width: 100%;
+      max-width: 550px;
+      padding: 30px;
+      border: var(--border-thickness) solid #000000;
+      box-shadow: var(--neo-shadow);
+      margin-bottom: 30px;
+    }
+
+    h1 { 
+      font-size: 1.8rem; 
+      font-weight: 800; 
+      margin-bottom: 25px; 
+      text-transform: uppercase;
+      letter-spacing: -1px;
+      text-align: left;
+    }
+
+    label, .section-heading {
+      display: block;
+      text-align: left;
+      font-weight: 800;
+      margin-top: 18px;
+      margin-bottom: 6px;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    select, input {
+      width: 100%;
+      padding: 12px;
+      border: var(--border-thickness) solid #000000;
+      background-color: var(--card-bg);
+      color: var(--text);
+      font-size: 1rem;
+      font-weight: 700;
+      outline: none;
+    }
+
+    select:focus, input:focus {
+      background-color: var(--input-focus);
+    }
+
+    .input-group {
+      margin-bottom: 15px;
+    }
+
+    .input-row-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+
+    .mode-select {
+      margin-bottom: 15px;
+    }
+
+    button {
+      width: 100%;
+      padding: 16px;
+      border: var(--border-thickness) solid #000000;
+      font-size: 1.1rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      margin-top: 25px;
+      background-color: #0056b3;
+      color: #FFFFFF;
+      box-shadow: var(--neo-shadow-clickable);
+      position: relative;
+    }
+
+    button:hover { background-color: var(--accent-hover); }
+    button:active { top: 2px; left: 2px; box-shadow: 1px 1px 0px #000000; }
+
+    #shareResultBtn { background-color: var(--secondary); margin-top: 12px; }
+
+    #resultContainer { margin-top: 25px; border: var(--border-thickness) solid #000000; display: none; background-color: var(--card-bg); color: var(--text); }
+    #result { font-size: 1.2rem; font-weight: 800; padding: 18px; text-transform: uppercase; line-height: 1.5; }
+    #metricBreakdown { font-size: 0.95rem; padding: 0 18px 14px 18px; font-weight: 700; text-transform: none; letter-spacing: 0.5px; line-height: 1.6; border-top: 2px dashed #000000; padding-top: 12px;}
+
+    .status-active { background-color: var(--success-banner) !important; color: #FFFFFF !important; display: block !important; }
+    .status-error { background-color: var(--fail-banner) !important; color: #FFFFFF !important; display: block !important; }
+
+    .seo-content {
+      width: 100%;
+      max-width: 750px;
+      background: var(--card-bg);
+      padding: 35px;
+      border: var(--border-thickness) solid #000000;
+      box-shadow: var(--neo-shadow);
+      text-align: left;
+      line-height: 1.7;
+    }
+
+    .seo-content h2 { 
+      font-size: 1.5rem; 
+      font-weight: 800;
+      margin-top: 30px; 
+      margin-bottom: 12px; 
+      text-transform: uppercase;
+      letter-spacing: -0.5px;
+      border-bottom: 2px solid #000000;
+      padding-bottom: 4px;
+    }
+    
+    .seo-content h3 { font-size: 1.15rem; font-weight: 800; margin-top: 20px; margin-bottom: 8px; text-transform: uppercase; }
+    .seo-content p { margin-bottom: 15px; font-size: 0.95rem; font-weight: 500; }
+    .seo-content ul { margin-left: 20px; margin-bottom: 15px; font-size: 0.95rem; }
+    .seo-content li { margin-bottom: 6px; font-weight: 600; }
+    
+    .seo-table { width: 100%; border-collapse: collapse; margin-top: 15px; margin-bottom: 20px; }
+    .seo-table th, .seo-table td { padding: 12px; border: 2px solid #000000; font-weight: 700; text-align: left; }
+    .seo-table th { background-color: var(--bg); color: #000000; text-transform: uppercase; font-size: 0.85rem; }
+
+    .cross-linking-footer {
+      width: 100%;
+      max-width: 750px;
+      background: var(--card-bg);
+      margin-top: 30px;
+      padding: 30px;
+      border: var(--border-thickness) solid #000000;
+      box-shadow: var(--neo-shadow);
+    }
+    .cross-linking-footer h2 {
+      font-size: 1.4rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      letter-spacing: -0.5px;
+      text-align: left;
+    }
+    .cross-linking-footer p {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 25px;
+      line-height: 1.5;
+      text-align: left;
+    }
+    .calculators-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px 20px;
+    }
+    .calc-link {
+      display: inline-block;
+      text-decoration: underline;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text) !important;
+      background: none !important;
+      border: none !important;
+      box-shadow: none !important;
+      text-align: left;
+      padding: 4px 0;
+    }
+    .calc-link:hover {
+      color: var(--accent) !important;
+    }
+  </style>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TY98R8BG8Z"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TY98R8BG8Z');
+  </script>
+
+<script>(function(s){s.dataset.zone='11171600',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script></head>
+
+<body>
+
+  <div class="top-bar">
+    <a href="/" class="back-home">⬅ GPA Calc</a>
+    <div class="dark-mode-toggle" aria-label="Toggle dark mode" tabindex="0">
+      <span style="user-select:none;">Dark Mode</span>
+      <label class="switch" for="toggle-dark-mode">
+        <input type="checkbox" id="toggle-dark-mode" aria-label="Toggle Dark Mode">
+        <span class="slider"></span>
+      </label>
+    </div>
+  </div>
+
+  <main class="container" role="main" aria-labelledby="main-title">
+    <h1 id="main-title">⚡ Law of Sines Calculator</h1>
+
+    <form id="sinesForm" onsubmit="return false;" aria-live="polite" aria-atomic="true">
+      
+      <div class="mode-select">
+        <label for="calcMode">Select Output Display</label>
+        <select id="calcMode" aria-label="Calculator Mode">
+          <option value="steps">Show Step-by-Step Breakdown</option>
+          <option value="direct">Show Direct Answer Only</option>
+        </select>
+      </div>
+
+      <div class="mode-select">
+        <label for="triangleScenario">Known Variables Configuration</label>
+        <select id="triangleScenario" aria-label="Triangle Input Type Selector">
+          <option value="aas">Two Angles and One Opposite Side (AAS)</option>
+          <option value="asa">Two Angles and Included Side (ASA)</option>
+          <option value="ssa">Two Sides and One Opposite Angle (SSA)</option>
+        </select>
+      </div>
+
+      <!-- Input fields grouped dynamic values change based on selected configurations -->
+      <div id="dynamicInputs">
+        <div class="input-row-grid">
+          <div class="input-group">
+            <label id="lblVar1" for="valVar1">Angle A (°)</label>
+            <input type="text" id="valVar1" value="35" placeholder="e.g., 35">
+          </div>
+          <div class="input-group">
+            <label id="lblVar2" for="valVar2">Angle B (°)</label>
+            <input type="text" id="valVar2" value="65" placeholder="e.g., 65">
+          </div>
+        </div>
+        <div class="input-group">
+          <label id="lblVar3" for="valVar3">Side a</label>
+          <input type="text" id="valVar3" value="12" placeholder="e.g., 12">
+        </div>
+      </div>
+
+    </form>
+
+    <button type="button" id="calculateBtn" aria-label="Execute Law of Sines Evaluation">💥 Compute Missing Dimensions</button>
+
+    <div id="resultContainer" aria-live="polite" aria-atomic="true">
+      <div id="result"></div>
+      <div id="metricBreakdown"></div>
+    </div>
+
+    <button type="button" id="shareResultBtn" aria-label="Share current calculation results" style="display: none;">📸 Share Result</button>
+  </main>
+
+  <section class="seo-content" aria-label="Trigonometry Information Hub">
+    <h2>Utilizing the Law of Sines Calculator with Steps for Geometric Validation</h2>
+    <p>In structural spatial layouts, triangulation modeling, and general mathematics, resolving missing properties of non-right oblique triangles requires balanced ratio management. Our specialized <strong>Law of Sines calculator</strong> isolates unknown angles and sides instantly by evaluating standard proportionally scaled frameworks natively.</p>
+    
+    <h3>Triangle Configurations and Ratio Solvability Matrix</h3>
+    <p>Different configuration parameters demand discrete logical flows across computational structures. Review the triangle analytics standards mapping rules below:</p>
+    
+    <table class="seo-table">
+      <thead>
+        <tr>
+          <th>Input Setup Mode</th>
+          <th>Structural Conditions Required</th>
+          <th>Calculation Formula Route</th>
+          <th>Analysis Outcome Standard</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Angle-Angle-Side (AAS)</td><td>Two angles mapped along with an unincluded side</td><td>b = a × sin(B) / sin(A)</td><td>Yields exactly one unique geometric profile</td></tr>
+        <tr><td>Angle-Side-Angle (ASA)</td><td>Two interior angles containing a known link side</td><td>C = 180° - (A + B)</td><td>Isolates tracking paths across stable parameters</td></tr>
+        <tr><td>Side-Side-Angle (SSA)</td><td>Two sides mapped along with an unincluded angle</td><td>sin(B) = b × sin(A) / a</td><td>Triggers ambiguous check (0, 1, or 2 triangles)</td></tr>
+      </tbody>
+    </table>
+
+    <h2>How the Proportional Processing Architecture Maps Metrics</h2>
+    <p>The system computes ratios by standardizing measurements cleanly against global reference vectors. When solving dimensions via our <strong>sine rule solver</strong>, calculations track variables through strict mathematical workflows:</p>
+    <p><em>Mechanics Walkthrough:</em> First, input entries undergo cleaning filters to isolate numerical figures from empty syntax errors. Second, internal computations derive hidden angle values leveraging the absolute theorem specifying that standard interior profiles sum precisely to <code>180°</code>. Finally, trigonometric multipliers map proportional side metrics across alternate scaling tracks flawlessly.</p>
+
+    <h3>Essential Formatting Guidelines for Triangle Values</h3>
+    <p>Always input absolute positive configurations inside selection boxes. Avoid supplying non-numeric notations, contradictory structural fields (such as interior angles exceeding total limits of 180°), or conflicting side ratios to ensure algebraic continuity throughout your verification workflows.</p>
+
+    <noscript>
+      <h3>System Functional Features Checklist</h3>
+      <p>This metrics engine processes calculation routes natively for: AAS proportional balancing, ASA interior angle tracking, ambiguous case evaluation, and exact triangle system scaling vectors.</p>
+    </noscript>
+
+    <h2>Frequently Asked Questions (FAQs)</h2>
+    
+    <h3>Why can some specific SSA parameters produce two separate triangles?</h3>
+    <p>This phenomenon stems from the fact that the sine function is positive in both the first and second quadrants. Therefore, when looking for an angle from an inverse sine value, the solution can be an acute angle or its obtuse supplementary equivalent.</p>
+
+    <h3>How does this application handle impossible triangle configurations?</h3>
+    <p>The processing architecture cross-checks structural criteria continuously. If a required calculation returns a sine value exceeding absolute range boundaries (greater than 1 or less than -1), the workspace rejects inputs dynamically to safeguard mathematical precision.</p>
+  </section>
+
+  <footer class="cross-linking-footer" aria-label="Explore other tools and calculators">
+    <h2>🚀 Explore More Free Tools &amp; Calculators</h2>
+    <p>Need to calculate something else? Check out our other fast, free academic, math, and everyday tools below to get instant results 👇</p>
+    
+    
+
+<div class="footer-categories-container">
+
+<!-- Geometry Calculators -->
+<div class="calc-category-group">
+    <h3 style="text-align:left;margin-bottom:10px">📐 Geometry Calculators</h3>
+    <div class="calculators-grid">
+        <a href="https://hscgpacalculator.com/geometry/arc-length-calculator" class="calc-link">📏 Arc Length Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/area-of-a-circle-calculator" class="calc-link">⚪ Area of a Circle Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/cos-calculator" class="calc-link">📐 Cos Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/coterminal-angle-calculator" class="calc-link">🔄 Coterminal Angle Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/distance-formula-calculator" class="calc-link">📏 Distance Formula Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/hyperbola-calculator" class="calc-link">🔄 Hyperbola Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/law-of-cosines-calculator" class="calc-link">🔺 Law of Cosines Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/law-of-sines-calculator" class="calc-link">🔺 Law of Sines Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/midpoint-calculator" class="calc-link">📍 Midpoint Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/parabola-calculator" class="calc-link">📈 Parabola Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/perimeter-calculator" class="calc-link">📏 Perimeter Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/sin-calculator" class="calc-link">📐 Sin Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/sin-inverse-calculator" class="calc-link">🔄 Sin Inverse Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/slope-calculator" class="calc-link">📈 Slope Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/surface-area-calculator" class="calc-link">🔲 Surface Area Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/triangle-area-calculator" class="calc-link">🔺 Triangle Area Calculator</a>
+    </div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+      </div>
+
+      <!-- Conversions & Scores -->
+      <div class="calc-category-group" style="margin-top:25px;margin-bottom:10px">
+        <h3 style="text-align:left;margin-bottom:10px">🔄 Conversions &amp; Scores</h3>
+        <div class="calculators-grid">
+          <a href="https://hscgpacalculator.com/gpa-to-percentage" class="calc-link">🔢 GPA to Percentage Calculator</a>
+          <a href="https://hscgpacalculator.com/percentage-to-gpa" class="calc-link">🔀 Percentage to GPA Calculator</a>
+          <a href="https://hscgpacalculator.com/sgpa-to-percentage" class="calc-link">📈 SGPA to Percentage Calculator</a>
+          <a href="https://hscgpacalculator.com/marks-percentage-calculator" class="calc-link">💯 Marks Percentage Calculator</a>
+          <a href="https://hscgpacalculator.com/test-score-calculator" class="calc-link">🎯 Test Score Calculator</a>
+          <a href="https://hscgpacalculator.com/ielts-score-calculator" class="calc-link">🇬🇧 IELTS Score Calculator</a>
+          <a href="https://hscgpacalculator.com/age-calculator-bd" class="calc-link">🎂 Age Calculator BD (Govt Job &amp; NID)</a>
+        </div>
+      </div>
+
+      <!-- Calculus -->
+      <div class="calc-category-group" style="margin-top:25px;margin-bottom:10px">
+        <h3 style="text-align:left;margin-bottom:10px">📐 Calculus &amp; Advanced Math</h3>
+        <div class="calculators-grid">
+          <a href="https://hscgpacalculator.com/calculus/derivative-calculator" class="calc-link">📉 Derivative Calculator</a>
+          <a href="https://hscgpacalculator.com/calculus/chain-rule-calculator" class="calc-link">🔗 Chain Rule Calculator</a>
+          <a href="https://hscgpacalculator.com/calculus/implicit-differentiation-calculator" class="calc-link">🧬 Implicit Differentiation</a>
+          <a href="https://hscgpacalculator.com/calculus/integral-calculator" class="calc-link">🔍 Integral Calculator</a>
+          <a href="https://hscgpacalculator.com/calculus/definite-integral-calculator" class="calc-link">📌 Definite Integral Calculator</a>
+          <a href="https://hscgpacalculator.com/calculus/double-integral-calculator" class="calc-link">♊ Double Integral Calculator</a>
+          <a href="https://hscgpacalculator.com/calculus/triple-integral-calculator" class="calc-link">🌐 Triple Integral Calculator</a>
+        </div>
+      </div>
+
+      <!-- Algebra & Basics -->
+      <div class="calc-category-group" style="margin-top:25px;margin-bottom:10px">
+        <h3 style="text-align:left;margin-bottom:10px">🔢 Algebra &amp; General Math</h3>
+        <div class="calculators-grid">
+          <a href="https://hscgpacalculator.com/math/algebra-calculator" class="calc-link">📐 Algebra Calculator</a>
+          <a href="https://hscgpacalculator.com/math/equation-solver-calculator" class="calc-link">🧠 Equation Solver Calculator</a>
+          <a href="https://hscgpacalculator.com/math/simultaneous-equations-solver" class="calc-link">👥 Simultaneous Equations</a>
+          <a href="https://hscgpacalculator.com/math/quadratic-calculator" class="calc-link">🟩 Quadratic Calculator</a>
+          <a href="https://hscgpacalculator.com/math/factoring-calculator" class="calc-link">✂️ Factoring Calculator</a>
+          <a href="https://hscgpacalculator.com/math/polynomial-calculator" class="calc-link">📈 Polynomial Calculator</a>
+          <a href="https://hscgpacalculator.com/math/simplification-calculator" class="calc-link">✨ Simplification Calculator</a>
+          <a href="https://hscgpacalculator.com/math/substitution-calculator" class="calc-link">🔄 Substitution Calculator</a>
+        </div>
+      </div>
+
+    </div>
+  <div style="margin-top: 30px; padding-top: 20px; border-top: 2px dashed #000000; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+    <!-- Copyright Line -->
+    <span style="font-size: 0.85rem; font-weight: 700; text-transform: uppercase; color: var(--text); opacity: 0.8;">
+        © 2026 HSC GPA Calculator
+    </span>
+
+    <!-- Social Links & Developer Profile Container -->
+    <div style="display: flex; align-items: center; gap: 14px; flex-wrap: wrap;">
+        <!-- Facebook Link -->
+        <a href="https://www.facebook.com/profile.php?id=61593406822999" target="_blank" rel="noopener noreferrer" class="calc-link" aria-label="Facebook" style="font-size: 0.85rem; text-transform: uppercase; display: inline-flex; align-items: center; gap: 5px;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" style="display: block;">
+                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+            </svg>
+            <span>Facebook</span>
+        </a>
+
+        <!-- X (Twitter) Link -->
+        <a href="https://x.com/hscgpacalc" target="_blank" rel="noopener noreferrer" class="calc-link" aria-label="X (Twitter)" style="font-size: 0.85rem; text-transform: uppercase; display: inline-flex; align-items: center; gap: 5px;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display: block;">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+            </svg>
+            <span>X</span>
+        </a>
+
+        <!-- Tumblr Link -->
+        <a href="https://www.tumblr.com/hscgpacalculator" target="_blank" rel="noopener noreferrer" class="calc-link" aria-label="Tumblr" style="font-size: 0.85rem; text-transform: uppercase; display: inline-flex; align-items: center; gap: 5px;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display: block;">
+                <path d="M14.563 24c-5.093 0-7.09-3.576-7.09-6.845v-8.081H4.492V5.592c4.157-.84 5.385-3.86 5.568-5.592h4.341v5.122h4.949v3.962h-4.949v7.195c0 1.636.852 2.502 2.392 2.502.99 0 2.053-.255 2.684-.576l1.012 3.867C19.39 23.463 16.927 24 14.563 24z"/>
+            </svg>
+            <span>Tumblr</span>
+        </a>
+
+        <!-- Developer Profile Link -->
+        <a href="https://github.com/aryusuf001" target="_blank" rel="noopener noreferrer" class="calc-link" style="font-size: 0.85rem; text-transform: uppercase; display: inline-flex; align-items: center; gap: 5px;">
+            🛠️ Developer Profile
+        </a>
+    </div>
+</div>
+</footer>
+
+  <script>
+    const triangleScenario = document.getElementById("triangleScenario");
+    const calcModeSelect = document.getElementById("calcMode");
+    const container = document.getElementById("resultContainer");
+    const shareBtn = document.getElementById("shareResultBtn");
+    const dynamicInputs = document.getElementById("dynamicInputs");
+
+    // Definition sets for input tracking updates
+    const layouts = {
+      aas: {
+        v1: { label: "Angle A (°)", val: "35", placeholder: "e.g., 35" },
+        v2: { label: "Angle B (°)", val: "65", placeholder: "e.g., 65" },
+        v3: { label: "Side a", val: "12", placeholder: "e.g., 12" }
+      },
+      asa: {
+        v1: { label: "Angle A (°)", val: "40", placeholder: "e.g., 40" },
+        v2: { label: "Side c", val: "18", placeholder: "e.g., 18" },
+        v3: { label: "Angle B (°)", val: "75", placeholder: "e.g., 75" }
+      },
+      ssa: {
+        v1: { label: "Side a", val: "8", placeholder: "e.g., 8" },
+        v2: { label: "Side b", val: "11", placeholder: "e.g., 11" },
+        v3: { label: "Angle A (°)", val: "31", placeholder: "e.g., 31" }
+      }
+    };
+
+    function updateFields() {
+      const configuration = layouts[triangleScenario.value];
+      dynamicInputs.innerHTML = `
+        <div class="input-row-grid">
+          <div class="input-group">
+            <label id="lblVar1" for="valVar1">${configuration.v1.label}</label>
+            <input type="text" id="valVar1" value="${configuration.v1.val}" placeholder="${configuration.v1.placeholder}">
+          </div>
+          <div class="input-group">
+            <label id="lblVar2" for="valVar2">${configuration.v2.label}</label>
+            <input type="text" id="valVar2" value="${configuration.v2.val}" placeholder="${configuration.v2.placeholder}">
+          </div>
+        </div>
+        <div class="input-group">
+          <label id="lblVar3" for="valVar3">${configuration.v3.label}</label>
+          <input type="text" id="valVar3" value="${configuration.v3.val}" placeholder="${configuration.v3.placeholder}">
+        </div>
+      `;
+      clearOutputs();
+    }
+
+    function clearOutputs() {
+      container.style.display = "none";
+      shareBtn.style.display = "none";
+    }
+
+    triangleScenario.addEventListener("change", updateFields);
+    calcModeSelect.addEventListener("change", clearOutputs);
+
+    function toRadians(deg) { return deg * (Math.PI / 180); }
+    function toDegrees(rad) { return rad * (180 / Math.PI); }
+    function cleanNum(num) { return parseFloat(num.toFixed(4)); }
+
+    function runLawOfSinesCalculation() {
+      const mode = calcModeSelect.value;
+      const type = triangleScenario.value;
+      const resultBox = document.getElementById("result");
+      const breakdownBox = document.getElementById("metricBreakdown");
+
+      const v1 = parseFloat(document.getElementById("valVar1").value.trim());
+      const v2 = parseFloat(document.getElementById("valVar2").value.trim());
+      const v3 = parseFloat(document.getElementById("valVar3").value.trim());
+
+      if (isNaN(v1) || isNaN(v2) || isNaN(v3) || v1 <= 0 || v2 <= 0 || v3 <= 0) {
+        alert("Please provide valid absolute positive numeric variables.");
+        return;
+      }
+
+      container.className = "";
+      let steps = [];
+      let finalOutputText = "";
+
+      try {
+        if (type === "aas") {
+          // Input mappings: v1 = Angle A, v2 = Angle B, v3 = Side a
+          const A = v1; const B = v2; const a = v3;
+          steps.push(`• Step 1: Read input parameters: Angle A = ${A}°, Angle B = ${B}°, Side a = ${a}.`);
+          
+          if (A + B >= 180) throw new Error("Angles sum exceeds metric triangle barriers.");
+          
+          const C = 180 - (A + B);
+          steps.push(`• Step 2: Extract unknown interior Angle C:<br>&nbsp;&nbsp;&nbsp;&nbsp;<code>C = 180° - (${A}° + ${B}°) = ${C}°</code>.`);
+          
+          const b = (a * Math.sin(toRadians(B))) / Math.sin(toRadians(A));
+          const c = (a * Math.sin(toRadians(C))) / Math.sin(toRadians(A));
+          
+          steps.push(`• Step 3: Compute Side b using law ratios: <code>b = a × sin(B) / sin(A)</code><br>&nbsp;&nbsp;&nbsp;&nbsp;<code>b = ${a} × sin(${B}°) / sin(${A}°) = ${cleanNum(b)}</code>.`);
+          steps.push(`• Step 4: Compute Side c using law ratios: <code>c = a × sin(C) / sin(A)</code><br>&nbsp;&nbsp;&nbsp;&nbsp;<code>c = ${a} × sin(${C}°) / sin(${A}°) = ${cleanNum(c)}</code>.`);
+
+          finalOutputText = `📐 Results:<br>Angle C = ${cleanNum(C)}°<br>Side b = ${cleanNum(b)}<br>Side c = ${cleanNum(c)}`;
+
+        } else if (type === "asa") {
+          // Input mappings: v1 = Angle A, v2 = Side c, v3 = Angle B
+          const A = v1; const c = v2; const B = v3;
+          steps.push(`• Step 1: Read input parameters: Angle A = ${A}°, Side c = ${c}, Angle B = ${B}°.`);
+          
+          if (A + B >= 180) throw new Error("Angles sum exceeds metric triangle barriers.");
+          
+          const C = 180 - (A + B);
+          steps.push(`• Step 2: Determine missing internal Angle C:<br>&nbsp;&nbsp;&nbsp;&nbsp;<code>C = 180° - (${A}° + ${B}°) = ${C}°</code>.`);
+          
+          const a = (c * Math.sin(toRadians(A))) / Math.sin(toRadians(C));
+          const b = (c * Math.sin(toRadians(B))) / Math.sin(toRadians(C));
+          
+          steps.push(`• Step 3: Extract Side a using proportion: <code>a = c × sin(A) / sin(C)</code><br>&nbsp;&nbsp;&nbsp;&nbsp;<code>a = ${c} × sin(${A}°) / sin(${C}°) = ${cleanNum(a)}</code>.`);
+          steps.push(`• Step 4: Extract Side b using proportion: <code>b = c × sin(B) / sin(C)</code><br>&nbsp;&nbsp;&nbsp;&nbsp;<code>b = ${c} × sin(${B}°) / sin(${C}°) = ${cleanNum(b)}</code>.`);
+
+          finalOutputText = `📐 Results:<br>Angle C = ${cleanNum(C)}°<br>Side a = ${cleanNum(a)}<br>Side b = ${cleanNum(b)}`;
+
+        } else if (type === "ssa") {
+          // Input mappings: v1 = Side a, v2 = Side b, v3 = Angle A (Ambiguous Case)
+          const a = v1; const b = v2; const A = v3;
+          steps.push(`• Step 1: Read input parameters: Side a = ${a}, Side b = ${b}, Angle A = ${A}°.`);
+          
+          if (A >= 180) throw new Error("Angle values must lie inside basic limits under 180°.");
+
+          const sinB = (b * Math.sin(toRadians(A))) / a;
+          steps.push(`• Step 2: Compute target sine vector ratio for Angle B:<br>&nbsp;&nbsp;&nbsp;&nbsp;<code>sin(B) = b × sin(A) / a = ${b} × sin(${A}°) / ${a} = ${sinB.toFixed(4)}</code>.`);
+
+          if (sinB > 1) {
+            throw new Error("No Triangle Exists (sin(B) > 1, sides match impossible configurations).");
+          } else if (sinB === 1) {
+            const B = 90;
+            const C = 180 - A - B;
+            const c = (a * Math.sin(toRadians(C))) / Math.sin(toRadians(A));
+            steps.push(`• Step 3: Exact right angle discovered. <code>B = 90°</code>. Missing internal Angle <code>C = ${C}°</code>.`);
+            finalOutputText = `📐 Unique Right Triangle Result:<br>Angle B = 90°<br>Angle C = ${cleanNum(C)}°<br>Side c = ${cleanNum(c)}`;
+          } else {
+            // Check potential for multiple triangular configurations
+            let B1 = toDegrees(Math.asin(sinB));
+            let B2 = 180 - B1;
+            
+            let t1_valid = (A + B1 < 180);
+            let t2_valid = (A + B2 < 180) && (B2 !== B1);
+
+            if (t1_valid && t2_valid) {
+              const C1 = 180 - A - B1;
+              const c1 = (a * Math.sin(toRadians(C1))) / Math.sin(toRadians(A));
+              const C2 = 180 - A - B2;
+              const c2 = (a * Math.sin(toRadians(C2))) / Math.sin(toRadians(A));
+
+              steps.push(`• Step 3: Ambiguous Case flags two unique validation possibilities.`);
+              finalOutputText = `📐 Ambiguous Case (2 Triangles Found):<br><br><strong>Triangle 1:</strong><br>Angle B = ${cleanNum(B1)}°<br>Angle C = ${cleanNum(C1)}°<br>Side c = ${cleanNum(c1)}<br><br><strong>Triangle 2:</strong><br>Angle B = ${cleanNum(B2)}°<br>Angle C = ${cleanNum(C2)}°<br>Side c = ${cleanNum(c2)}`;
+            } else if (t1_valid) {
+              const C1 = 180 - A - B1;
+              const c1 = (a * Math.sin(toRadians(C1))) / Math.sin(toRadians(A));
+              steps.push(`• Step 3: Single profile matched. Alternative quadrant values reject secondary limits.`);
+              finalOutputText = `📐 Results (1 Unique Triangle):<br>Angle B = ${cleanNum(B1)}°<br>Angle C = ${cleanNum(C1)}°<br>Side c = ${cleanNum(c1)}`;
+            } else {
+              throw new Error("No valid spatial vectors can form with these conditions.");
+            }
+          }
+        }
+
+        resultBox.innerHTML = finalOutputText;
+
+        if (mode === "steps") {
+          breakdownBox.innerHTML = `
+            <strong>Step-by-Step Triangle Law Solution Breakdown:</strong><br>
+            • Metric Context Tracking: <code>[${type.toUpperCase()}]</code><br>
+            ${steps.join('<br>')}<br>
+            • Vector processing finalized smoothly downstream.
+          `;
+          breakdownBox.style.display = "block";
+        } else {
+          breakdownBox.style.display = "none";
+        }
+
+        container.classList.add("status-active");
+        shareBtn.style.display = "block";
+
+      } catch (err) {
+        resultBox.innerHTML = `⚠️ Geometric Conflict`;
+        breakdownBox.innerHTML = `<strong>System Notice:</strong> ${err.message || "Failed to analyze layout data parameters safely. Verify inputs."}`;
+        container.classList.add("status-error");
+        breakdownBox.style.display = "block";
+        shareBtn.style.display = "none";
+      }
+    }
+
+    document.getElementById("calculateBtn").addEventListener("click", runLawOfSinesCalculation);
+
+    // Neobrutalist Dark Mode Setup Tracker 
+    const toggleDarkMode = document.getElementById("toggle-dark-mode");
+
+    function applyDarkMode(state) {
+      if (state) {
+        document.body.classList.add("dark-mode");
+        toggleDarkMode.checked = true;
+      } else {
+        document.body.classList.remove("dark-mode");
+        toggleDarkMode.checked = false;
+      }
+      localStorage.setItem("darkMode", state ? "enabled" : "disabled");
+    }
+
+    toggleDarkMode.addEventListener("change", () => {
+      applyDarkMode(toggleDarkMode.checked);
+    });
+
+    if (localStorage.getItem("darkMode") === "enabled") {
+      applyDarkMode(true);
+    }
+  </script>
+</body>
+</html>

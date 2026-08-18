@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="../logo.svg">
+  
+  <title>Perimeter Calculator with Steps - Free Online Geometry Solver</title>
+  <meta name="description" content="Calculate the perimeter or circumference of various geometric shapes instantly with our free Perimeter Calculator. Supports detailed steps for rectangles, circles, triangles, and squares.">
+  <meta name="keywords" content="perimeter calculator, calculate perimeter, circumference calculator, geometry solver, step by step perimeter tool, rectangle perimeter, triangle perimeter">
+  <link rel="canonical" href="https://hscgpacalculator.com/geometry/perimeter-calculator">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Perimeter Calculator with Steps - HSC GPA Calculator",
+    "url": "https://hscgpacalculator.com/geometry/perimeter-calculator",
+    "description": "An interactive geometric evaluation web application built to analyze multi-sided shapes and extract exact perimeter and circumference calculations using spatial mathematical workflows.",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "All",
+    "browserRequirements": "Requires JavaScript. Requires HTML5.",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is the primary difference between perimeter and circumference?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Perimeter defines the total linear distance bounding a polygon with straight straight-edge sides (like a square or rectangle). Circumference is the specific boundary length metric applied exclusively to curved shapes, primarily circles."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does the engine validate triangle inputs to ensure they are physically possible?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The solver passes the variables through the geometric Triangle Inequality Theorem. This rule states that the combined length of any two given sides must always be strictly greater than the length of the remaining side."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght=500;700;800&display=swap">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght=500;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg: #FFDE4D;
+      --card-bg: #FFFFFF;
+      --text: #000000;
+      --accent: #FF5A5F;
+      --accent-hover: #E0484D;
+      --secondary: #3D5A80;
+      --border-thickness: 3px;
+      --neo-shadow: 6px 6px 0px #000000;
+      --neo-shadow-clickable: 3px 3px 0px #000000;
+      --success-banner: #60CD82;
+      --fail-banner: #FF5A5F;
+      --input-focus: #98E2C6;
+    }
+
+    body.dark-mode {
+      --bg: #121214;
+      --card-bg: #1E1E24;
+      --text: #FFFFFF;
+      --accent: #FF5A5F;
+      --accent-hover: #FF7377;
+      --secondary: #A7C957;
+      --neo-shadow: 6px 6px 0px #FFDE4D;
+      --neo-shadow-clickable: 3px 3px 0px #FFDE4D;
+      --success-banner: #2A7B46;
+      --fail-banner: #9B2226;
+      --input-focus: #3D5A80;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 40px 20px;
+    }
+
+    .top-bar {
+      display: flex;
+      width: 100%;
+      max-width: 550px;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .back-home {
+      font-size: 0.85rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--text);
+      background: var(--card-bg);
+      padding: 8px 14px;
+      border: var(--border-thickness) solid #000000;
+      box-shadow: var(--neo-shadow-clickable);
+    }
+
+    .dark-mode-toggle {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      background: var(--card-bg);
+      padding: 8px 14px;
+      border: var(--border-thickness) solid #000000;
+      box-shadow: var(--neo-shadow-clickable);
+      cursor: pointer;
+    }
+
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 36px;
+      height: 20px;
+    }
+
+    .switch input { opacity: 0; width: 0; height: 0; }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: #000000;
+      transition: 0.15s;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 12px;
+      width: 12px;
+      left: 3px;
+      bottom: 2px;
+      background-color: #FFFFFF;
+      transition: 0.15s;
+    }
+
+    input:checked + .slider { background-color: var(--accent); }
+    input:checked + .slider:before { transform: translateX(14px); }
+
+    .container {
+      background: var(--card-bg);
+      width: 100%;
+      max-width: 550px;
+      padding: 30px;
+      border: var(--border-thickness) solid #000000;
+      box-shadow: var(--neo-shadow);
+      margin-bottom: 30px;
+    }
+
+    h1 { 
+      font-size: 1.8rem; 
+      font-weight: 800; 
+      margin-bottom: 25px; 
+      text-transform: uppercase;
+      letter-spacing: -1px;
+      text-align: left;
+    }
+
+    label, .section-heading {
+      display: block;
+      text-align: left;
+      font-weight: 800;
+      margin-top: 18px;
+      margin-bottom: 6px;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    select, input {
+      width: 100%;
+      padding: 12px;
+      border: var(--border-thickness) solid #000000;
+      background-color: var(--card-bg);
+      color: var(--text);
+      font-size: 1rem;
+      font-weight: 700;
+      outline: none;
+    }
+
+    select:focus, input:focus {
+      background-color: var(--input-focus);
+    }
+
+    .input-group {
+      margin-bottom: 15px;
+    }
+
+    .mode-select {
+      margin-bottom: 15px;
+    }
+
+    .shape-fields {
+      display: none;
+    }
+
+    .shape-fields.active-fields {
+      display: block;
+    }
+
+    button {
+      width: 100%;
+      padding: 16px;
+      border: var(--border-thickness) solid #000000;
+      font-size: 1.1rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      margin-top: 25px;
+      background-color: #0056b3;
+      color: #FFFFFF;
+      box-shadow: var(--neo-shadow-clickable);
+      position: relative;
+    }
+
+    button:hover { background-color: var(--accent-hover); }
+    button:active { top: 2px; left: 2px; box-shadow: 1px 1px 0px #000000; }
+
+    #shareResultBtn { background-color: var(--secondary); margin-top: 12px; }
+
+    #resultContainer { margin-top: 25px; border: var(--border-thickness) solid #000000; display: none; background-color: var(--card-bg); color: var(--text); }
+    #result { font-size: 1.35rem; font-weight: 800; padding: 18px; text-transform: uppercase; line-height: 1.4; }
+    #metricBreakdown { font-size: 0.95rem; padding: 0 18px 14px 18px; font-weight: 700; text-transform: none; letter-spacing: 0.5px; line-height: 1.6; border-top: 2px dashed #000000; padding-top: 12px;}
+
+    .status-active { background-color: var(--success-banner) !important; color: #FFFFFF !important; display: block !important; }
+    .status-error { background-color: var(--fail-banner) !important; color: #FFFFFF !important; display: block !important; }
+
+    .seo-content {
+      width: 100%;
+      max-width: 750px;
+      background: var(--card-bg);
+      padding: 35px;
+      border: var(--border-thickness) solid #000000;
+      box-shadow: var(--neo-shadow);
+      text-align: left;
+      line-height: 1.7;
+    }
+
+    .seo-content h2 { 
+      font-size: 1.5rem; 
+      font-weight: 800;
+      margin-top: 30px; 
+      margin-bottom: 12px; 
+      text-transform: uppercase;
+      letter-spacing: -0.5px;
+      border-bottom: 2px solid #000000;
+      padding-bottom: 4px;
+    }
+    
+    .seo-content h3 { font-size: 1.15rem; font-weight: 800; margin-top: 20px; margin-bottom: 8px; text-transform: uppercase; }
+    .seo-content p { margin-bottom: 15px; font-size: 0.95rem; font-weight: 500; }
+    .seo-content ul { margin-left: 20px; margin-bottom: 15px; font-size: 0.95rem; }
+    .seo-content li { margin-bottom: 6px; font-weight: 600; }
+    
+    .seo-table { width: 100%; border-collapse: collapse; margin-top: 15px; margin-bottom: 20px; }
+    .seo-table th, .seo-table td { padding: 12px; border: 2px solid #000000; font-weight: 700; text-align: left; }
+    .seo-table th { background-color: var(--bg); color: #000000; text-transform: uppercase; font-size: 0.85rem; }
+
+    .cross-linking-footer {
+      width: 100%;
+      max-width: 750px;
+      background: var(--card-bg);
+      margin-top: 30px;
+      padding: 30px;
+      border: var(--border-thickness) solid #000000;
+      box-shadow: var(--neo-shadow);
+    }
+    .cross-linking-footer h2 {
+      font-size: 1.4rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      letter-spacing: -0.5px;
+      text-align: left;
+    }
+    .cross-linking-footer p {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 25px;
+      line-height: 1.5;
+      text-align: left;
+    }
+    .calculators-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px 20px;
+    }
+    .calc-link {
+      display: inline-block;
+      text-decoration: underline;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text) !important;
+      background: none !important;
+      border: none !important;
+      box-shadow: none !important;
+      text-align: left;
+      padding: 4px 0;
+    }
+    .calc-link:hover {
+      color: var(--accent) !important;
+    }
+  </style>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TY98R8BG8Z"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TY98R8BG8Z');
+  </script>
+
+<script>(function(s){s.dataset.zone='11171600',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script></head>
+
+<body>
+
+  <div class="top-bar">
+    <a href="/" class="back-home">⬅ GPA Calc</a>
+    <div class="dark-mode-toggle" aria-label="Toggle dark mode" tabindex="0">
+      <span style="user-select:none;">Dark Mode</span>
+      <label class="switch" for="toggle-dark-mode">
+        <input type="checkbox" id="toggle-dark-mode" aria-label="Toggle Dark Mode">
+        <span class="slider"></span>
+      </label>
+    </div>
+  </div>
+
+  <main class="container" role="main" aria-labelledby="main-title">
+    <h1 id="main-title">⚡ Perimeter Calculator</h1>
+
+    <form id="perimeterForm" onsubmit="return false;" aria-live="polite" aria-atomic="true">
+      
+      <div class="mode-select">
+        <label for="calcMode">Select Output Display</label>
+        <select id="calcMode" aria-label="Calculator Mode">
+          <option value="steps">Show Step-by-Step Breakdown</option>
+          <option value="direct">Show Direct Answer Only</option>
+        </select>
+      </div>
+
+      <div class="input-group">
+        <label for="shapeSelect">Choose Target Shape</label>
+        <select id="shapeSelect" aria-label="Shape Selector">
+          <option value="rectangle" selected>Rectangle</option>
+          <option value="circle">Circle (Circumference)</option>
+          <option value="triangle">Triangle</option>
+          <option value="square">Square</option>
+        </select>
+      </div>
+
+      <!-- Rectangle Inputs -->
+      <div id="rectangleFields" class="shape-fields active-fields">
+        <div class="input-group">
+          <label for="rectLength">Length (l)</label>
+          <input type="text" id="rectLength" value="8" placeholder="e.g., 12">
+        </div>
+        <div class="input-group">
+          <label for="rectWidth">Width (w)</label>
+          <input type="text" id="rectWidth" value="5" placeholder="e.g., 6">
+        </div>
+      </div>
+
+      <!-- Circle Inputs -->
+      <div id="circleFields" class="shape-fields">
+        <div class="input-group">
+          <label for="circleRadius">Radius (r)</label>
+          <input type="text" id="circleRadius" value="7" placeholder="e.g., 4.5">
+        </div>
+      </div>
+
+      <!-- Triangle Inputs -->
+      <div id="triangleFields" class="shape-fields">
+        <div class="input-group">
+          <label for="triSideA">Side A</label>
+          <input type="text" id="triSideA" value="6" placeholder="e.g., 5">
+        </div>
+        <div class="input-group">
+          <label for="triSideB">Side B</label>
+          <input type="text" id="triSideB" value="8" placeholder="e.g., 7">
+        </div>
+        <div class="input-group">
+          <label for="triSideC">Side C</label>
+          <input type="text" id="triSideC" value="10" placeholder="e.g., 9">
+        </div>
+      </div>
+
+      <!-- Square Inputs -->
+      <div id="squareFields" class="shape-fields">
+        <div class="input-group">
+          <label for="squareSide">Side Length (s)</label>
+          <input type="text" id="squareSide" value="4" placeholder="e.g., 10">
+        </div>
+      </div>
+
+    </form>
+
+    <button type="button" id="calculateBtn" aria-label="Execute Perimeter Calculation">💥 Compute Perimeter</button>
+
+    <div id="resultContainer" aria-live="polite" aria-atomic="true">
+      <div id="result"></div>
+      <div id="metricBreakdown"></div>
+    </div>
+
+    <button type="button" id="shareResultBtn" aria-label="Share current calculation results" style="display: none;">📸 Share Result</button>
+  </main>
+
+  <section class="seo-content" aria-label="Geometric Boundaries Information Hub">
+    <h2>Utilizing the Perimeter Calculator with Steps for Geometric Boundary Analysis</h2>
+    <p>In spatial planning, foundational trigonometry, and geometric validation, measuring the precise absolute length enclosing a physical area requires structural execution layouts. Our specialized <strong>perimeter calculator</strong> instantly solves boundaries across structural spatial constraints, outputting clear math logs and dynamic step tracing transparently.</p>
+    
+    <h3>Geometric Shapes Boundary Formulations</h3>
+    <p>Different multi-sided shapes require unique algebraic equations to isolate boundaries cleanly. Review our architectural structural framework guidelines here:</p>
+    
+    <table class="seo-table">
+      <thead>
+        <tr>
+          <th>Geometric Shape Base</th>
+          <th>Standard Math Equation</th>
+          <th>Core Input Parameters Required</th>
+          <th>Outcome Value Classification</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Rectangle</td><td>P = 2 × (Length + Width)</td><td>Parallel Lengths and Width Metrics</td><td>Total Linear Outer Boundary</td></tr>
+        <tr><td>Circle</td><td>C = 2 × π × Radius</td><td>Absolute Core Radius Metric Vector</td><td>Total Curved Circumference</td></tr>
+        <tr><td>Triangle</td><td>P = Side A + Side B + Side C</td><td>All Three Outer Edge Line Segments</td><td>Polygon Outer Trace Length</td></tr>
+        <tr><td>Square</td><td>P = 4 × Side Length</td><td>Single Constant Equal Edge Variable</td><td>Equilateral Polygon Enclosure</td></tr>
+      </tbody>
+    </table>
+
+    <h2>How the Geometry Engine Tracks and Maps Outer Paths</h2>
+    <p>The system monitoring framework processes structural values sequentially. When entering values via our <strong>geometric boundary function solver</strong>, variables pass through systematic structural checkpoints safely:</p>
+    <p><em>Mechanics Walkthrough:</em> First, input strings are sanitized to strip problematic alphabetic characters from execution scopes. Second, shapes like triangles are subjected to algebraic inequality validations to ensure valid boundaries can exist. Finally, the selected equation resolves outputs up to 6 custom decimal frames safely.</p>
+
+    <h3>Essential Formatting Guidelines for Input Values</h3>
+    <p>Always input absolute positive numbers inside the geometric selection fields. Merging alphabetic characters, text blocks, or special character arrays inside calculation layouts triggers format errors to guard baseline precision metrics cleanly.</p>
+
+    <noscript>
+      <h3>System Functional Features Checklist</h3>
+      <p>This structural mathematics application calculates geometric perimeter variables, circle circumferences, multi-field step expansions, and inequality boundary validation maps natively.</p>
+    </noscript>
+
+    <h2>Frequently Asked Questions (FAQs)</h2>
+    
+    <h3>Why will a triangle return error boundaries if one side length is massive?</h3>
+    <p>According to geometric laws, a triangle can only fully form if the combined length of any two edges remains strictly greater than the third edge length. Failing this prevents vertices from connecting cleanly.</p>
+
+    <h3>How does this script maintain precise decimal values for circles?</h3>
+    <p>The processing architecture locks native floating points directly to <code>Math.PI</code> constants, eliminating premature rounding inaccuracies during multiplication passes.</p>
+  </section>
+
+  <footer class="cross-linking-footer" aria-label="Explore other tools and calculators">
+    <h2>🚀 Explore More Free Tools &amp; Calculators</h2>
+    <p>Need to calculate something else? Check out our other fast, free academic, math, and everyday tools below to get instant results 👇</p>
+    
+    
+
+<div class="footer-categories-container">
+
+<!-- Geometry Calculators -->
+<div class="calc-category-group">
+    <h3 style="text-align:left;margin-bottom:10px">📐 Geometry Calculators</h3>
+    <div class="calculators-grid">
+        <a href="https://hscgpacalculator.com/geometry/arc-length-calculator" class="calc-link">📏 Arc Length Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/area-of-a-circle-calculator" class="calc-link">⚪ Area of a Circle Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/cos-calculator" class="calc-link">📐 Cos Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/coterminal-angle-calculator" class="calc-link">🔄 Coterminal Angle Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/distance-formula-calculator" class="calc-link">📏 Distance Formula Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/hyperbola-calculator" class="calc-link">🔄 Hyperbola Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/law-of-cosines-calculator" class="calc-link">🔺 Law of Cosines Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/law-of-sines-calculator" class="calc-link">🔺 Law of Sines Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/midpoint-calculator" class="calc-link">📍 Midpoint Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/parabola-calculator" class="calc-link">📈 Parabola Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/perimeter-calculator" class="calc-link">📏 Perimeter Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/sin-calculator" class="calc-link">📐 Sin Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/sin-inverse-calculator" class="calc-link">🔄 Sin Inverse Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/slope-calculator" class="calc-link">📈 Slope Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/surface-area-calculator" class="calc-link">🔲 Surface Area Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/triangle-area-calculator" class="calc-link">🔺 Triangle Area Calculator</a>
+    </div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+      </div>
+
+      <!-- Calculus & Scoring Category -->
+      <div class="calc-category-group" style="margin-top:25px;margin-bottom:10px">
+          <h3 style="text-align:left;margin-bottom:10px">🔄 Advanced Calculus &amp; Scores</h3>
+          <div class="calculators-grid">
+              <a href="https://hscgpacalculator.com/calculus/derivative-calculator" class="calc-link">📉 Derivative Calculator</a>
+              <a href="https://hscgpacalculator.com/calculus/integral-calculator" class="calc-link">🔍 Integral Calculator</a>
+              <a href="https://hscgpacalculator.com/test-score-calculator" class="calc-link">🎯 Test Score Calculator</a>
+              <a href="https://hscgpacalculator.com/percentage-to-gpa" class="calc-link">🔀 Percentage to GPA Calculator</a>
+              <a href="https://hscgpacalculator.com/marks-percentage-calculator" class="calc-link">💯 Marks Percentage Calculator</a>
+          </div>
+      </div>
+    </div>
+  <div style="margin-top: 30px; padding-top: 20px; border-top: 2px dashed #000000; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+    <!-- Copyright Line -->
+    <span style="font-size: 0.85rem; font-weight: 700; text-transform: uppercase; color: var(--text); opacity: 0.8;">
+        © 2026 HSC GPA Calculator
+    </span>
+
+    <!-- Social Links & Developer Profile Container -->
+    <div style="display: flex; align-items: center; gap: 14px; flex-wrap: wrap;">
+        <!-- Facebook Link -->
+        <a href="https://www.facebook.com/profile.php?id=61593406822999" target="_blank" rel="noopener noreferrer" class="calc-link" aria-label="Facebook" style="font-size: 0.85rem; text-transform: uppercase; display: inline-flex; align-items: center; gap: 5px;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" style="display: block;">
+                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+            </svg>
+            <span>Facebook</span>
+        </a>
+
+        <!-- X (Twitter) Link -->
+        <a href="https://x.com/hscgpacalc" target="_blank" rel="noopener noreferrer" class="calc-link" aria-label="X (Twitter)" style="font-size: 0.85rem; text-transform: uppercase; display: inline-flex; align-items: center; gap: 5px;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display: block;">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+            </svg>
+            <span>X</span>
+        </a>
+
+        <!-- Tumblr Link -->
+        <a href="https://www.tumblr.com/hscgpacalculator" target="_blank" rel="noopener noreferrer" class="calc-link" aria-label="Tumblr" style="font-size: 0.85rem; text-transform: uppercase; display: inline-flex; align-items: center; gap: 5px;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display: block;">
+                <path d="M14.563 24c-5.093 0-7.09-3.576-7.09-6.845v-8.081H4.492V5.592c4.157-.84 5.385-3.86 5.568-5.592h4.341v5.122h4.949v3.962h-4.949v7.195c0 1.636.852 2.502 2.392 2.502.99 0 2.053-.255 2.684-.576l1.012 3.867C19.39 23.463 16.927 24 14.563 24z"/>
+            </svg>
+            <span>Tumblr</span>
+        </a>
+
+        <!-- Developer Profile Link -->
+        <a href="https://github.com/aryusuf001" target="_blank" rel="noopener noreferrer" class="calc-link" style="font-size: 0.85rem; text-transform: uppercase; display: inline-flex; align-items: center; gap: 5px;">
+            🛠️ Developer Profile
+        </a>
+    </div>
+</div>
+</footer>
+
+  <script>
+    const calcModeSelect = document.getElementById("calcMode");
+    const shapeSelect = document.getElementById("shapeSelect");
+    const container = document.getElementById("resultContainer");
+    const shareBtn = document.getElementById("shareResultBtn");
+    const resultBox = document.getElementById("result");
+    const breakdownBox = document.getElementById("metricBreakdown");
+
+    // Clear outputs on context reconfiguration
+    function hideOutputs() {
+      container.style.display = "none";
+      shareBtn.style.display = "none";
+      container.className = "";
+    }
+
+    calcModeSelect.addEventListener("change", hideOutputs);
+    
+    // Manage dynamic input panel groups matching selected shape profiles
+    shapeSelect.addEventListener("change", (e) => {
+      hideOutputs();
+      document.querySelectorAll(".shape-fields").forEach(div => {
+        div.classList.remove("active-fields");
+      });
+      document.getElementById(`${e.target.value}Fields`).classList.add("active-fields");
+    });
+
+    function processPerimeterCalculation() {
+      const mode = calcModeSelect.value;
+      const shape = shapeSelect.value;
+      
+      container.className = "";
+      let structuralSteps = [];
+      let perimeterValue = 0;
+      let titleLabel = "Perimeter (P)";
+
+      try {
+        if (shape === "rectangle") {
+          const l = Number(document.getElementById("rectLength").value.trim());
+          const w = Number(document.getElementById("rectWidth").value.trim());
+
+          if (isNaN(l) || isNaN(w) || l <= 0 || w <= 0) {
+            throw new Error("Invalid parameters: fields must contain real positive numerical dimensions.");
+          }
+
+          perimeterValue = 2 * (l + w);
+          structuralSteps.push(`• Step 1: Extract length and width variables: <code>l = ${l}</code>, <code>w = ${w}</code>.`);
+          structuralSteps.push(`• Step 2: Combine base components together: <code>(l + w) = (${l} + ${w}) = ${l + w}</code>.`);
+          structuralSteps.push(`• Step 3: Compute final perimeter expression matching rectangular law parameters:<br>&nbsp;&nbsp;&nbsp;&nbsp;<code>P = 2 × ${l + w} = ${perimeterValue}</code>.`);
+
+        } else if (shape === "circle") {
+          const r = Number(document.getElementById("circleRadius").value.trim());
+
+          if (isNaN(r) || r <= 0) {
+            throw new Error("Invalid parameter: radius must equal positive dimensions.");
+          }
+
+          titleLabel = "Circumference (C)";
+          perimeterValue = 2 * Math.PI * r;
+          structuralSteps.push(`• Step 1: Map standard core base boundary circle radius variable: <code>r = ${r}</code>.`);
+          structuralSteps.push(`• Step 2: Apply geometric circular constraint formulations: <code>C = 2 × π × r</code>.`);
+          structuralSteps.push(`• Step 3: Run multiplication parameters sequentially:<br>&nbsp;&nbsp;&nbsp;&nbsp;<code>C = 2 × 3.1415926... × ${r} = ${perimeterValue.toFixed(6)}</code>.`);
+
+        } else if (shape === "triangle") {
+          const a = Number(document.getElementById("triSideA").value.trim());
+          const b = Number(document.getElementById("triSideB").value.trim());
+          const c = Number(document.getElementById("triSideC").value.trim());
+
+          if (isNaN(a) || isNaN(b) || isNaN(c) || a <= 0 || b <= 0 || c <= 0) {
+            throw new Error("Invalid parameters: all triangle side components must hold numerical inputs.");
+          }
+
+          // Mathematical verification of triangle structural bounds theorem
+          if ((a + b <= c) || (a + c <= b) || (b + c <= a)) {
+            throw new Error("Triangle Inequality Failure: The combined value of any two lines must outmeasure the final individual edge line sequence.");
+          }
+
+          perimeterValue = a + b + c;
+          structuralSteps.push(`• Step 1: Gather mapped segment lengths: <code>a = ${a}</code>, <code>b = ${b}</code>, <code>c = ${c}</code>.`);
+          structuralSteps.push(`• Step 2: Test dimensions across the Triangle Inequality property: Validated.`);
+          structuralSteps.push(`• Step 3: Aggregate absolute linear lengths cleanly:<br>&nbsp;&nbsp;&nbsp;&nbsp;<code>P = ${a} + ${b} + ${c} = ${perimeterValue}</code>.`);
+
+        } else if (shape === "square") {
+          const s = Number(document.getElementById("squareSide").value.trim());
+
+          if (isNaN(s) || s <= 0) {
+            throw new Error("Invalid parameter: side dimension must be positive integers.");
+          }
+
+          perimeterValue = 4 * s;
+          structuralSteps.push(`• Step 1: Target primary regular side width factor: <code>s = ${s}</code>.`);
+          structuralSteps.push(`• Step 2: Scale standard variable metrics across 4 coordinate matching quadrants.`);
+          structuralSteps.push(`• Step 3: Complete execution trace:<br>&nbsp;&nbsp;&nbsp;&nbsp;<code>P = 4 × ${s} = ${perimeterValue}</code>.`);
+        }
+
+        let formattedOutput = Number.isInteger(perimeterValue) ? perimeterValue : parseFloat(perimeterValue.toFixed(6));
+        resultBox.innerHTML = `✨ ${titleLabel} = ${formattedOutput}`;
+
+        if (mode === "steps") {
+          breakdownBox.innerHTML = `
+            <strong>Step-by-Step Shape Boundary Calculation Solution:</strong><br>
+            • Evaluation Element Type: <code>[${shape.toUpperCase()}]</code><br>
+            ${structuralSteps.join('<br>')}<br>
+            • System trace matrix finalized and stored downstream successfully.
+          `;
+          breakdownBox.style.display = "block";
+        } else {
+          breakdownBox.style.display = "none";
+        }
+
+        container.classList.add("status-active");
+        shareBtn.style.display = "block";
+
+      } catch (err) {
+        resultBox.innerHTML = `⚠️ Syntax Calculation Error`;
+        breakdownBox.innerHTML = `<strong>System Evaluation Notice:</strong> ${err.message || "Ensure calculation variables follow baseline spatial dimension rules accurately without missing fields."}`;
+        container.classList.add("status-error");
+        breakdownBox.style.display = "block";
+        shareBtn.style.display = "none";
+      }
+    }
+
+    document.getElementById("calculateBtn").addEventListener("click", processPerimeterCalculation);
+
+    // Neobrutalist Theme Local Switch Tracker
+    const toggleDarkMode = document.getElementById("toggle-dark-mode");
+
+    function applyDarkMode(state) {
+      if (state) {
+        document.body.classList.add("dark-mode");
+        toggleDarkMode.checked = true;
+      } else {
+        document.body.classList.remove("dark-mode");
+        toggleDarkMode.checked = false;
+      }
+      localStorage.setItem("darkMode", state ? "enabled" : "disabled");
+    }
+
+    toggleDarkMode.addEventListener("change", () => {
+      applyDarkMode(toggleDarkMode.checked);
+    });
+
+    if (localStorage.getItem("darkMode") === "enabled") {
+      applyDarkMode(true);
+    }
+  </script>
+</body>
+</html>

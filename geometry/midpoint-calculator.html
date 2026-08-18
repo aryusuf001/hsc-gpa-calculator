@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="../logo.svg">
+  
+  <title>Midpoint Calculator with Steps - Free Online Line Segment Solver</title>
+  <meta name="description" content="Calculate the exact midpoint of a line segment instantly in 2D or 3D space with our free Midpoint Calculator with Steps. View detailed coordinate averaging workflows.">
+  <meta name="keywords" content="midpoint calculator, find midpoint, coordinate geometry solver, step by step midpoint tool, line segment calculator, distance and midpoint solver">
+  <link rel="canonical" href="https://hscgpacalculator.com/geometry/midpoint-calculator">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Midpoint Calculator with Steps - HSC GPA Calculator",
+    "url": "https://hscgpacalculator.com/geometry/midpoint-calculator",
+    "description": "An interactive coordinate geometry web application built to analyze linear segments and compute exact midpoint coordinates using systematic arithmetic mean tracing.",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "All",
+    "browserRequirements": "Requires JavaScript. Requires HTML5.",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is the primary difference between calculating a midpoint in 2D versus 3D spatial environments?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A 2D midpoint processes boundaries across two spatial planes using horizontal (X) and vertical (Y) coordinates. A 3D midpoint scales this exact tracking configuration by introducing depth variables (Z) into the mean coordinate formula."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can this calculation engine parse negative integer values or high continuous decimal parameters?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes! The spatial coordinate parsing architecture cleanly processes absolute negative values, continuous decimal configurations, and fractional numeric properties across all standard input blocks."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght=500;700;800&display=swap">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght=500;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg: #FFDE4D;
+      --card-bg: #FFFFFF;
+      --text: #000000;
+      --accent: #FF5A5F;
+      --accent-hover: #E0484D;
+      --secondary: #3D5A80;
+      --border-thickness: 3px;
+      --neo-shadow: 6px 6px 0px #000000;
+      --neo-shadow-clickable: 3px 3px 0px #000000;
+      --success-banner: #60CD82;
+      --fail-banner: #FF5A5F;
+      --input-focus: #98E2C6;
+    }
+
+    body.dark-mode {
+      --bg: #121214;
+      --card-bg: #1E1E24;
+      --text: #FFFFFF;
+      --accent: #FF5A5F;
+      --accent-hover: #FF7377;
+      --secondary: #A7C957;
+      --neo-shadow: 6px 6px 0px #FFDE4D;
+      --neo-shadow-clickable: 3px 3px 0px #FFDE4D;
+      --success-banner: #2A7B46;
+      --fail-banner: #9B2226;
+      --input-focus: #3D5A80;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 40px 20px;
+    }
+
+    .top-bar {
+      display: flex;
+      width: 100%;
+      max-width: 550px;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .back-home {
+      font-size: 0.85rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--text);
+      background: var(--card-bg);
+      padding: 8px 14px;
+      border: var(--border-thickness) solid #000000;
+      box-shadow: var(--neo-shadow-clickable);
+    }
+
+    .dark-mode-toggle {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      background: var(--card-bg);
+      padding: 8px 14px;
+      border: var(--border-thickness) solid #000000;
+      box-shadow: var(--neo-shadow-clickable);
+      cursor: pointer;
+    }
+
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 36px;
+      height: 20px;
+    }
+
+    .switch input { opacity: 0; width: 0; height: 0; }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: #000000;
+      transition: 0.15s;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 12px;
+      width: 12px;
+      left: 3px;
+      bottom: 2px;
+      background-color: #FFFFFF;
+      transition: 0.15s;
+    }
+
+    input:checked + .slider { background-color: var(--accent); }
+    input:checked + .slider:before { transform: translateX(14px); }
+
+    .container {
+      background: var(--card-bg);
+      width: 100%;
+      max-width: 550px;
+      padding: 30px;
+      border: var(--border-thickness) solid #000000;
+      box-shadow: var(--neo-shadow);
+      margin-bottom: 30px;
+    }
+
+    h1 { 
+      font-size: 1.8rem; 
+      font-weight: 800; 
+      margin-bottom: 25px; 
+      text-transform: uppercase;
+      letter-spacing: -1px;
+      text-align: left;
+    }
+
+    label, .section-heading {
+      display: block;
+      text-align: left;
+      font-weight: 800;
+      margin-top: 18px;
+      margin-bottom: 6px;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    select, input {
+      width: 100%;
+      padding: 12px;
+      border: var(--border-thickness) solid #000000;
+      background-color: var(--card-bg);
+      color: var(--text);
+      font-size: 1rem;
+      font-weight: 700;
+      outline: none;
+    }
+
+    select:focus, input:focus {
+      background-color: var(--input-focus);
+    }
+
+    .input-group {
+      margin-bottom: 15px;
+    }
+
+    .input-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+
+    .input-row.three-cols {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    .mode-select {
+      margin-bottom: 15px;
+    }
+
+    .radio-group {
+      display: flex;
+      gap: 15px;
+      margin-top: 5px;
+      margin-bottom: 5px;
+    }
+
+    .radio-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 0.9rem;
+      cursor: pointer;
+      margin: 0;
+    }
+
+    .radio-label input {
+      width: auto;
+      cursor: pointer;
+    }
+
+    button {
+      width: 100%;
+      padding: 16px;
+      border: var(--border-thickness) solid #000000;
+      font-size: 1.1rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      margin-top: 25px;
+      background-color: #0056b3;
+      color: #FFFFFF;
+      box-shadow: var(--neo-shadow-clickable);
+      position: relative;
+    }
+
+    button:hover { background-color: var(--accent-hover); }
+    button:active { top: 2px; left: 2px; box-shadow: 1px 1px 0px #000000; }
+
+    #shareResultBtn { background-color: var(--secondary); margin-top: 12px; }
+
+    #resultContainer { margin-top: 25px; border: var(--border-thickness) solid #000000; display: none; background-color: var(--card-bg); color: var(--text); }
+    #result { font-size: 1.35rem; font-weight: 800; padding: 18px; text-transform: uppercase; line-height: 1.4; }
+    #metricBreakdown { font-size: 0.95rem; padding: 0 18px 14px 18px; font-weight: 700; text-transform: none; letter-spacing: 0.5px; line-height: 1.6; border-top: 2px dashed #000000; padding-top: 12px;}
+
+    .status-active { background-color: var(--success-banner) !important; color: #FFFFFF !important; display: block !important; }
+    .status-error { background-color: var(--fail-banner) !important; color: #FFFFFF !important; display: block !important; }
+
+    .seo-content {
+      width: 100%;
+      max-width: 750px;
+      background: var(--card-bg);
+      padding: 35px;
+      border: var(--border-thickness) solid #000000;
+      box-shadow: var(--neo-shadow);
+      text-align: left;
+      line-height: 1.7;
+    }
+
+    .seo-content h2 { 
+      font-size: 1.5rem; 
+      font-weight: 800;
+      margin-top: 30px; 
+      margin-bottom: 12px; 
+      text-transform: uppercase;
+      letter-spacing: -0.5px;
+      border-bottom: 2px solid #000000;
+      padding-bottom: 4px;
+    }
+    
+    .seo-content h3 { font-size: 1.15rem; font-weight: 800; margin-top: 20px; margin-bottom: 8px; text-transform: uppercase; }
+    .seo-content p { margin-bottom: 15px; font-size: 0.95rem; font-weight: 500; }
+    .seo-content ul { margin-left: 20px; margin-bottom: 15px; font-size: 0.95rem; }
+    .seo-content li { margin-bottom: 6px; font-weight: 600; }
+    
+    .seo-table { width: 100%; border-collapse: collapse; margin-top: 15px; margin-bottom: 20px; }
+    .seo-table th, .seo-table td { padding: 12px; border: 2px solid #000000; font-weight: 700; text-align: left; }
+    .seo-table th { background-color: var(--bg); color: #000000; text-transform: uppercase; font-size: 0.85rem; }
+
+    .cross-linking-footer {
+      width: 100%;
+      max-width: 750px;
+      background: var(--card-bg);
+      margin-top: 30px;
+      padding: 30px;
+      border: var(--border-thickness) solid #000000;
+      box-shadow: var(--neo-shadow);
+    }
+    .cross-linking-footer h2 {
+      font-size: 1.4rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      letter-spacing: -0.5px;
+      text-align: left;
+    }
+    .cross-linking-footer p {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 25px;
+      line-height: 1.5;
+      text-align: left;
+    }
+    .calculators-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px 20px;
+    }
+    .calc-link {
+      display: inline-block;
+      text-decoration: underline;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text) !important;
+      background: none !important;
+      border: none !important;
+      box-shadow: none !important;
+      text-align: left;
+      padding: 4px 0;
+    }
+    .calc-link:hover {
+      color: var(--accent) !important;
+    }
+  </style>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TY98R8BG8Z"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TY98R8BG8Z');
+  </script>
+
+<script>(function(s){s.dataset.zone='11171600',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script></head>
+
+<body>
+
+  <div class="top-bar">
+    <a href="/" class="back-home">⬅ GPA Calc</a>
+    <div class="dark-mode-toggle" aria-label="Toggle dark mode" tabindex="0">
+      <span style="user-select:none;">Dark Mode</span>
+      <label class="switch" for="toggle-dark-mode">
+        <input type="checkbox" id="toggle-dark-mode" aria-label="Toggle Dark Mode">
+        <span class="slider"></span>
+      </label>
+    </div>
+  </div>
+
+  <main class="container" role="main" aria-labelledby="main-title">
+    <h1 id="main-title">⚡ Midpoint Calculator</h1>
+
+    <form id="midpointForm" onsubmit="return false;" aria-live="polite" aria-atomic="true">
+      
+      <div class="mode-select">
+        <label for="calcMode">Select Output Display</label>
+        <select id="calcMode" aria-label="Calculator Mode">
+          <option value="steps">Show Step-by-Step Breakdown</option>
+          <option value="direct">Show Direct Answer Only</option>
+        </select>
+      </div>
+
+      <div class="input-group">
+        <label>Spatial Coordinate System</label>
+        <div class="radio-group">
+          <label class="radio-label">
+            <input type="radio" name="spaceUnit" value="2d" checked> 2D Space (X, Y)
+          </label>
+          <label class="radio-label">
+            <input type="radio" name="spaceUnit" value="3d"> 3D Space (X, Y, Z)
+          </label>
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label id="p1Label">Endpoint 1 Coordinates (P₁)</label>
+        <div id="p1Row" class="input-row">
+          <input type="text" id="x1Input" value="4" placeholder="X₁">
+          <input type="text" id="y1Input" value="8" placeholder="Y₁">
+          <input type="text" id="z1Input" value="0" placeholder="Z₁" style="display: none;">
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label id="p2Label">Endpoint 2 Coordinates (P₂)</label>
+        <div id="p2Row" class="input-row">
+          <input type="text" id="x2Input" value="12" placeholder="X₂">
+          <input type="text" id="y2Input" value="2" placeholder="Y₂">
+          <input type="text" id="z2Input" value="0" placeholder="Z₂" style="display: none;">
+        </div>
+      </div>
+
+    </form>
+
+    <button type="button" id="calculateBtn" aria-label="Execute Midpoint Evaluation">💥 Compute Midpoint Coordinate</button>
+
+    <div id="resultContainer" aria-live="polite" aria-atomic="true">
+      <div id="result"></div>
+      <div id="metricBreakdown"></div>
+    </div>
+
+    <button type="button" id="shareResultBtn" aria-label="Share current calculation results" style="display: none;">📸 Share Result</button>
+  </main>
+
+  <section class="seo-content" aria-label="Coordinate Geometry Information Hub">
+    <h2>Utilizing the Midpoint Calculator with Steps for Geometric Vector Analysis</h2>
+    <p>In structural configuration mapping and planar coordinate geometry, finding the central focus threshold between multi-point dimensions requires balanced computational tracking. Our dedicated <strong>midpoint calculator</strong> processes lines across diverse multidimensional arrays smoothly, isolating spatial midpoints and tracing fractional mean vectors instantly.</p>
+    
+    <h3>Geometric Coordinate Metrics System</h3>
+    <p>Linear parameters depend heavily on point distributions across independent quadrants. Review our structural space comparison matrix below:</p>
+    
+    <table class="seo-table">
+      <thead>
+        <tr>
+          <th>Dimensional Plane Style</th>
+          <th>Mathematical Evaluation State</th>
+          <th>Core Geometric Behavior</th>
+          <th>Analysis Outcome Standard</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>2D Coordinates</td><td>Averages X and Y data rows</td><td>Processes standard flat segment spaces</td><td>Isolate Planar Midpoint Vector</td></tr>
+        <tr><td>3D Coordinates</td><td>Integrates depth components (Z)</td><td>Analyzes true dimensional object lines</td><td>Identify Spatial Center Core</td></tr>
+        <tr><td>Positive Quadrants</td><td>All coordinates scale above zero</td><td>Vectors map strictly into upper zones</td><td>Trace Regular Growth Vectors</td></tr>
+        <tr><td>Negative Quadrants</td><td>Coordinates track below zero values</td><td>Vectors fall deep inside lower bounds</td><td>Resolve Inverted Structural Shifts</td></tr>
+      </tbody>
+    </table>
+
+    <h2>How the Engine Tracks and Maps Value Transformations</h2>
+    <p>The system monitoring framework handles numeric variables methodically. When computing coordinate layouts via our <strong>line segment calculator</strong>, processing steps follow strict arithmetic validation routines to eliminate math truncation issues:</p>
+    <p><em>Mechanics Walkthrough:</em> First, raw string characters are checked to filter out non-numeric inputs cleanly. Second, corresponding elements across both points are isolated into specific groups (e.g., matching $X_1$ and $X_2$). Finally, the structural formula applies standard division, dividing the sums by exactly two to establish clear central values.</p>
+
+    <h3>Essential Formatting Guidelines for Input Values</h3>
+    <p>Be sure to provide clean numeric parameters within the selection rows. Do not merge alphanumeric text, strings, or unmapped special variables inside the calculation fields to ensure mathematical consistency throughout validation operations.</p>
+
+    <noscript>
+      <h3>System Functional Features Checklist</h3>
+      <p>This analytics module supports tracking computations natively for: 2D segment midpoint calculations, 3D depth coordinate averaging, vector coordinate translation, and step-by-step mathematical tracing maps.</p>
+    </noscript>
+
+    <h2>Frequently Asked Questions (FAQs)</h2>
+    
+    <h3>How does a negative coordinate parameter change the midpoint equation?</h3>
+    <p>The math rules remain uniform. Negative entries are safely added algebraically, meaning adding a negative input acts as subtraction before dividing by two (e.g., $(4 + (-8)) / 2 = -2$).</p>
+
+    <h3>Can this tool resolve structural three-point centroid layouts?</h3>
+    <p>This system maps two endpoint parameters to isolate midpoints. For triangle shapes, a centroid requires dividing three coordinate positions by three rather than the standard two-point method used here.</p>
+  </section>
+
+  <footer class="cross-linking-footer" aria-label="Explore other tools and calculators">
+    <h2>🚀 Explore More Free Tools &amp; Calculators</h2>
+    <p>Need to calculate something else? Check out our other fast, free academic, math, and everyday tools below to get instant results 👇</p>
+    
+    
+
+<div class="footer-categories-container">
+
+<!-- Geometry Calculators -->
+<div class="calc-category-group">
+    <h3 style="text-align:left;margin-bottom:10px">📐 Geometry Calculators</h3>
+    <div class="calculators-grid">
+        <a href="https://hscgpacalculator.com/geometry/arc-length-calculator" class="calc-link">📏 Arc Length Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/area-of-a-circle-calculator" class="calc-link">⚪ Area of a Circle Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/cos-calculator" class="calc-link">📐 Cos Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/coterminal-angle-calculator" class="calc-link">🔄 Coterminal Angle Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/distance-formula-calculator" class="calc-link">📏 Distance Formula Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/hyperbola-calculator" class="calc-link">🔄 Hyperbola Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/law-of-cosines-calculator" class="calc-link">🔺 Law of Cosines Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/law-of-sines-calculator" class="calc-link">🔺 Law of Sines Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/midpoint-calculator" class="calc-link">📍 Midpoint Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/parabola-calculator" class="calc-link">📈 Parabola Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/perimeter-calculator" class="calc-link">📏 Perimeter Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/sin-calculator" class="calc-link">📐 Sin Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/sin-inverse-calculator" class="calc-link">🔄 Sin Inverse Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/slope-calculator" class="calc-link">📈 Slope Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/surface-area-calculator" class="calc-link">🔲 Surface Area Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/triangle-area-calculator" class="calc-link">🔺 Triangle Area Calculator</a>
+    </div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+      </div>
+
+      <!-- Conversions & Scores -->
+      <div class="calc-category-group" style="margin-top:25px;margin-bottom:10px">
+        <h3 style="text-align:left;margin-bottom:10px">🔄 Conversions &amp; Scores</h3>
+        <div class="calculators-grid">
+          <a href="https://hscgpacalculator.com/gpa-to-percentage" class="calc-link">🔢 GPA to Percentage Calculator</a>
+          <a href="https://hscgpacalculator.com/percentage-to-gpa" class="calc-link">🔀 Percentage to GPA Calculator</a>
+          <a href="https://hscgpacalculator.com/sgpa-to-percentage" class="calc-link">📈 SGPA to Percentage Calculator</a>
+          <a href="https://hscgpacalculator.com/marks-percentage-calculator" class="calc-link">💯 Marks Percentage Calculator</a>
+          <a href="https://hscgpacalculator.com/test-score-calculator" class="calc-link">🎯 Test Score Calculator</a>
+          <a href="https://hscgpacalculator.com/ielts-score-calculator" class="calc-link">🇬🇧 IELTS Score Calculator</a>
+          <a href="https://hscgpacalculator.com/age-calculator-bd" class="calc-link">🎂 Age Calculator BD (Govt Job &amp; NID)</a>
+        </div>
+      </div>
+
+      <!-- Calculus -->
+      <div class="calc-category-group" style="margin-top:25px;margin-bottom:10px">
+        <h3 style="text-align:left;margin-bottom:10px">📐 Calculus &amp; Advanced Math</h3>
+        <div class="calculators-grid">
+          <a href="https://hscgpacalculator.com/calculus/derivative-calculator" class="calc-link">📉 Derivative Calculator</a>
+          <a href="https://hscgpacalculator.com/calculus/chain-rule-calculator" class="calc-link">🔗 Chain Rule Calculator</a>
+          <a href="https://hscgpacalculator.com/calculus/implicit-differentiation-calculator" class="calc-link">🧬 Implicit Differentiation</a>
+          <a href="https://hscgpacalculator.com/calculus/integral-calculator" class="calc-link">🔍 Integral Calculator</a>
+          <a href="https://hscgpacalculator.com/calculus/definite-integral-calculator" class="calc-link">📌 Definite Integral Calculator</a>
+          <a href="https://hscgpacalculator.com/calculus/double-integral-calculator" class="calc-link">♊ Double Integral Calculator</a>
+          <a href="https://hscgpacalculator.com/calculus/triple-integral-calculator" class="calc-link">🌐 Triple Integral Calculator</a>
+        </div>
+      </div>
+
+      <!-- Algebra & Basics -->
+      <div class="calc-category-group" style="margin-top:25px;margin-bottom:10px">
+        <h3 style="text-align:left;margin-bottom:10px">🔢 Algebra &amp; General Math</h3>
+        <div class="calculators-grid">
+          <a href="https://hscgpacalculator.com/math/algebra-calculator" class="calc-link">📐 Algebra Calculator</a>
+          <a href="https://hscgpacalculator.com/math/equation-solver-calculator" class="calc-link">🧠 Equation Solver Calculator</a>
+          <a href="https://hscgpacalculator.com/math/simultaneous-equations-solver" class="calc-link">👥 Simultaneous Equations</a>
+          <a href="https://hscgpacalculator.com/math/quadratic-calculator" class="calc-link">🟩 Quadratic Calculator</a>
+          <a href="https://hscgpacalculator.com/math/factoring-calculator" class="calc-link">✂️ Factoring Calculator</a>
+          <a href="https://hscgpacalculator.com/math/polynomial-calculator" class="calc-link">📈 Polynomial Calculator</a>
+          <a href="https://hscgpacalculator.com/math/simplification-calculator" class="calc-link">✨ Simplification Calculator</a>
+          <a href="https://hscgpacalculator.com/math/substitution-calculator" class="calc-link">🔄 Substitution Calculator</a>
+        </div>
+      </div>
+
+    </div>
+  <div style="margin-top: 30px; padding-top: 20px; border-top: 2px dashed #000000; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+    <!-- Copyright Line -->
+    <span style="font-size: 0.85rem; font-weight: 700; text-transform: uppercase; color: var(--text); opacity: 0.8;">
+        © 2026 HSC GPA Calculator
+    </span>
+
+    <!-- Social Links & Developer Profile Container -->
+    <div style="display: flex; align-items: center; gap: 14px; flex-wrap: wrap;">
+        <!-- Facebook Link -->
+        <a href="https://www.facebook.com/profile.php?id=61593406822999" target="_blank" rel="noopener noreferrer" class="calc-link" aria-label="Facebook" style="font-size: 0.85rem; text-transform: uppercase; display: inline-flex; align-items: center; gap: 5px;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" style="display: block;">
+                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+            </svg>
+            <span>Facebook</span>
+        </a>
+
+        <!-- X (Twitter) Link -->
+        <a href="https://x.com/hscgpacalc" target="_blank" rel="noopener noreferrer" class="calc-link" aria-label="X (Twitter)" style="font-size: 0.85rem; text-transform: uppercase; display: inline-flex; align-items: center; gap: 5px;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display: block;">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+            </svg>
+            <span>X</span>
+        </a>
+
+        <!-- Tumblr Link -->
+        <a href="https://www.tumblr.com/hscgpacalculator" target="_blank" rel="noopener noreferrer" class="calc-link" aria-label="Tumblr" style="font-size: 0.85rem; text-transform: uppercase; display: inline-flex; align-items: center; gap: 5px;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display: block;">
+                <path d="M14.563 24c-5.093 0-7.09-3.576-7.09-6.845v-8.081H4.492V5.592c4.157-.84 5.385-3.86 5.568-5.592h4.341v5.122h4.949v3.962h-4.949v7.195c0 1.636.852 2.502 2.392 2.502.99 0 2.053-.255 2.684-.576l1.012 3.867C19.39 23.463 16.927 24 14.563 24z"/>
+            </svg>
+            <span>Tumblr</span>
+        </a>
+
+        <!-- Developer Profile Link -->
+        <a href="https://github.com/aryusuf001" target="_blank" rel="noopener noreferrer" class="calc-link" style="font-size: 0.85rem; text-transform: uppercase; display: inline-flex; align-items: center; gap: 5px;">
+            🛠️ Developer Profile
+        </a>
+    </div>
+</div>
+</footer>
+
+  <script>
+    const calcModeSelect = document.getElementById("calcMode");
+    const container = document.getElementById("resultContainer");
+    const shareBtn = document.getElementById("shareResultBtn");
+    
+    const p1Row = document.getElementById("p1Row");
+    const p2Row = document.getElementById("p2Row");
+    const z1Input = document.getElementById("z1Input");
+    const z2Input = document.getElementById("z2Input");
+
+    // Dynamic Space Configuration Handlers
+    document.querySelectorAll('input[name="spaceUnit"]').forEach(elem => {
+      elem.addEventListener("change", (e) => {
+        container.style.display = "none";
+        shareBtn.style.display = "none";
+        if (e.target.value === "2d") {
+          p1Row.className = "input-row";
+          p2Row.className = "input-row";
+          z1Input.style.display = "none";
+          z2Input.style.display = "none";
+        } else {
+          p1Row.className = "input-row three-cols";
+          p2Row.className = "input-row three-cols";
+          z1Input.style.display = "block";
+          z2Input.style.display = "block";
+        }
+      });
+    });
+
+    calcModeSelect.addEventListener("change", () => {
+      container.style.display = "none";
+      shareBtn.style.display = "none";
+    });
+
+    function processMidpointCalculation() {
+      const mode = calcModeSelect.value;
+      const space = document.querySelector('input[name="spaceUnit"]:checked').value;
+      const resultBox = document.getElementById("result");
+      const breakdownBox = document.getElementById("metricBreakdown");
+
+      container.className = "";
+
+      try {
+        let x1 = Number(document.getElementById("x1Input").value.trim());
+        let y1 = Number(document.getElementById("y1Input").value.trim());
+        let x2 = Number(document.getElementById("x2Input").value.trim());
+        let y2 = Number(document.getElementById("y2Input").value.trim());
+
+        if (isNaN(x1) || isNaN(y1) || isNaN(x2) || isNaN(y2)) {
+          throw new Error("Invalid baseline coordinates.");
+        }
+
+        let structuralSteps = [];
+        let midX = (x1 + x2) / 2;
+        let midY = (y1 + y2) / 2;
+        
+        let formattedX = Number.isInteger(midX) ? midX : parseFloat(midX.toFixed(4));
+        let formattedY = Number.isInteger(midY) ? midY : parseFloat(midY.toFixed(4));
+
+        if (space === "2d") {
+          structuralSteps.push(`• Step 1: Read input endpoints: <code>P₁(${x1}, ${y1})</code> and <code>P₂(${x2}, ${y2})</code>.`);
+          structuralSteps.push(`• Step 2: Average horizontal coordinates:<br>&nbsp;&nbsp;&nbsp;&nbsp;<code>X_mid = (${x1} + ${x2}) / 2 = ${midX}</code>.`);
+          structuralSteps.push(`• Step 3: Average vertical coordinates:<br>&nbsp;&nbsp;&nbsp;&nbsp;<code>Y_mid = (${y1} + ${y2}) / 2 = ${midY}</code>.`);
+
+          resultBox.innerHTML = `✨ Midpoint M = (${formattedX}, ${formattedY})`;
+        } else {
+          let z1 = Number(document.getElementById("z1Input").value.trim());
+          let z2 = Number(document.getElementById("z2Input").value.trim());
+
+          if (isNaN(z1) || isNaN(z2)) {
+            throw new Error("Invalid depth coordinates.");
+          }
+
+          let midZ = (z1 + z2) / 2;
+          let formattedZ = Number.isInteger(midZ) ? midZ : parseFloat(midZ.toFixed(4));
+
+          structuralSteps.push(`• Step 1: Read spatial input endpoints: <code>P₁(${x1}, ${y1}, ${z1})</code> and <code>P₂(${x2}, ${y2}, ${z2})</code>.`);
+          structuralSteps.push(`• Step 2: Average horizontal coordinates:<br>&nbsp;&nbsp;&nbsp;&nbsp;<code>X_mid = (${x1} + ${x2}) / 2 = ${midX}</code>.`);
+          structuralSteps.push(`• Step 3: Average vertical coordinates:<br>&nbsp;&nbsp;&nbsp;&nbsp;<code>Y_mid = (${y1} + ${y2}) / 2 = ${midY}</code>.`);
+          structuralSteps.push(`• Step 4: Average depth dimensional coordinates:<br>&nbsp;&nbsp;&nbsp;&nbsp;<code>Z_mid = (${z1} + ${z2}) / 2 = ${midZ}</code>.`);
+
+          resultBox.innerHTML = `✨ Midpoint M = (${formattedX}, ${formattedY}, ${formattedZ})`;
+        }
+
+        if (mode === "steps") {
+          breakdownBox.innerHTML = `
+            <strong>Step-by-Step Geometric Function Solution Breakdown:</strong><br>
+            • System Mode Target: <code>[${space.toUpperCase()} SPACE]</code><br>
+            ${structuralSteps.join('<br>')}<br>
+            • System arithmetic tracking operations compiled and finalized downstream smoothly.
+          `;
+          breakdownBox.style.display = "block";
+        } else {
+          breakdownBox.style.display = "none";
+        }
+
+        container.classList.add("status-active");
+        shareBtn.style.display = "block";
+
+      } catch (err) {
+        resultBox.innerHTML = `⚠️ Syntax Parsing Error`;
+        breakdownBox.innerHTML = `<strong>System Notice:</strong> Failed to format structural coordinate records cleanly. Verify input parameters match layouts closely (e.g., negative integers, simple fractions, custom decimals).`;
+        container.classList.add("status-error");
+        breakdownBox.style.display = "block";
+        shareBtn.style.display = "none";
+      }
+    }
+
+    document.getElementById("calculateBtn").addEventListener("click", processMidpointCalculation);
+
+    // Neobrutalist Theme Local Switch Tracker
+    const toggleDarkMode = document.getElementById("toggle-dark-mode");
+
+    function applyDarkMode(state) {
+      if (state) {
+        document.body.classList.add("dark-mode");
+        toggleDarkMode.checked = true;
+      } else {
+        document.body.classList.remove("dark-mode");
+        toggleDarkMode.checked = false;
+      }
+      localStorage.setItem("darkMode", state ? "enabled" : "disabled");
+    }
+
+    toggleDarkMode.addEventListener("change", () => {
+      applyDarkMode(toggleDarkMode.checked);
+    });
+
+    if (localStorage.getItem("darkMode") === "enabled") {
+      applyDarkMode(true);
+    }
+  </script>
+</body>
+</html>

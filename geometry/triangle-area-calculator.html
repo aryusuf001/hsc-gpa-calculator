@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="../logo.svg">
+  
+  <title>Area of a Triangle Calculator with Steps - Free Online Math Solver</title>
+  <meta name="description" content="Calculate the area of any triangle instantly with our free Area of a Triangle Calculator with Steps. Supports Base/Height, Heron's Formula (3 sides), and SAS methods.">
+  <meta name="keywords" content="area of a triangle calculator, triangle area solver, herons formula calculator, three sides triangle calculator, triangle math tool, geometry solver">
+  <link rel="canonical" href="https://hscgpacalculator.com/geometry/triangle-area-calculator">
+
+  
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Area of a Triangle Calculator with Steps - HSC GPA Calculator",
+    "url": "https://hscgpacalculator.com/geometry/triangle-area-calculator",
+    "description": "An interactive geometric web application built to calculate triangle surface distributions and extract exact area calculations using diverse formulas.",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "All",
+    "browserRequirements": "Requires JavaScript. Requires HTML5.",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "When should I use Heron's formula instead of the base and height formula?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The standard base and height formula requires a perpendicular altitude line. When you only know the straight lengths of all three boundaries without an internal height angle, Heron's formula uses the semi-perimeter calculation path to resolve total area cleanly."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can this calculator handle triangles with impossible side configurations?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. The calculation engine enforces the Triangle Inequality Theorem, which states that the sum of any two side lengths must strictly exceed the length of the remaining side. Impossible dimensions throw a clean syntax validation notification."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght=500;700;800&display=swap">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght=500;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg: #FFDE4D;
+      --card-bg: #FFFFFF;
+      --text: #000000;
+      --accent: #FF5A5F;
+      --accent-hover: #E0484D;
+      --secondary: #3D5A80;
+      --border-thickness: 3px;
+      --neo-shadow: 6px 6px 0px #000000;
+      --neo-shadow-clickable: 3px 3px 0px #000000;
+      --success-banner: #60CD82;
+      --fail-banner: #FF5A5F;
+      --input-focus: #98E2C6;
+    }
+
+    body.dark-mode {
+      --bg: #121214;
+      --card-bg: #1E1E24;
+      --text: #FFFFFF;
+      --accent: #FF5A5F;
+      --accent-hover: #FF7377;
+      --secondary: #A7C957;
+      --neo-shadow: 6px 6px 0px #FFDE4D;
+      --neo-shadow-clickable: 3px 3px 0px #FFDE4D;
+      --success-banner: #2A7B46;
+      --fail-banner: #9B2226;
+      --input-focus: #3D5A80;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 40px 20px;
+    }
+
+    .top-bar {
+      display: flex;
+      width: 100%;
+      max-width: 550px;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .back-home {
+      font-size: 0.85rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--text);
+      background: var(--card-bg);
+      padding: 8px 14px;
+      border: var(--border-thickness) solid #000000;
+      box-shadow: var(--neo-shadow-clickable);
+    }
+
+    .dark-mode-toggle {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      background: var(--card-bg);
+      padding: 8px 14px;
+      border: var(--border-thickness) solid #000000;
+      box-shadow: var(--neo-shadow-clickable);
+      cursor: pointer;
+    }
+
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 36px;
+      height: 20px;
+    }
+
+    .switch input { opacity: 0; width: 0; height: 0; }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: #000000;
+      transition: 0.15s;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 12px;
+      width: 12px;
+      left: 3px;
+      bottom: 2px;
+      background-color: #FFFFFF;
+      transition: 0.15s;
+    }
+
+    input:checked + .slider { background-color: var(--accent); }
+    input:checked + .slider:before { transform: translateX(14px); }
+
+    .container {
+      background: var(--card-bg);
+      width: 100%;
+      max-width: 550px;
+      padding: 30px;
+      border: var(--border-thickness) solid #000000;
+      box-shadow: var(--neo-shadow);
+      margin-bottom: 30px;
+    }
+
+    h1 { 
+      font-size: 1.8rem; 
+      font-weight: 800; 
+      margin-bottom: 25px; 
+      text-transform: uppercase;
+      letter-spacing: -1px;
+      text-align: left;
+    }
+
+    label, .section-heading {
+      display: block;
+      text-align: left;
+      font-weight: 800;
+      margin-top: 18px;
+      margin-bottom: 6px;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    select, input {
+      width: 100%;
+      padding: 12px;
+      border: var(--border-thickness) solid #000000;
+      background-color: var(--card-bg);
+      color: var(--text);
+      font-size: 1rem;
+      font-weight: 700;
+      outline: none;
+    }
+
+    select:focus, input:focus {
+      background-color: var(--input-focus);
+    }
+
+    .input-group {
+      margin-bottom: 15px;
+    }
+
+    .mode-select {
+      margin-bottom: 15px;
+    }
+
+    .method-block {
+      display: none;
+    }
+
+    .method-block.active-block {
+      display: block;
+    }
+
+    button {
+      width: 100%;
+      padding: 16px;
+      border: var(--border-thickness) solid #000000;
+      font-size: 1.1rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      margin-top: 25px;
+      background-color: #0056b3;
+      color: #FFFFFF;
+      box-shadow: var(--neo-shadow-clickable);
+      position: relative;
+    }
+
+    button:hover { background-color: var(--accent-hover); }
+    button:active { top: 2px; left: 2px; box-shadow: 1px 1px 0px #000000; }
+
+    #shareResultBtn { background-color: var(--secondary); margin-top: 12px; }
+
+    #resultContainer { margin-top: 25px; border: var(--border-thickness) solid #000000; display: none; background-color: var(--card-bg); color: var(--text); }
+    #result { font-size: 1.35rem; font-weight: 800; padding: 18px; text-transform: uppercase; line-height: 1.4; }
+    #metricBreakdown { font-size: 0.95rem; padding: 0 18px 14px 18px; font-weight: 700; text-transform: none; letter-spacing: 0.5px; line-height: 1.6; border-top: 2px dashed #000000; padding-top: 12px;}
+
+    .status-active { background-color: var(--success-banner) !important; color: #FFFFFF !important; display: block !important; }
+    .status-error { background-color: var(--fail-banner) !important; color: #FFFFFF !important; display: block !important; }
+
+    .seo-content {
+      width: 100%;
+      max-width: 750px;
+      background: var(--card-bg);
+      padding: 35px;
+      border: var(--border-thickness) solid #000000;
+      box-shadow: var(--neo-shadow);
+      text-align: left;
+      line-height: 1.7;
+    }
+
+    .seo-content h2 { 
+      font-size: 1.5rem; 
+      font-weight: 800;
+      margin-top: 30px; 
+      margin-bottom: 12px; 
+      text-transform: uppercase;
+      letter-spacing: -0.5px;
+      border-bottom: 2px solid #000000;
+      padding-bottom: 4px;
+    }
+    
+    .seo-content h3 { font-size: 1.15rem; font-weight: 800; margin-top: 20px; margin-bottom: 8px; text-transform: uppercase; }
+    .seo-content p { margin-bottom: 15px; font-size: 0.95rem; font-weight: 500; }
+    .seo-content ul { margin-left: 20px; margin-bottom: 15px; font-size: 0.95rem; }
+    .seo-content li { margin-bottom: 6px; font-weight: 600; }
+    
+    .seo-table { width: 100%; border-collapse: collapse; margin-top: 15px; margin-bottom: 20px; }
+    .seo-table th, .seo-table td { padding: 12px; border: 2px solid #000000; font-weight: 700; text-align: left; }
+    .seo-table th { background-color: var(--bg); color: #000000; text-transform: uppercase; font-size: 0.85rem; }
+
+    .cross-linking-footer {
+      width: 100%;
+      max-width: 750px;
+      background: var(--card-bg);
+      margin-top: 30px;
+      padding: 30px;
+      border: var(--border-thickness) solid #000000;
+      box-shadow: var(--neo-shadow);
+    }
+    .cross-linking-footer h2 {
+      font-size: 1.4rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      letter-spacing: -0.5px;
+      text-align: left;
+    }
+    .cross-linking-footer p {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 25px;
+      line-height: 1.5;
+      text-align: left;
+    }
+    .calculators-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px 20px;
+    }
+    .calc-link {
+      display: inline-block;
+      text-decoration: underline;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text) !important;
+      background: none !important;
+      border: none !important;
+      box-shadow: none !important;
+      text-align: left;
+      padding: 4px 0;
+    }
+    .calc-link:hover {
+      color: var(--accent) !important;
+    }
+  </style>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TY98R8BG8Z"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TY98R8BG8Z');
+  </script>
+
+<script>(function(s){s.dataset.zone='11171600',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script></head>
+
+<body>
+
+  <div class="top-bar">
+    <a href="/" class="back-home">⬅ GPA Calc</a>
+    <div class="dark-mode-toggle" aria-label="Toggle dark mode" tabindex="0">
+      <span style="user-select:none;">Dark Mode</span>
+      <label class="switch" for="toggle-dark-mode">
+        <input type="checkbox" id="toggle-dark-mode" aria-label="Toggle Dark Mode">
+        <span class="slider"></span>
+      </label>
+    </div>
+  </div>
+
+  <main class="container" role="main" aria-labelledby="main-title">
+    <h1 id="main-title">📐 Triangle Area Calculator</h1>
+
+    <form id="triangleForm" onsubmit="return false;" aria-live="polite" aria-atomic="true">
+      
+      <div class="mode-select">
+        <label for="calcMethod">Choose Formula Input Method</label>
+        <select id="calcMethod" aria-label="Calculation Method Selector">
+          <option value="baseHeight">Base and Height (Standard)</option>
+          <option value="heron">3 Sides (Heron's Formula)</option>
+          <option value="sas">2 Sides &amp; Included Angle (SAS)</option>
+        </select>
+      </div>
+
+      <!-- Method 1: Base and Height -->
+      <div id="methodBaseHeight" class="method-block active-block">
+        <div class="input-group">
+          <label for="baseInput">Enter Base Length (b)</label>
+          <input type="number" id="baseInput" step="any" min="0.000001" value="10" placeholder="e.g., 12">
+        </div>
+        <div class="input-group">
+          <label for="heightInput">Enter Perpendicular Height (h)</label>
+          <input type="number" id="heightInput" step="any" min="0.000001" value="5" placeholder="e.g., 8">
+        </div>
+      </div>
+
+      <!-- Method 2: Heron's Formula -->
+      <div id="methodHeron" class="method-block">
+        <div class="input-group">
+          <label for="sideA">Side A length</label>
+          <input type="number" id="sideA" step="any" min="0.000001" placeholder="e.g., 5">
+        </div>
+        <div class="input-group">
+          <label for="sideB">Side B length</label>
+          <input type="number" id="sideB" step="any" min="0.000001" placeholder="e.g., 6">
+        </div>
+        <div class="input-group">
+          <label for="sideC">Side C length</label>
+          <input type="number" id="sideC" step="any" min="0.000001" placeholder="e.g., 7">
+        </div>
+      </div>
+
+      <!-- Method 3: SAS Formula -->
+      <div id="methodSas" class="method-block">
+        <div class="input-group">
+          <label for="sasSideA">Side A Length</label>
+          <input type="number" id="sasSideA" step="any" min="0.000001" placeholder="e.g., 8">
+        </div>
+        <div class="input-group">
+          <label for="sasSideB">Side B Length</label>
+          <input type="number" id="sasSideB" step="any" min="0.000001" placeholder="e.g., 12">
+        </div>
+        <div class="input-group">
+          <label for="sasAngle">Included Angle Value (θ)</label>
+          <input type="number" id="sasAngle" step="any" min="0.000001" max="179.9999" placeholder="e.g., 30">
+        </div>
+      </div>
+
+      <div class="mode-select" style="margin-top: 15px;">
+        <label for="calcMode">Select Output Display</label>
+        <select id="calcMode" aria-label="Display Formatting Profile">
+          <option value="steps">Show Step-by-Step Breakdown</option>
+          <option value="direct">Show Direct Answer Only</option>
+        </select>
+      </div>
+
+    </form>
+
+    <button type="button" id="calculateBtn" aria-label="Execute Triangle Area Computation">💥 Compute Triangle Area</button>
+
+    <div id="resultContainer" aria-live="polite" aria-atomic="true">
+      <div id="result"></div>
+      <div id="metricBreakdown"></div>
+    </div>
+
+    <button type="button" id="shareResultBtn" aria-label="Share current calculation results" style="display: none;">📸 Share Result</button>
+  </main>
+
+  <section class="seo-content" aria-label="Geometric Information Hub">
+    <h2>Utilizing the Triangle Area Calculator for Advanced Geometric Verification</h2>
+    <p>In planar geometry layout mappings, analyzing explicit space bounded by interconnected vertices requires absolute formulaic precision. Our technical <strong>area of a triangle calculator</strong> is configured to process dimensional limits instantaneously via three discrete geometric criteria, yielding structured proofs and mathematical traces dynamically.</p>
+    
+    <h3>Triangle Metrics Computation Framework</h3>
+    <p>Depending on spatial coordinate properties available across architectural vectors, choose the standard mathematical solution pipeline outlined inside this matrix:</p>
+    
+    <table class="seo-table">
+      <thead>
+        <tr>
+          <th>Geometric Profile Configuration</th>
+          <th>Required Parameters Matrix</th>
+          <th>Primary Algebraic Formula Layout</th>
+          <th>Core Analytical Focus</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Standard Base Profile</td><td>Base length + Perpendicular height line</td><td>Area = 0.5 × Base × Height</td><td>Linear altitude offsets</td></tr>
+        <tr><td>Trilateral Boundary Profile</td><td>Three independent side constraints</td><td>Heron's Formula (Via Semi-perimeter)</td><td>Isolating non-altitude traces</td></tr>
+        <tr><td>Side-Angle-Side (SAS)</td><td>Two sides + Included angle bounds</td><td>Area = 0.5 × a × b × sin(θ)</td><td>Trigonometric vector products</td></tr>
+      </tbody>
+    </table>
+
+    <h2>How the Engine Validates Dimensional Bounds</h2>
+    <p>The core parsing engine scans geometric arguments algorithmically. When using our <strong>triangle area solver</strong>, mathematical boundary exceptions are monitored seamlessly before resolving values:</p>
+    <p><em>Mechanics Walkthrough:</em> First, input metrics are verified to block negative lengths or unmapped special strings cleanly. Second, when resolving three explicit side vectors, the algorithm asserts the <em>Triangle Inequality Rule</em>—guaranteeing that the combined lengths of any two sides remain strictly greater than the third side. Finally, fractional float variables are structured downstream to minimize calculation loss.</p>
+
+    <h3>Essential Guidelines for Geometrical Variables</h3>
+    <p>Ensure that all structural side length definitions share an identical scaling reference system (e.g., centimeters, meters, or inches). The resulting area mapping translates naturally into corresponding square spatial dimensional configurations.</p>
+
+    <noscript>
+      <h3>System Functional Features Checklist</h3>
+      <p>This analytics module supports tracking computations natively for: trilateral semi-perimeter loops, SAS trigonometric conversions, step workflows, and area matrix validations.</p>
+    </noscript>
+
+    <h2>Frequently Asked Questions (FAQs)</h2>
+    
+    <h3>Why will Heron's calculation method reject specific perimeter parameters?</h3>
+    <p>If the input data defines side paths where <code>Side A + Side B ≤ Side C</code>, a valid closure cannot form structurally. Because the vertices fail to interconnect into a flat shape, the engine prevents negative root operations by catching the invalid setup early.</p>
+
+    <h3>How does this tool map degree values into the internal SAS layout?</h3>
+    <p>The SAS coordinate logic checks angle input limits, shifting numbers from degrees into radian vectors using an algorithmic <code>π / 180</code> baseline multiplier. This produces perfect floating points when calculating sine distributions.</p>
+  </section>
+
+  <footer class="cross-linking-footer" aria-label="Explore other tools and calculators">
+    <h2>🚀 Explore More Free Tools &amp; Calculators</h2>
+    <p>Need to calculate something else? Check out our other fast, free academic, math, and everyday tools below to get instant results 👇</p>
+    
+    
+
+<div class="footer-categories-container">
+
+<!-- Geometry Calculators -->
+<div class="calc-category-group">
+    <h3 style="text-align:left;margin-bottom:10px">📐 Geometry Calculators</h3>
+    <div class="calculators-grid">
+        <a href="https://hscgpacalculator.com/geometry/arc-length-calculator" class="calc-link">📏 Arc Length Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/area-of-a-circle-calculator" class="calc-link">⚪ Area of a Circle Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/cos-calculator" class="calc-link">📐 Cos Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/coterminal-angle-calculator" class="calc-link">🔄 Coterminal Angle Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/distance-formula-calculator" class="calc-link">📏 Distance Formula Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/hyperbola-calculator" class="calc-link">🔄 Hyperbola Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/law-of-cosines-calculator" class="calc-link">🔺 Law of Cosines Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/law-of-sines-calculator" class="calc-link">🔺 Law of Sines Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/midpoint-calculator" class="calc-link">📍 Midpoint Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/parabola-calculator" class="calc-link">📈 Parabola Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/perimeter-calculator" class="calc-link">📏 Perimeter Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/sin-calculator" class="calc-link">📐 Sin Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/sin-inverse-calculator" class="calc-link">🔄 Sin Inverse Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/slope-calculator" class="calc-link">📈 Slope Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/surface-area-calculator" class="calc-link">🔲 Surface Area Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/triangle-area-calculator" class="calc-link">🔺 Triangle Area Calculator</a>
+    </div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+      </div>
+
+      <!-- Category 2: Conversions & Scores -->
+      <div class="calc-category-group" style="margin-top:25px;margin-bottom:10px">
+          <h3 style="text-align:left;margin-bottom:10px">🔄 Conversions &amp; Scores</h3>
+          <div class="calculators-grid">
+              <a href="https://hscgpacalculator.com/gpa-to-percentage" class="calc-link">🔢 GPA to Percentage Calculator</a>
+              <a href="https://hscgpacalculator.com/percentage-to-gpa" class="calc-link">🔀 Percentage to GPA Calculator</a>
+              <a href="https://hscgpacalculator.com/sgpa-to-percentage" class="calc-link">📈 SGPA to Percentage Calculator</a>
+              <a href="https://hscgpacalculator.com/marks-percentage-calculator" class="calc-link">💯 Marks Percentage Calculator</a>
+              <a href="https://hscgpacalculator.com/test-score-calculator" class="calc-link">🎯 Test Score Calculator</a>
+              <a href="https://hscgpacalculator.com/ielts-score-calculator" class="calc-link">🇬🇧 IELTS Score Calculator</a>
+              <a href="https://hscgpacalculator.com/age-calculator-bd" class="calc-link">🎂 Age Calculator BD (Govt Job &amp; NID)</a>
+          </div>
+      </div>
+
+      <!-- Category 3: Geometry & Advanced Math -->
+      <div class="calc-category-group" style="margin-top:25px;margin-bottom:10px">
+          <h3 style="text-align:left;margin-bottom:10px">📐 Calculus &amp; Advanced Math</h3>
+          <div class="calculators-grid">
+              
+              <a href="https://hscgpacalculator.com/calculus/derivative-calculator" class="calc-link">📉 Derivative Calculator</a>
+              <a href="https://hscgpacalculator.com/calculus/chain-rule-calculator" class="calc-link">🔗 Chain Rule Calculator</a>
+              <a href="https://hscgpacalculator.com/calculus/implicit-differentiation-calculator" class="calc-link">🧬 Implicit Differentiation</a>
+              <a href="https://hscgpacalculator.com/calculus/integral-calculator" class="calc-link">🔍 Integral Calculator</a>
+              <a href="https://hscgpacalculator.com/calculus/definite-integral-calculator" class="calc-link">📌 Definite Integral Calculator</a>
+          </div>
+      </div>
+    </div>
+  <div style="margin-top: 30px; padding-top: 20px; border-top: 2px dashed #000000; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+    <!-- Copyright Line -->
+    <span style="font-size: 0.85rem; font-weight: 700; text-transform: uppercase; color: var(--text); opacity: 0.8;">
+        © 2026 HSC GPA Calculator
+    </span>
+
+    <!-- Social Links & Developer Profile Container -->
+    <div style="display: flex; align-items: center; gap: 14px; flex-wrap: wrap;">
+        <!-- Facebook Link -->
+        <a href="https://www.facebook.com/profile.php?id=61593406822999" target="_blank" rel="noopener noreferrer" class="calc-link" aria-label="Facebook" style="font-size: 0.85rem; text-transform: uppercase; display: inline-flex; align-items: center; gap: 5px;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" style="display: block;">
+                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+            </svg>
+            <span>Facebook</span>
+        </a>
+
+        <!-- X (Twitter) Link -->
+        <a href="https://x.com/hscgpacalc" target="_blank" rel="noopener noreferrer" class="calc-link" aria-label="X (Twitter)" style="font-size: 0.85rem; text-transform: uppercase; display: inline-flex; align-items: center; gap: 5px;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display: block;">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+            </svg>
+            <span>X</span>
+        </a>
+
+        <!-- Tumblr Link -->
+        <a href="https://www.tumblr.com/hscgpacalculator" target="_blank" rel="noopener noreferrer" class="calc-link" aria-label="Tumblr" style="font-size: 0.85rem; text-transform: uppercase; display: inline-flex; align-items: center; gap: 5px;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display: block;">
+                <path d="M14.563 24c-5.093 0-7.09-3.576-7.09-6.845v-8.081H4.492V5.592c4.157-.84 5.385-3.86 5.568-5.592h4.341v5.122h4.949v3.962h-4.949v7.195c0 1.636.852 2.502 2.392 2.502.99 0 2.053-.255 2.684-.576l1.012 3.867C19.39 23.463 16.927 24 14.563 24z"/>
+            </svg>
+            <span>Tumblr</span>
+        </a>
+
+        <!-- Developer Profile Link -->
+        <a href="https://github.com/aryusuf001" target="_blank" rel="noopener noreferrer" class="calc-link" style="font-size: 0.85rem; text-transform: uppercase; display: inline-flex; align-items: center; gap: 5px;">
+            🛠️ Developer Profile
+        </a>
+    </div>
+</div>
+</footer>
+
+  <script>
+    const methodSelect = document.getElementById("calcMethod");
+    const calcModeSelect = document.getElementById("calcMode");
+    const container = document.getElementById("resultContainer");
+    const shareBtn = document.getElementById("shareResultBtn");
+
+    // Clear output on parameter changes
+    methodSelect.addEventListener("change", (e) => {
+      container.style.display = "none";
+      shareBtn.style.display = "none";
+      
+      // Toggle active input block visibility
+      document.querySelectorAll(".method-block").forEach(block => block.classList.remove("active-block"));
+      if (e.target.value === "baseHeight") document.getElementById("methodBaseHeight").classList.add("active-block");
+      if (e.target.value === "heron") document.getElementById("methodHeron").classList.add("active-block");
+      if (e.target.value === "sas") document.getElementById("methodSas").classList.add("active-block");
+    });
+
+    calcModeSelect.addEventListener("change", () => {
+      container.style.display = "none";
+      shareBtn.style.display = "none";
+    });
+
+    function processAreaCalculation() {
+      const method = methodSelect.value;
+      const mode = calcModeSelect.value;
+      const resultBox = document.getElementById("result");
+      const breakdownBox = document.getElementById("metricBreakdown");
+
+      container.className = "";
+      let structuralSteps = [];
+      let totalArea = 0;
+
+      try {
+        if (method === "baseHeight") {
+          const b = Number(document.getElementById("baseInput").value);
+          const h = Number(document.getElementById("heightInput").value);
+
+          if (isNaN(b) || isNaN(h) || b <= 0 || h <= 0) {
+            throw new Error("Parameters must be valid geometric values greater than zero.");
+          }
+
+          structuralSteps.push(`• Step 1: Extract dimensional criteria: Base (b) = <code>${b}</code>, Height (h) = <code>${h}</code>.`);
+          totalArea = 0.5 * b * h;
+          structuralSteps.push(`• Step 2: Formulate standard area solution:<br>&nbsp;&nbsp;&nbsp;&nbsp;<code>Area = 0.5 × b × h = 0.5 × ${b} × ${h} = ${totalArea}</code>.`);
+
+        } else if (method === "heron") {
+          const sA = Number(document.getElementById("sideA").value);
+          const sB = Number(document.getElementById("sideB").value);
+          const sC = Number(document.getElementById("sideC").value);
+
+          if (isNaN(sA) || isNaN(sB) || isNaN(sC) || sA <= 0 || sB <= 0 || sC <= 0) {
+            throw new Error("All trilateral side constraints must be numbers greater than zero.");
+          }
+
+          // Validate Triangle Inequality Theorem
+          if ((sA + sB <= sC) || (sA + sC <= sB) || (sB + sC <= sA)) {
+            throw new Error("Invalid sides. The sum of any two sides must exceed the remaining side.");
+          }
+
+          structuralSteps.push(`• Step 1: Parse trilateral vectors: a = <code>${sA}</code>, b = <code>${sB}</code>, c = <code>${sC}</code>.`);
+          const perimeterSemi = (sA + sB + sC) / 2;
+          structuralSteps.push(`• Step 2: Isolate perimeter baseline (Semi-perimeter):<br>&nbsp;&nbsp;&nbsp;&nbsp;<code>s = (a + b + c) / 2 = (${sA} + ${sB} + ${sC}) / 2 = ${perimeterSemi}</code>.`);
+          
+          const internalProduct = perimeterSemi * (perimeterSemi - sA) * (perimeterSemi - sB) * (perimeterSemi - sC);
+          totalArea = Math.sqrt(internalProduct);
+          
+          structuralSteps.push(`• Step 3: Run Heron's radical mapping equation:<br>&nbsp;&nbsp;&nbsp;&nbsp;<code>Area = √[s(s-a)(s-b)(s-c)]</code><br>&nbsp;&nbsp;&nbsp;&nbsp;<code>Area = √[${perimeterSemi} × (${perimeterSemi - sA}) × (${perimeterSemi - sB}) × (${perimeterSemi - sC})]</code><br>&nbsp;&nbsp;&nbsp;&nbsp;<code>Area = √[${internalProduct}] = ${totalArea.toFixed(6)}</code>.`);
+
+        } else if (method === "sas") {
+          const sA = Number(document.getElementById("sasSideA").value);
+          const sB = Number(document.getElementById("sasSideB").value);
+          const angleDeg = Number(document.getElementById("sasAngle").value);
+
+          if (isNaN(sA) || isNaN(sB) || isNaN(angleDeg) || sA <= 0 || sB <= 0 || angleDeg <= 0) {
+            throw new Error("Side parameters and angular inputs must exceed zero values.");
+          }
+          if (angleDeg >= 180) {
+            throw new Error("Angles inside planar triangles must be strictly less than 180 degrees.");
+          }
+
+          structuralSteps.push(`• Step 1: Identify SAS limits: Side a = <code>${sA}</code>, Side b = <code>${sB}</code>, Included Angle = <code>${angleDeg}°</code>.`);
+          const angleRad = angleDeg * (Math.PI / 180);
+          structuralSteps.push(`• Step 2: Shift degree system into functional angular radian vectors:<br>&nbsp;&nbsp;&nbsp;&nbsp;<code>Radian = ${angleDeg}° × (π / 180) = ${angleRad.toFixed(6)} rad</code>.`);
+          
+          totalArea = 0.5 * sA * sB * Math.sin(angleRad);
+          structuralSteps.push(`• Step 3: Compute final area via trigonometric component formula:<br>&nbsp;&nbsp;&nbsp;&nbsp;<code>Area = 0.5 × a × b × sin(θ)</code><br>&nbsp;&nbsp;&nbsp;&nbsp;<code>Area = 0.5 × ${sA} × ${sB} × ${Math.sin(angleRad).toFixed(6)} = ${totalArea.toFixed(6)}</code>.`);
+        }
+
+        const formattedArea = Number.isInteger(totalArea) ? totalArea : parseFloat(totalArea.toFixed(6));
+        resultBox.innerHTML = `✨ Triangle Area = ${formattedArea}`;
+
+        if (mode === "steps") {
+          breakdownBox.innerHTML = `
+            <strong>Step-by-Step Geometric Area Proof Breakdown:</strong><br>
+            • Calculation Model: <code>[${method.toUpperCase()}]</code><br>
+            ${structuralSteps.join('<br>')}<br>
+            • System structural proofs compiled and rendered cleanly downstream.
+          `;
+          breakdownBox.style.display = "block";
+        } else {
+          breakdownBox.style.display = "none";
+        }
+
+        container.classList.add("status-active");
+        shareBtn.style.display = "block";
+
+      } catch (err) {
+        resultBox.innerHTML = `⚠️ Syntax Parsing Error`;
+        breakdownBox.innerHTML = `<strong>System Notice:</strong> ${err.message || "Failed to process geometric matrices. Verify input values match real shapes cleanly."}`;
+        container.classList.add("status-error");
+        breakdownBox.style.display = "block";
+        shareBtn.style.display = "none";
+      }
+    }
+
+    document.getElementById("calculateBtn").addEventListener("click", processAreaCalculation);
+
+    // Neobrutalist Theme Dark Mode Switch Sync
+    const toggleDarkMode = document.getElementById("toggle-dark-mode");
+
+    function applyDarkMode(state) {
+      if (state) {
+        document.body.classList.add("dark-mode");
+        toggleDarkMode.checked = true;
+      } else {
+        document.body.classList.remove("dark-mode");
+        toggleDarkMode.checked = false;
+      }
+      localStorage.setItem("darkMode", state ? "enabled" : "disabled");
+    }
+
+    toggleDarkMode.addEventListener("change", () => {
+      applyDarkMode(toggleDarkMode.checked);
+    });
+
+    if (localStorage.getItem("darkMode") === "enabled") {
+      applyDarkMode(true);
+    }
+  </script>
+</body>
+</html>

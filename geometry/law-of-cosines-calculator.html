@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="../logo.svg">
+  
+  <title>Law of Cosines Calculator with Steps - Free Triangle Solver</title>
+  <meta name="description" content="Calculate missing sides or angles of any triangle instantly with our free Law of Cosines Calculator with Steps. View precise geometric workflows for SSS and SAS configurations.">
+  <meta name="keywords" content="law of cosines calculator, triangle solver, sss triangle calculator, sas calculator, trigonometry solver, step by step law of cosines, find missing side triangle">
+  <link rel="canonical" href="https://hscgpacalculator.com/geometry/law-of-cosines-calculator">
+
+ 
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Law of Cosines Calculator with Steps - HSC GPA Calculator",
+    "url": "https://hscgpacalculator.com/geometry/law-of-cosines-calculator",
+    "description": "An interactive geometric web application built to evaluate oblique triangle properties and extract exact side or angle metrics using the Law of Cosines algorithm.",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "All",
+    "browserRequirements": "Requires JavaScript. Requires HTML5.",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "When should I use the Law of Cosines instead of the Law of Sines?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The Law of Cosines is required when you know either all three sides (SSS) or two sides and the included angle directly between them (SAS). The Law of Sines requires an opposite side-angle pair, which neither of these configurations provides initially."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can the side values entered form an impossible triangle?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. According to the Triangle Inequality Theorem, the sum of any two side lengths must be strictly greater than the remaining side. If your input values violate this condition, our processing engine catches it immediately and shows an error message."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght=500;700;800&display=swap">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght=500;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg: #FFDE4D;
+      --card-bg: #FFFFFF;
+      --text: #000000;
+      --accent: #FF5A5F;
+      --accent-hover: #E0484D;
+      --secondary: #3D5A80;
+      --border-thickness: 3px;
+      --neo-shadow: 6px 6px 0px #000000;
+      --neo-shadow-clickable: 3px 3px 0px #000000;
+      --success-banner: #60CD82;
+      --fail-banner: #FF5A5F;
+      --input-focus: #98E2C6;
+    }
+
+    body.dark-mode {
+      --bg: #121214;
+      --card-bg: #1E1E24;
+      --text: #FFFFFF;
+      --accent: #FF5A5F;
+      --accent-hover: #FF7377;
+      --secondary: #A7C957;
+      --neo-shadow: 6px 6px 0px #FFDE4D;
+      --neo-shadow-clickable: 3px 3px 0px #FFDE4D;
+      --success-banner: #2A7B46;
+      --fail-banner: #9B2226;
+      --input-focus: #3D5A80;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 40px 20px;
+    }
+
+    .top-bar {
+      display: flex;
+      width: 100%;
+      max-width: 550px;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .back-home {
+      font-size: 0.85rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--text);
+      background: var(--card-bg);
+      padding: 8px 14px;
+      border: var(--border-thickness) solid #000000;
+      box-shadow: var(--neo-shadow-clickable);
+    }
+
+    .dark-mode-toggle {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      background: var(--card-bg);
+      padding: 8px 14px;
+      border: var(--border-thickness) solid #000000;
+      box-shadow: var(--neo-shadow-clickable);
+      cursor: pointer;
+    }
+
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 36px;
+      height: 20px;
+    }
+
+    .switch input { opacity: 0; width: 0; height: 0; }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: #000000;
+      transition: 0.15s;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 12px;
+      width: 12px;
+      left: 3px;
+      bottom: 2px;
+      background-color: #FFFFFF;
+      transition: 0.15s;
+    }
+
+    input:checked + .slider { background-color: var(--accent); }
+    input:checked + .slider:before { transform: translateX(14px); }
+
+    .container {
+      background: var(--card-bg);
+      width: 100%;
+      max-width: 550px;
+      padding: 30px;
+      border: var(--border-thickness) solid #000000;
+      box-shadow: var(--neo-shadow);
+      margin-bottom: 30px;
+    }
+
+    h1 { 
+      font-size: 1.8rem; 
+      font-weight: 800; 
+      margin-bottom: 25px; 
+      text-transform: uppercase;
+      letter-spacing: -1px;
+      text-align: left;
+    }
+
+    label, .section-heading {
+      display: block;
+      text-align: left;
+      font-weight: 800;
+      margin-top: 18px;
+      margin-bottom: 6px;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    select, input {
+      width: 100%;
+      padding: 12px;
+      border: var(--border-thickness) solid #000000;
+      background-color: var(--card-bg);
+      color: var(--text);
+      font-size: 1rem;
+      font-weight: 700;
+      outline: none;
+    }
+
+    select:focus, input:focus {
+      background-color: var(--input-focus);
+    }
+
+    .input-group {
+      margin-bottom: 15px;
+    }
+
+    .mode-select {
+      margin-bottom: 15px;
+    }
+
+    .radio-group {
+      display: flex;
+      gap: 15px;
+      margin-top: 5px;
+      margin-bottom: 5px;
+    }
+
+    .radio-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 0.9rem;
+      cursor: pointer;
+      margin: 0;
+    }
+
+    .radio-label input {
+      width: auto;
+      cursor: pointer;
+    }
+
+    .dynamic-inputs-panel {
+      border: 2px dashed #000000;
+      padding: 15px;
+      margin-top: 15px;
+      background: rgba(0,0,0,0.02);
+    }
+
+    button {
+      width: 100%;
+      padding: 16px;
+      border: var(--border-thickness) solid #000000;
+      font-size: 1.1rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      margin-top: 25px;
+      background-color: #0056b3;
+      color: #FFFFFF;
+      box-shadow: var(--neo-shadow-clickable);
+      position: relative;
+    }
+
+    button:hover { background-color: var(--accent-hover); }
+    button:active { top: 2px; left: 2px; box-shadow: 1px 1px 0px #000000; }
+
+    #shareResultBtn { background-color: var(--secondary); margin-top: 12px; }
+
+    #resultContainer { margin-top: 25px; border: var(--border-thickness) solid #000000; display: none; background-color: var(--card-bg); color: var(--text); }
+    #result { font-size: 1.35rem; font-weight: 800; padding: 18px; text-transform: uppercase; line-height: 1.4; }
+    #metricBreakdown { font-size: 0.95rem; padding: 0 18px 14px 18px; font-weight: 700; text-transform: none; letter-spacing: 0.5px; line-height: 1.6; border-top: 2px dashed #000000; padding-top: 12px;}
+
+    .status-active { background-color: var(--success-banner) !important; color: #FFFFFF !important; display: block !important; }
+    .status-error { background-color: var(--fail-banner) !important; color: #FFFFFF !important; display: block !important; }
+
+    .seo-content {
+      width: 100%;
+      max-width: 750px;
+      background: var(--card-bg);
+      padding: 35px;
+      border: var(--border-thickness) solid #000000;
+      box-shadow: var(--neo-shadow);
+      text-align: left;
+      line-height: 1.7;
+    }
+
+    .seo-content h2 { 
+      font-size: 1.5rem; 
+      font-weight: 800;
+      margin-top: 30px; 
+      margin-bottom: 12px; 
+      text-transform: uppercase;
+      letter-spacing: -0.5px;
+      border-bottom: 2px solid #000000;
+      padding-bottom: 4px;
+    }
+    
+    .seo-content h3 { font-size: 1.15rem; font-weight: 800; margin-top: 20px; margin-bottom: 8px; text-transform: uppercase; }
+    .seo-content p { margin-bottom: 15px; font-size: 0.95rem; font-weight: 500; }
+    .seo-content ul { margin-left: 20px; margin-bottom: 15px; font-size: 0.95rem; }
+    .seo-content li { margin-bottom: 6px; font-weight: 600; }
+    
+    .seo-table { width: 100%; border-collapse: collapse; margin-top: 15px; margin-bottom: 20px; }
+    .seo-table th, .seo-table td { padding: 12px; border: 2px solid #000000; font-weight: 700; text-align: left; }
+    .seo-table th { background-color: var(--bg); color: #000000; text-transform: uppercase; font-size: 0.85rem; }
+
+    .cross-linking-footer {
+      width: 100%;
+      max-width: 750px;
+      background: var(--card-bg);
+      margin-top: 30px;
+      padding: 30px;
+      border: var(--border-thickness) solid #000000;
+      box-shadow: var(--neo-shadow);
+    }
+    .cross-linking-footer h2 {
+      font-size: 1.4rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      letter-spacing: -0.5px;
+      text-align: left;
+    }
+    .cross-linking-footer p {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 25px;
+      line-height: 1.5;
+      text-align: left;
+    }
+    .calculators-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px 20px;
+    }
+    .calc-link {
+      display: inline-block;
+      text-decoration: underline;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text) !important;
+      background: none !important;
+      border: none !important;
+      box-shadow: none !important;
+      text-align: left;
+      padding: 4px 0;
+    }
+    .calc-link:hover {
+      color: var(--accent) !important;
+    }
+  </style>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TY98R8BG8Z"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TY98R8BG8Z');
+  </script>
+
+<script>(function(s){s.dataset.zone='11171600',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script></head>
+
+<body>
+
+  <div class="top-bar">
+    <a href="/" class="back-home">⬅ GPA Calc</a>
+    <div class="dark-mode-toggle" aria-label="Toggle dark mode" tabindex="0">
+      <span style="user-select:none;">Dark Mode</span>
+      <label class="switch" for="toggle-dark-mode">
+        <input type="checkbox" id="toggle-dark-mode" aria-label="Toggle Dark Mode">
+        <span class="slider"></span>
+      </label>
+    </div>
+  </div>
+
+  <main class="container" role="main" aria-labelledby="main-title">
+    <h1 id="main-title">⚡ Law of Cosines Calculator</h1>
+
+    <form id="cosinesForm" onsubmit="return false;" aria-live="polite" aria-atomic="true">
+      
+      <div class="mode-select">
+        <label for="calcMode">Select Output Display</label>
+        <select id="calcMode" aria-label="Calculator Mode">
+          <option value="steps">Show Step-by-Step Breakdown</option>
+          <option value="direct">Show Direct Answer Only</option>
+        </select>
+      </div>
+
+      <div class="input-group">
+        <label for="solveTarget">What do you want to calculate?</label>
+        <select id="solveTarget" aria-label="Target Variable Layout Selection">
+          <option value="sas">Find Missing Side (Given 2 Sides + Included Angle)</option>
+          <option value="sss">Find Missing Angle (Given All 3 Sides)</option>
+        </select>
+      </div>
+
+      <div class="input-group" id="angleUnitWrapper">
+        <label>Angle Measurement System</label>
+        <div class="radio-group">
+          <label class="radio-label">
+            <input type="radio" name="angleUnit" value="degrees" checked> Degrees (°)
+          </label>
+          <label class="radio-label">
+            <input type="radio" name="angleUnit" value="radians"> Radians (rad)
+          </label>
+        </div>
+      </div>
+
+      <!-- Dynamic Inputs Group Container -->
+      <div class="dynamic-inputs-panel" id="inputsPanel">
+        <!-- Input fields injected dynamically by JavaScript interface controller -->
+      </div>
+
+    </form>
+
+    <button type="button" id="calculateBtn" aria-label="Execute Law of Cosines Evaluation">💥 Solve Triangle Properties</button>
+
+    <div id="resultContainer" aria-live="polite" aria-atomic="true">
+      <div id="result"></div>
+      <div id="metricBreakdown"></div>
+    </div>
+
+    <button type="button" id="shareResultBtn" aria-label="Share current calculation results" style="display: none;">📸 Share Result</button>
+  </main>
+
+  <section class="seo-content" aria-label="Trigonometric Geometric Analysis Block">
+    <h2>Utilizing the Law of Cosines Calculator with Steps for Oblique Triangle Analysis</h2>
+    <p>In geometric validation and non-right trigonometry, calculating oblique layouts requires alternative algorithmic structures. Our specialized <strong>law of cosines calculator</strong> enables you to parse side lengths and unknown angles cleanly without requiring an initial right-angle coordinate system baseline.</p>
+    
+    <h3>Law of Cosines Structural Framework Formulas</h3>
+    <p>The standard algebraic properties of oblique elements shift cleanly based on which parameters remain known variables. Review our structural formula matrix below:</p>
+    
+    <table class="seo-table">
+      <thead>
+        <tr>
+          <th>Analysis Target</th>
+          <th>Required Inputs Configuration</th>
+          <th>Core System Mathematical Formula</th>
+          <th>Analysis Outcome Standard</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Find Side c</td><td>Sides a, b, and Included Angle C</td><td>c² = a² + b² - 2ab · cos(C)</td><td>Isolate unknown absolute linear vector</td></tr>
+        <tr><td>Find Angle A</td><td>All three Side Profiles (a, b, c)</td><td>cos(A) = (b² + c² - a²) / (2bc)</td><td>Extract localized angular properties</td></tr>
+        <tr><td>Find Angle B</td><td>All three Side Profiles (a, b, c)</td><td>cos(B) = (a² + c² - b²) / (2ac)</td><td>Resolve baseline interior orientation</td></tr>
+        <tr><td>Find Angle C</td><td>All three Side Profiles (a, b, c)</td><td>cos(C) = (a² + b² - c²) / (2ab)</td><td>Identify final opposite angular closing metrics</td></tr>
+      </tbody>
+    </table>
+
+    <h2>How the Engine Tracks and Maps Value Transformations</h2>
+    <p>The operational logic monitors incoming numbers methodically. When evaluating values via our <strong>oblique geometry function solver</strong>, processing pipelines balance properties using rigorous algebraic constraints:</p>
+    <p><em>Mechanics Walkthrough:</em> If evaluating in Side-Angle-Side (SAS) configuration, the engine checks for positive nonzero boundaries on lines. If angle measurement defaults to degrees, the system multiplies the included parameter by <code>π / 180</code> to execute JavaScript's native <code>Math.cos()</code> mathematical function cleanly. For Side-Side-Side (SSS) fields, the triangle inequality validation routine enforces that the sum of any two sides must exceed the length of the third side before computing inverse trigonometric ratios.</p>
+
+    <h3>Essential Formatting Guidelines for Input Values</h3>
+    <p>Be sure to provide clean numeric parameters within the selection rows. Do not merge alphanumeric text, strings, or unmapped special variables inside the calculation fields to ensure mathematical consistency throughout validation operations.</p>
+
+    <noscript>
+      <h3>System Functional Features Checklist</h3>
+      <p>This analytics module supports tracking computations natively for: radian transformations, oblique side evaluation sequences, trigonometric workflow tracing, and triangle geometric validity verification.</p>
+    </noscript>
+
+    <h2>Frequently Asked Questions (FAQs)</h2>
+    
+    <h3>Can the Law of Cosines calculator safely evaluate right triangles?</h3>
+    <p>Yes! If you provide an included angle of 90 degrees, the cosine property evaluates to zero precisely. This cancels out the trailing <code>-2ab · cos(90°)</code> expression entirely, making the calculation cleanly downscale into the classic Pythagorean theorem layout: <code>c² = a² + b²</code>.</p>
+
+    <h3>Why does my SSS input return a parsing error status?</h3>
+    <p>If the coordinates provided violate geometric truths—meaning two short sides are structurally shorter than or equal to the longest side—they cannot link together to close a complete polygon. The system catches these unclosed trajectories immediately before math rounding calculations drop below computational limit exceptions.</p>
+  </section>
+
+  <footer class="cross-linking-footer" aria-label="Explore other tools and calculators">
+    <h2>🚀 Explore More Free Tools &amp; Calculators</h2>
+    <p>Need to calculate something else? Check out our other fast, free academic, math, and everyday tools below to get instant results 👇</p>
+    
+    
+
+<div class="footer-categories-container">
+
+<!-- Geometry Calculators -->
+<div class="calc-category-group">
+    <h3 style="text-align:left;margin-bottom:10px">📐 Geometry Calculators</h3>
+    <div class="calculators-grid">
+        <a href="https://hscgpacalculator.com/geometry/arc-length-calculator" class="calc-link">📏 Arc Length Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/area-of-a-circle-calculator" class="calc-link">⚪ Area of a Circle Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/cos-calculator" class="calc-link">📐 Cos Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/coterminal-angle-calculator" class="calc-link">🔄 Coterminal Angle Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/distance-formula-calculator" class="calc-link">📏 Distance Formula Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/hyperbola-calculator" class="calc-link">🔄 Hyperbola Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/law-of-cosines-calculator" class="calc-link">🔺 Law of Cosines Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/law-of-sines-calculator" class="calc-link">🔺 Law of Sines Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/midpoint-calculator" class="calc-link">📍 Midpoint Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/parabola-calculator" class="calc-link">📈 Parabola Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/perimeter-calculator" class="calc-link">📏 Perimeter Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/sin-calculator" class="calc-link">📐 Sin Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/sin-inverse-calculator" class="calc-link">🔄 Sin Inverse Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/slope-calculator" class="calc-link">📈 Slope Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/surface-area-calculator" class="calc-link">🔲 Surface Area Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/triangle-area-calculator" class="calc-link">🔺 Triangle Area Calculator</a>
+    </div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+      </div>
+
+      <!-- Conversions & Scores -->
+      <div class="calc-category-group" style="margin-top:25px;margin-bottom:10px">
+        <h3 style="text-align:left;margin-bottom:10px">🔄 Conversions &amp; Scores</h3>
+        <div class="calculators-grid">
+          <a href="https://hscgpacalculator.com/gpa-to-percentage" class="calc-link">🔢 GPA to Percentage Calculator</a>
+          <a href="https://hscgpacalculator.com/percentage-to-gpa" class="calc-link">🔀 Percentage to GPA Calculator</a>
+          <a href="https://hscgpacalculator.com/sgpa-to-percentage" class="calc-link">📈 SGPA to Percentage Calculator</a>
+          <a href="https://hscgpacalculator.com/marks-percentage-calculator" class="calc-link">💯 Marks Percentage Calculator</a>
+          <a href="https://hscgpacalculator.com/test-score-calculator" class="calc-link">🎯 Test Score Calculator</a>
+          <a href="https://hscgpacalculator.com/ielts-score-calculator" class="calc-link">🇬🇧 IELTS Score Calculator</a>
+          <a href="https://hscgpacalculator.com/age-calculator-bd" class="calc-link">🎂 Age Calculator BD (Govt Job &amp; NID)</a>
+        </div>
+      </div>
+
+      <!-- Calculus & Advanced Math -->
+      <div class="calc-category-group" style="margin-top:25px;margin-bottom:10px">
+        <h3 style="text-align:left;margin-bottom:10px">📐 Calculus &amp; Advanced Math</h3>
+        <div class="calculators-grid">
+          <a href="https://hscgpacalculator.com/calculus/derivative-calculator" class="calc-link">📉 Derivative Calculator</a>
+          <a href="https://hscgpacalculator.com/calculus/chain-rule-calculator" class="calc-link">🔗 Chain Rule Calculator</a>
+          <a href="https://hscgpacalculator.com/calculus/implicit-differentiation-calculator" class="calc-link">🧬 Implicit Differentiation</a>
+          <a href="https://hscgpacalculator.com/calculus/integral-calculator" class="calc-link">🔍 Integral Calculator</a>
+          <a href="https://hscgpacalculator.com/calculus/definite-integral-calculator" class="calc-link">📌 Definite Integral Calculator</a>
+          <a href="https://hscgpacalculator.com/calculus/double-integral-calculator" class="calc-link">♊ Double Integral Calculator</a>
+          <a href="https://hscgpacalculator.com/calculus/triple-integral-calculator" class="calc-link">🌐 Triple Integral Calculator</a>
+        </div>
+      </div>
+
+      <!-- Algebra & Basics -->
+      <div class="calc-category-group" style="margin-top:25px;margin-bottom:10px">
+        <h3 style="text-align:left;margin-bottom:10px">🔢 Algebra &amp; General Math</h3>
+        <div class="calculators-grid">
+          <a href="https://hscgpacalculator.com/math/algebra-calculator" class="calc-link">📐 Algebra Calculator</a>
+          <a href="https://hscgpacalculator.com/math/equation-solver-calculator" class="calc-link">🧠 Equation Solver Calculator</a>
+          <a href="https://hscgpacalculator.com/math/simultaneous-equations-solver" class="calc-link">👥 Simultaneous Equations</a>
+          <a href="https://hscgpacalculator.com/math/quadratic-calculator" class="calc-link">🟩 Quadratic Calculator</a>
+          <a href="https://hscgpacalculator.com/math/factoring-calculator" class="calc-link">✂️ Factoring Calculator</a>
+          <a href="https://hscgpacalculator.com/math/polynomial-calculator" class="calc-link">📈 Polynomial Calculator</a>
+          <a href="https://hscgpacalculator.com/math/simplification-calculator" class="calc-link">✨ Simplification Calculator</a>
+          <a href="https://hscgpacalculator.com/math/substitution-calculator" class="calc-link">🔄 Substitution Calculator</a>
+        </div>
+      </div>
+    </div>
+  <div style="margin-top: 30px; padding-top: 20px; border-top: 2px dashed #000000; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+    <!-- Copyright Line -->
+    <span style="font-size: 0.85rem; font-weight: 700; text-transform: uppercase; color: var(--text); opacity: 0.8;">
+        © 2026 HSC GPA Calculator
+    </span>
+
+    <!-- Social Links & Developer Profile Container -->
+    <div style="display: flex; align-items: center; gap: 14px; flex-wrap: wrap;">
+        <!-- Facebook Link -->
+        <a href="https://www.facebook.com/profile.php?id=61593406822999" target="_blank" rel="noopener noreferrer" class="calc-link" aria-label="Facebook" style="font-size: 0.85rem; text-transform: uppercase; display: inline-flex; align-items: center; gap: 5px;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" style="display: block;">
+                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+            </svg>
+            <span>Facebook</span>
+        </a>
+
+        <!-- X (Twitter) Link -->
+        <a href="https://x.com/hscgpacalc" target="_blank" rel="noopener noreferrer" class="calc-link" aria-label="X (Twitter)" style="font-size: 0.85rem; text-transform: uppercase; display: inline-flex; align-items: center; gap: 5px;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display: block;">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+            </svg>
+            <span>X</span>
+        </a>
+
+        <!-- Tumblr Link -->
+        <a href="https://www.tumblr.com/hscgpacalculator" target="_blank" rel="noopener noreferrer" class="calc-link" aria-label="Tumblr" style="font-size: 0.85rem; text-transform: uppercase; display: inline-flex; align-items: center; gap: 5px;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display: block;">
+                <path d="M14.563 24c-5.093 0-7.09-3.576-7.09-6.845v-8.081H4.492V5.592c4.157-.84 5.385-3.86 5.568-5.592h4.341v5.122h4.949v3.962h-4.949v7.195c0 1.636.852 2.502 2.392 2.502.99 0 2.053-.255 2.684-.576l1.012 3.867C19.39 23.463 16.927 24 14.563 24z"/>
+            </svg>
+            <span>Tumblr</span>
+        </a>
+
+        <!-- Developer Profile Link -->
+        <a href="https://github.com/aryusuf001" target="_blank" rel="noopener noreferrer" class="calc-link" style="font-size: 0.85rem; text-transform: uppercase; display: inline-flex; align-items: center; gap: 5px;">
+            🛠️ Developer Profile
+        </a>
+    </div>
+</div>
+</footer>
+
+  <script>
+    const solveTargetSelect = document.getElementById("solveTarget");
+    const calcModeSelect = document.getElementById("calcMode");
+    const angleUnitWrapper = document.getElementById("angleUnitWrapper");
+    const inputsPanel = document.getElementById("inputsPanel");
+    const container = document.getElementById("resultContainer");
+    const shareBtn = document.getElementById("shareResultBtn");
+
+    // UI Configuration Mapping
+    function renderInputLayout() {
+      container.style.display = "none";
+      shareBtn.style.display = "none";
+      
+      const setupMode = solveTargetSelect.value;
+      if (setupMode === "sas") {
+        angleUnitWrapper.style.display = "block";
+        inputsPanel.innerHTML = `
+          <div class="input-group">
+            <label for="sideA">Side Length a</label>
+            <input type="text" id="sideA" value="5" placeholder="e.g., 5">
+          </div>
+          <div class="input-group">
+            <label for="sideB">Side Length b</label>
+            <input type="text" id="sideB" value="7" placeholder="e.g., 7">
+          </div>
+          <div class="input-group">
+            <label for="angleC" id="angleLabel">Included Angle C (between a and b)</label>
+            <input type="text" id="angleC" value="45" placeholder="e.g., 45, 90, 0.75">
+          </div>
+        `;
+      } else if (setupMode === "sss") {
+        angleUnitWrapper.style.display = "block"; // Keep visible to let users define output angle format
+        inputsPanel.innerHTML = `
+          <div class="input-group">
+            <label for="sideA">Side Length a (Opposite to Angle A)</label>
+            <input type="text" id="sideA" value="5" placeholder="e.g., 5">
+          </div>
+          <div class="input-group">
+            <label for="sideB">Side Length b (Opposite to Angle B)</label>
+            <input type="text" id="sideB" value="6" placeholder="e.g., 6">
+          </div>
+          <div class="input-group">
+            <label for="sideC">Side Length c (Opposite to Angle C)</label>
+            <input type="text" id="sideC" value="7" placeholder="e.g., 7">
+          </div>
+        `;
+      }
+    }
+
+    // Bind Lifecycle Layout Events
+    solveTargetSelect.addEventListener("change", renderInputLayout);
+    calcModeSelect.addEventListener("change", () => {
+      container.style.display = "none";
+      shareBtn.style.display = "none";
+    });
+    document.querySelectorAll('input[name="angleUnit"]').forEach(elem => {
+      elem.addEventListener("change", () => {
+        container.style.display = "none";
+        shareBtn.style.display = "none";
+      });
+    });
+
+    // Run Setup on Load
+    renderInputLayout();
+
+    // Core Matrix Processing Engine
+    function processCosinesCalculation() {
+      const targetMode = solveTargetSelect.value;
+      const displayMode = calcModeSelect.value;
+      const unit = document.querySelector('input[name="angleUnit"]:checked').value;
+      
+      const resultBox = document.getElementById("result");
+      const breakdownBox = document.getElementById("metricBreakdown");
+      
+      container.className = "";
+      let logs = [];
+
+      try {
+        if (targetMode === "sas") {
+          const valA = parseFloat(document.getElementById("sideA").value.trim());
+          const valB = parseFloat(document.getElementById("sideB").value.trim());
+          const valAngleC = parseFloat(document.getElementById("angleC").value.trim());
+
+          if (isNaN(valA) || isNaN(valB) || isNaN(valAngleC) || valA <= 0 || valB <= 0 || valAngleC <= 0) {
+            throw new Error("Parameters must be valid positive non-zero values.");
+          }
+
+          logs.push(`• Step 1: Read input variables: side <code>a = ${valA}</code>, side <code>b = ${valB}</code>, and angle <code>C = ${valAngleC} ${unit}</code>.`);
+          
+          let radC = valAngleC;
+          if (unit === "degrees") {
+            radC = valAngleC * (Math.PI / 180);
+            logs.push(`• Step 2: Convert interior angle into operational radian scale:<br>&nbsp;&nbsp;&nbsp;&nbsp;<code>Radian C = ${valAngleC}° × (π / 180) = ${radC.toFixed(6)} rad</code>.`);
+          } else {
+            logs.push(`• Step 2: Utilizing input radian factor natively.`);
+          }
+
+          if (unit === "degrees" && valAngleC >= 180) {
+            throw new Error("Triangle interior angles must be strictly less than 180°.");
+          } else if (unit === "radians" && valAngleC >= Math.PI) {
+            throw new Error("Triangle interior angles must be strictly less than π radians.");
+          }
+
+          let cosC = Math.cos(radC);
+          // Patch floating point bounds at clean right angles
+          if (unit === "degrees" && valAngleC === 90) cosC = 0;
+
+          logs.push(`• Step 3: Extract functional cosine metric value:<br>&nbsp;&nbsp;&nbsp;&nbsp;<code>cos(C) = ${cosC.toFixed(6)}</code>.`);
+
+          // Apply Law of Cosines: c² = a² + b² - 2ab * cos(C)
+          let term1 = valA * valA;
+          let term2 = valB * valB;
+          let term3 = 2 * valA * valB * cosC;
+          let cSquared = term1 + term2 - term3;
+
+          if (cSquared <= 0) {
+            throw new Error("Structural side computation error. Impossible vector layout.");
+          }
+
+          let valC = Math.sqrt(cSquared);
+          let formattedC = parseFloat(valC.toFixed(6));
+
+          logs.push(`• Step 4: Apply formula logic structure <code>c² = a² + b² - 2ab · cos(C)</code>:<br>&nbsp;&nbsp;&nbsp;&nbsp;<code>c² = ${valA}² + ${valB}² - (2 · ${valA} · ${valB} · ${cosC.toFixed(6)})</code><br>&nbsp;&nbsp;&nbsp;&nbsp;<code>c² = ${term1} + ${term2} - (${term3.toFixed(6)}) = ${cSquared.toFixed(6)}</code>.`);
+          logs.push(`• Step 5: Isolate missing path variable with square root operation:<br>&nbsp;&nbsp;&nbsp;&nbsp;<code>c = √(${cSquared.toFixed(6)}) = ${formattedC}</code>.`);
+
+          resultBox.innerHTML = `✨ Missing Side c = ${formattedC}`;
+
+        } else if (targetMode === "sss") {
+          const valA = parseFloat(document.getElementById("sideA").value.trim());
+          const valB = parseFloat(document.getElementById("sideB").value.trim());
+          const valC = parseFloat(document.getElementById("sideC").value.trim());
+
+          if (isNaN(valA) || isNaN(valB) || isNaN(valC) || valA <= 0 || valB <= 0 || valC <= 0) {
+            throw new Error("All physical side dimensions must be positive non-zero parameters.");
+          }
+
+          logs.push(`• Step 1: Read structural side constraints: <code>a = ${valA}</code>, <code>b = ${valB}</code>, <code>c = ${valC}</code>.`);
+
+          // Enforce Triangle Inequality Theorem validation protocols
+          if ((valA + valB <= valC) || (valA + valC <= valB) || (valB + valC <= valA)) {
+            throw new Error("Triangle Inequality Violation: The entered segments cannot physically close to shape a geometric polygon.");
+          }
+
+          // Calculate Angle C as primary target optimization
+          logs.push(`• Step 2: Validate geometric boundary conditions. Side proportions can shape a stable triangle layout.`);
+          
+          let numerator = (valA * valA) + (valB * valB) - (valC * valC);
+          let denominator = 2 * valA * valB;
+          let cosC = numerator / denominator;
+
+          logs.push(`• Step 3: Compute localized cosine target vector using formula <code>cos(C) = (a² + b² - c²) / (2ab)</code>:<br>&nbsp;&nbsp;&nbsp;&nbsp;<code>cos(C) = (${valA}² + ${valB}² - ${valC}²) / (2 · ${valA} · ${valB})</code><br>&nbsp;&nbsp;&nbsp;&nbsp;<code>cos(C) = (${valA*valA} + ${valB*valB} - ${valC*valC}) / ${denominator} = ${numerator} / ${denominator} = ${cosC.toFixed(6)}</code>.`);
+
+          let radAngleC = Math.acos(cosC);
+          let finalOutputAngle = radAngleC;
+          
+          if (unit === "degrees") {
+            finalOutputAngle = radAngleC * (180 / Math.PI);
+            logs.push(`• Step 4: Convert calculated radian values into system target output metrics:<br>&nbsp;&nbsp;&nbsp;&nbsp;<code>Angle C = ${radAngleC.toFixed(6)} rad × (180 / π) = ${finalOutputAngle.toFixed(4)}°</code>.`);
+          } else {
+            logs.push(`• Step 4: Extract operational raw radian interior vector natively.`);
+          }
+
+          let formattedAngle = parseFloat(finalOutputAngle.toFixed(4));
+          resultBox.innerHTML = `✨ Solved Angle C = ${formattedAngle}${unit === "degrees" ? "°" : " rad"}`;
+        }
+
+        if (displayMode === "steps") {
+          breakdownBox.innerHTML = `
+            <strong>Step-by-Step Triangle Validation Solution Breakdown:</strong><br>
+            • System Matrix Mode Target: <code>[${targetMode.toUpperCase()} - ${unit.toUpperCase()}]</code><br>
+            ${logs.join('<br>')}<br>
+            • System operations compiled down cleanly and finalized downstream.
+          `;
+          breakdownBox.style.display = "block";
+        } else {
+          breakdownBox.style.display = "none";
+        }
+
+        container.classList.add("status-active");
+        shareBtn.style.display = "block";
+
+      } catch (err) {
+        resultBox.innerHTML = `⚠️ Syntax Calculation Error`;
+        breakdownBox.innerHTML = `<strong>System Evaluation Notice:</strong> ${err.message}<br>Verify parameters look like standard scalar measures safely (e.g., Sides: <code>5, 12, 13</code> or Angle: <code>60</code>).`;
+        container.classList.add("status-error");
+        breakdownBox.style.display = "block";
+        shareBtn.style.display = "none";
+      }
+    }
+
+    document.getElementById("calculateBtn").addEventListener("click", processCosinesCalculation);
+
+    // Neobrutalist Theme Storage Tracking Hooks
+    const toggleDarkMode = document.getElementById("toggle-dark-mode");
+
+    function applyDarkMode(state) {
+      if (state) {
+        document.body.classList.add("dark-mode");
+        toggleDarkMode.checked = true;
+      } else {
+        document.body.classList.remove("dark-mode");
+        toggleDarkMode.checked = false;
+      }
+      localStorage.setItem("darkMode", state ? "enabled" : "disabled");
+    }
+
+    toggleDarkMode.addEventListener("change", () => {
+      applyDarkMode(toggleDarkMode.checked);
+    });
+
+    if (localStorage.getItem("darkMode") === "enabled") {
+      applyDarkMode(true);
+    }
+  </script>
+</body>
+</html>

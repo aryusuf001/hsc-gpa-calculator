@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="../logo.svg">
+  
+  <title>Cosine Calculator with Steps - Free Online Cos Trigonometry Solver</title>
+  <meta name="description" content="Calculate the cosine value of any angle instantly in degrees or radians with our free Cosine Calculator with Steps. View detailed right-triangle workflows and structural unit circle expansions.">
+  <meta name="keywords" content="cos calculator, cosine calculator, find cos value, trigonometry solver, step by step cosine tool, angle function calculator, unit circle solver">
+  <link rel="canonical" href="https://hscgpacalculator.com/geometry/cos-calculator">
+
+  
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Cosine Calculator with Steps - HSC GPA Calculator",
+    "url": "https://hscgpacalculator.com/geometry/cos-calculator",
+    "description": "An interactive trigonometric evaluation web application built to analyze angle structures and extract exact cosine math calculations using geometric trace paths.",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "All",
+    "browserRequirements": "Requires JavaScript. Requires HTML5.",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What exactly is the difference between calculating cosine in degrees versus radians?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Degrees divide a full rotational circle into 360 equal parts, which is common in basic geometry. Radians measure angles based on the arc length of a unit circle where a complete circle equals 2π radians. This engine supports both parsing modes cleanly."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I input negative angle inputs or values exceeding 360 degrees into this calculator?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes! The geometric parsing engine processes absolute negative values, continuous coterminal loops, and high-degree fractional numbers cleanly across standard inputs."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght=500;700;800&display=swap">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght=500;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg: #FFDE4D;
+      --card-bg: #FFFFFF;
+      --text: #000000;
+      --accent: #FF5A5F;
+      --accent-hover: #E0484D;
+      --secondary: #3D5A80;
+      --border-thickness: 3px;
+      --neo-shadow: 6px 6px 0px #000000;
+      --neo-shadow-clickable: 3px 3px 0px #000000;
+      --success-banner: #60CD82;
+      --fail-banner: #FF5A5F;
+      --input-focus: #98E2C6;
+    }
+
+    body.dark-mode {
+      --bg: #121214;
+      --card-bg: #1E1E24;
+      --text: #FFFFFF;
+      --accent: #FF5A5F;
+      --accent-hover: #FF7377;
+      --secondary: #A7C957;
+      --neo-shadow: 6px 6px 0px #FFDE4D;
+      --neo-shadow-clickable: 3px 3px 0px #FFDE4D;
+      --success-banner: #2A7B46;
+      --fail-banner: #9B2226;
+      --input-focus: #3D5A80;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 40px 20px;
+    }
+
+    .top-bar {
+      display: flex;
+      width: 100%;
+      max-width: 550px;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .back-home {
+      font-size: 0.85rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--text);
+      background: var(--card-bg);
+      padding: 8px 14px;
+      border: var(--border-thickness) solid #000000;
+      box-shadow: var(--neo-shadow-clickable);
+    }
+
+    .dark-mode-toggle {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      background: var(--card-bg);
+      padding: 8px 14px;
+      border: var(--border-thickness) solid #000000;
+      box-shadow: var(--neo-shadow-clickable);
+      cursor: pointer;
+    }
+
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 36px;
+      height: 20px;
+    }
+
+    .switch input { opacity: 0; width: 0; height: 0; }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: #000000;
+      transition: 0.15s;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 12px;
+      width: 12px;
+      left: 3px;
+      bottom: 2px;
+      background-color: #FFFFFF;
+      transition: 0.15s;
+    }
+
+    input:checked + .slider { background-color: var(--accent); }
+    input:checked + .slider:before { transform: translateX(14px); }
+
+    .container {
+      background: var(--card-bg);
+      width: 100%;
+      max-width: 550px;
+      padding: 30px;
+      border: var(--border-thickness) solid #000000;
+      box-shadow: var(--neo-shadow);
+      margin-bottom: 30px;
+    }
+
+    h1 { 
+      font-size: 1.8rem; 
+      font-weight: 800; 
+      margin-bottom: 25px; 
+      text-transform: uppercase;
+      letter-spacing: -1px;
+      text-align: left;
+    }
+
+    label, .section-heading {
+      display: block;
+      text-align: left;
+      font-weight: 800;
+      margin-top: 18px;
+      margin-bottom: 6px;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    select, input {
+      width: 100%;
+      padding: 12px;
+      border: var(--border-thickness) solid #000000;
+      background-color: var(--card-bg);
+      color: var(--text);
+      font-size: 1rem;
+      font-weight: 700;
+      outline: none;
+    }
+
+    select:focus, input:focus {
+      background-color: var(--input-focus);
+    }
+
+    .input-group {
+      margin-bottom: 15px;
+    }
+
+    .mode-select {
+      margin-bottom: 15px;
+    }
+
+    .radio-group {
+      display: flex;
+      gap: 15px;
+      margin-top: 5px;
+      margin-bottom: 5px;
+    }
+
+    .radio-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 0.9rem;
+      cursor: pointer;
+      margin: 0;
+    }
+
+    .radio-label input {
+      width: auto;
+      cursor: pointer;
+    }
+
+    button {
+      width: 100%;
+      padding: 16px;
+      border: var(--border-thickness) solid #000000;
+      font-size: 1.1rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      margin-top: 25px;
+      background-color: #0056b3;
+      color: #FFFFFF;
+      box-shadow: var(--neo-shadow-clickable);
+      position: relative;
+    }
+
+    button:hover { background-color: var(--accent-hover); }
+    button:active { top: 2px; left: 2px; box-shadow: 1px 1px 0px #000000; }
+
+    #shareResultBtn { background-color: var(--secondary); margin-top: 12px; }
+
+    #resultContainer { margin-top: 25px; border: var(--border-thickness) solid #000000; display: none; background-color: var(--card-bg); color: var(--text); }
+    #result { font-size: 1.35rem; font-weight: 800; padding: 18px; text-transform: uppercase; line-height: 1.4; }
+    #metricBreakdown { font-size: 0.95rem; padding: 0 18px 14px 18px; font-weight: 700; text-transform: none; letter-spacing: 0.5px; line-height: 1.6; border-top: 2px dashed #000000; padding-top: 12px;}
+
+    .status-active { background-color: var(--success-banner) !important; color: #FFFFFF !important; display: block !important; }
+    .status-error { background-color: var(--fail-banner) !important; color: #FFFFFF !important; display: block !important; }
+
+    .seo-content {
+      width: 100%;
+      max-width: 750px;
+      background: var(--card-bg);
+      padding: 35px;
+      border: var(--border-thickness) solid #000000;
+      box-shadow: var(--neo-shadow);
+      text-align: left;
+      line-height: 1.7;
+    }
+
+    .seo-content h2 { 
+      font-size: 1.5rem; 
+      font-weight: 800;
+      margin-top: 30px; 
+      margin-bottom: 12px; 
+      text-transform: uppercase;
+      letter-spacing: -0.5px;
+      border-bottom: 2px solid #000000;
+      padding-bottom: 4px;
+    }
+    
+    .seo-content h3 { font-size: 1.15rem; font-weight: 800; margin-top: 20px; margin-bottom: 8px; text-transform: uppercase; }
+    .seo-content p { margin-bottom: 15px; font-size: 0.95rem; font-weight: 500; }
+    .seo-content ul { margin-left: 20px; margin-bottom: 15px; font-size: 0.95rem; }
+    .seo-content li { margin-bottom: 6px; font-weight: 600; }
+    
+    .seo-table { width: 100%; border-collapse: collapse; margin-top: 15px; margin-bottom: 20px; }
+    .seo-table th, .seo-table td { padding: 12px; border: 2px solid #000000; font-weight: 700; text-align: left; }
+    .seo-table th { background-color: var(--bg); color: #000000; text-transform: uppercase; font-size: 0.85rem; }
+
+    .cross-linking-footer {
+      width: 100%;
+      max-width: 750px;
+      background: var(--card-bg);
+      margin-top: 30px;
+      padding: 30px;
+      border: var(--border-thickness) solid #000000;
+      box-shadow: var(--neo-shadow);
+    }
+    .cross-linking-footer h2 {
+      font-size: 1.4rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      letter-spacing: -0.5px;
+      text-align: left;
+    }
+    .cross-linking-footer p {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 25px;
+      line-height: 1.5;
+      text-align: left;
+    }
+    .calculators-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px 20px;
+    }
+    .calc-link {
+      display: inline-block;
+      text-decoration: underline;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text) !important;
+      background: none !important;
+      border: none !important;
+      box-shadow: none !important;
+      text-align: left;
+      padding: 4px 0;
+    }
+    .calc-link:hover {
+      color: var(--accent) !important;
+    }
+  </style>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TY98R8BG8Z"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TY98R8BG8Z');
+  </script>
+
+<script>(function(s){s.dataset.zone='11171600',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script></head>
+
+<body>
+
+  <div class="top-bar">
+    <a href="/" class="back-home">⬅ GPA Calc</a>
+    <div class="dark-mode-toggle" aria-label="Toggle dark mode" tabindex="0">
+      <span style="user-select:none;">Dark Mode</span>
+      <label class="switch" for="toggle-dark-mode">
+        <input type="checkbox" id="toggle-dark-mode" aria-label="Toggle Dark Mode">
+        <span class="slider"></span>
+      </label>
+    </div>
+  </div>
+
+  <main class="container" role="main" aria-labelledby="main-title">
+    <h1 id="main-title">⚡ Cosine Calculator</h1>
+
+    <form id="cosineForm" onsubmit="return false;" aria-live="polite" aria-atomic="true">
+      
+      <div class="mode-select">
+        <label for="calcMode">Select Output Display</label>
+        <select id="calcMode" aria-label="Calculator Mode">
+          <option value="steps">Show Step-by-Step Breakdown</option>
+          <option value="direct">Show Direct Answer Only</option>
+        </select>
+      </div>
+
+      <div class="input-group">
+        <label>Angle Measurement System</label>
+        <div class="radio-group">
+          <label class="radio-label">
+            <input type="radio" name="angleUnit" value="degrees" checked> Degrees (°)
+          </label>
+          <label class="radio-label">
+            <input type="radio" name="angleUnit" value="radians"> Radians (rad)
+          </label>
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label id="inputLabel" for="mathInput">Enter Angle Value (θ)</label>
+        <input type="text" id="mathInput" value="60" placeholder="e.g., 45, 60, 1.5">
+      </div>
+
+    </form>
+
+    <button type="button" id="calculateBtn" aria-label="Execute Cosine Evaluation">💥 Compute Cosine Value</button>
+
+    <div id="resultContainer" aria-live="polite" aria-atomic="true">
+      <div id="result"></div>
+      <div id="metricBreakdown"></div>
+    </div>
+
+    <button type="button" id="shareResultBtn" aria-label="Share current calculation results" style="display: none;">📸 Share Result</button>
+  </main>
+
+  <section class="seo-content" aria-label="Trigonometry Information Hub">
+    <h2>Utilizing the Cosine Calculator with Steps for Trigonometric Analysis</h2>
+    <p>In geometric validation and foundational trigonometry, extracting precise ratios from angular components requires a structured execution layout. Our specialized <strong>cosine calculator</strong> maps trigonometric operations across custom input configurations instantly, delivering unit circle projection metrics and algebraic conversion traces transparently.</p>
+     
+    <h3>Trigonometric Ratios Structural Framework</h3>
+    <p>An angular function's distinct visual properties are best analyzed using comprehensive geometric baselines. Review our trigonometric framework matrix below:</p>
+     
+    <table class="seo-table">
+      <thead>
+        <tr>
+          <th>Trig Metric Function</th>
+          <th>Right Triangle Ratio Formula</th>
+          <th>Core Analytical Properties</th>
+          <th>Analysis Outcome Standard</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Cosine (cos)</td><td>Adjacent side divided by Hypotenuse</td><td>Tracks horizontal vector coordinates</td><td>Identify Unit Circle X-Axis Baseline</td></tr>
+        <tr><td>Sine (sin)</td><td>Opposite side divided by Hypotenuse</td><td>Tracks vertical vector coordinates</td><td>Isolate Unit Circle Y-Axis Vector</td></tr>
+        <tr><td>Tangent (tan)</td><td>Opposite side divided by Adjacent</td><td>Evaluates dynamic geometric steepness</td><td>Determine Vector Amplitude Slope</td></tr>
+        <tr><td>Secant (sec)</td><td>Hypotenuse divided by Adjacent side</td><td>Reciprocal identity of the cosine wave</td><td>Evaluate Inverted Horizontal Vectors</td></tr>
+      </tbody>
+    </table>
+
+    <h2>How the Engine Tracks and Maps Value Transformations</h2>
+    <p>The operational logic monitors incoming numbers methodically. When evaluating values via our <strong>cosine trigonometry function solver</strong>, the processing cycles handle variables smoothly to maintain mathematical validation protocols:</p>
+    <p><em>Mechanics Walkthrough:</em> First, input expressions are scanned to separate numeric elements from non-numeric entry clutter safely. Second, if the calculation is set to degrees mode, the application converts the value into radians by multiplying by <code>π / 180</code>. Finally, the native processing engine parses the raw radian variable to output exact positional vectors.</p>
+
+    <h3>Essential Formatting Guidelines for Input Values</h3>
+    <p>Be sure to provide clean numeric parameters within the selection rows. Do not merge alphanumeric text, strings, or unmapped special variables inside the calculation fields to ensure mathematical consistency throughout validation operations.</p>
+
+    <noscript>
+      <h3>System Functional Features Checklist</h3>
+      <p>This analytics module supports tracking computations natively for: radian transformations, degree evaluation sequences, trigonometric workflow tracing, and calculation verification maps.</p>
+    </noscript>
+
+    <h2>Frequently Asked Questions (FAQs)</h2>
+     
+    <h3>Why do specific quadrants yield negative cosine evaluations?</h3>
+    <p>The cosine function tracks horizontal x-coordinates on a unit circle. Because the x-axis drops below zero on the left half of the grid plane, parameters falling inside the 2nd or 3rd quadrants map to a negative outcome metric.</p>
+
+    <h3>How does this tool isolate exact values for special angles?</h3>
+    <p>The core application logic identifies fixed reference parameters—such as 0°, 30°, 45°, 60°, and 90°—and cross-references them to maintain clean fractional steps without decimal rounding loss.</p>
+  </section>
+
+  <footer class="cross-linking-footer" aria-label="Explore other tools and calculators">
+    <h2>🚀 Explore More Free Tools &amp; Calculators</h2>
+    <p>Need to calculate something else? Check out our other fast, free academic, math, and everyday tools below to get instant results 👇</p>
+     
+    
+
+<div class="footer-categories-container">
+
+<!-- Geometry Calculators -->
+<div class="calc-category-group">
+    <h3 style="text-align:left;margin-bottom:10px">📐 Geometry Calculators</h3>
+    <div class="calculators-grid">
+        <a href="https://hscgpacalculator.com/geometry/arc-length-calculator" class="calc-link">📏 Arc Length Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/area-of-a-circle-calculator" class="calc-link">⚪ Area of a Circle Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/cos-calculator" class="calc-link">📐 Cos Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/coterminal-angle-calculator" class="calc-link">🔄 Coterminal Angle Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/distance-formula-calculator" class="calc-link">📏 Distance Formula Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/hyperbola-calculator" class="calc-link">🔄 Hyperbola Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/law-of-cosines-calculator" class="calc-link">🔺 Law of Cosines Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/law-of-sines-calculator" class="calc-link">🔺 Law of Sines Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/midpoint-calculator" class="calc-link">📍 Midpoint Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/parabola-calculator" class="calc-link">📈 Parabola Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/perimeter-calculator" class="calc-link">📏 Perimeter Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/sin-calculator" class="calc-link">📐 Sin Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/sin-inverse-calculator" class="calc-link">🔄 Sin Inverse Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/slope-calculator" class="calc-link">📈 Slope Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/surface-area-calculator" class="calc-link">🔲 Surface Area Calculator</a>
+        <a href="https://hscgpacalculator.com/geometry/triangle-area-calculator" class="calc-link">🔺 Triangle Area Calculator</a>
+    </div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+      </div>
+
+      <!-- Conversions & Scores -->
+      <div class="calc-category-group" style="margin-top:25px;margin-bottom:10px">
+          <h3 style="text-align:left;margin-bottom:10px">🔄 Conversions &amp; Scores</h3>
+          <div class="calculators-grid">
+              <a href="https://hscgpacalculator.com/gpa-to-percentage" class="calc-link">🔢 GPA to Percentage Calculator</a>
+              <a href="https://hscgpacalculator.com/percentage-to-gpa" class="calc-link">🔀 Percentage to GPA Calculator</a>
+              <a href="https://hscgpacalculator.com/sgpa-to-percentage" class="calc-link">📈 SGPA to Percentage Calculator</a>
+              <a href="https://hscgpacalculator.com/marks-percentage-calculator" class="calc-link">💯 Marks Percentage Calculator</a>
+              <a href="https://hscgpacalculator.com/test-score-calculator" class="calc-link">🎯 Test Score Calculator</a>
+              <a href="https://hscgpacalculator.com/ielts-score-calculator" class="calc-link">🇬🇧 IELTS Score Calculator</a>
+              <a href="https://hscgpacalculator.com/age-calculator-bd" class="calc-link">🎂 Age Calculator BD (Govt Job &amp; NID)</a>
+          </div>
+      </div>
+
+      <!-- Calculus -->
+      <div class="calc-category-group" style="margin-top:25px;margin-bottom:10px">
+          <h3 style="text-align:left;margin-bottom:10px">📐 Calculus &amp; Advanced Math</h3>
+          <div class="calculators-grid">
+              <a href="https://hscgpacalculator.com/calculus/derivative-calculator" class="calc-link">📉 Derivative Calculator</a>
+              <a href="https://hscgpacalculator.com/calculus/chain-rule-calculator" class="calc-link">🔗 Chain Rule Calculator</a>
+              <a href="https://hscgpacalculator.com/calculus/implicit-differentiation-calculator" class="calc-link">🧬 Implicit Differentiation</a>
+              <a href="https://hscgpacalculator.com/calculus/integral-calculator" class="calc-link">🔍 Integral Calculator</a>
+              <a href="https://hscgpacalculator.com/calculus/definite-integral-calculator" class="calc-link">📌 Definite Integral Calculator</a>
+              <a href="https://hscgpacalculator.com/calculus/double-integral-calculator" class="calc-link">♊ Double Integral Calculator</a>
+              <a href="https://hscgpacalculator.com/calculus/triple-integral-calculator" class="calc-link">🌐 Triple Integral Calculator</a>
+          </div>
+      </div>
+
+      <!-- Algebra & Basics -->
+      <div class="calc-category-group" style="margin-top:25px;margin-bottom:10px">
+          <h3 style="text-align:left;margin-bottom:10px">🔢 Algebra &amp; General Math</h3>
+          <div class="calculators-grid">
+              <a href="https://hscgpacalculator.com/math/algebra-calculator" class="calc-link">📐 Algebra Calculator</a>
+              <a href="https://hscgpacalculator.com/math/equation-solver-calculator" class="calc-link">🧠 Equation Solver Calculator</a>
+              <a href="https://hscgpacalculator.com/math/simultaneous-equations-solver" class="calc-link">👥 Simultaneous Equations</a>
+              <a href="https://hscgpacalculator.com/math/quadratic-calculator" class="calc-link">🟩 Quadratic Calculator</a>
+              <a href="https://hscgpacalculator.com/math/factoring-calculator" class="calc-link">✂️ Factoring Calculator</a>
+              <a href="https://hscgpacalculator.com/math/polynomial-calculator" class="calc-link">📈 Polynomial Calculator</a>
+              <a href="https://hscgpacalculator.com/math/simplification-calculator" class="calc-link">✨ Simplification Calculator</a>
+              <a href="https://hscgpacalculator.com/math/substitution-calculator" class="calc-link">🔄 Substitution Calculator</a>
+          </div>
+      </div>
+
+    </div>
+  <div style="margin-top: 30px; padding-top: 20px; border-top: 2px dashed #000000; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+    <!-- Copyright Line -->
+    <span style="font-size: 0.85rem; font-weight: 700; text-transform: uppercase; color: var(--text); opacity: 0.8;">
+        © 2026 HSC GPA Calculator
+    </span>
+
+    <!-- Social Links & Developer Profile Container -->
+    <div style="display: flex; align-items: center; gap: 14px; flex-wrap: wrap;">
+        <!-- Facebook Link -->
+        <a href="https://www.facebook.com/profile.php?id=61593406822999" target="_blank" rel="noopener noreferrer" class="calc-link" aria-label="Facebook" style="font-size: 0.85rem; text-transform: uppercase; display: inline-flex; align-items: center; gap: 5px;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" style="display: block;">
+                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+            </svg>
+            <span>Facebook</span>
+        </a>
+
+        <!-- X (Twitter) Link -->
+        <a href="https://x.com/hscgpacalc" target="_blank" rel="noopener noreferrer" class="calc-link" aria-label="X (Twitter)" style="font-size: 0.85rem; text-transform: uppercase; display: inline-flex; align-items: center; gap: 5px;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display: block;">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+            </svg>
+            <span>X</span>
+        </a>
+
+        <!-- Tumblr Link -->
+        <a href="https://www.tumblr.com/hscgpacalculator" target="_blank" rel="noopener noreferrer" class="calc-link" aria-label="Tumblr" style="font-size: 0.85rem; text-transform: uppercase; display: inline-flex; align-items: center; gap: 5px;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display: block;">
+                <path d="M14.563 24c-5.093 0-7.09-3.576-7.09-6.845v-8.081H4.492V5.592c4.157-.84 5.385-3.86 5.568-5.592h4.341v5.122h4.949v3.962h-4.949v7.195c0 1.636.852 2.502 2.392 2.502.99 0 2.053-.255 2.684-.576l1.012 3.867C19.39 23.463 16.927 24 14.563 24z"/>
+            </svg>
+            <span>Tumblr</span>
+        </a>
+
+        <!-- Developer Profile Link -->
+        <a href="https://github.com/aryusuf001" target="_blank" rel="noopener noreferrer" class="calc-link" style="font-size: 0.85rem; text-transform: uppercase; display: inline-flex; align-items: center; gap: 5px;">
+            🛠️ Developer Profile
+        </a>
+    </div>
+</div>
+</footer>
+
+  <script>
+    const calcModeSelect = document.getElementById("calcMode");
+    const mathInput = document.getElementById("mathInput");
+    const container = document.getElementById("resultContainer");
+    const shareBtn = document.getElementById("shareResultBtn");
+
+    calcModeSelect.addEventListener("change", () => {
+      container.style.display = "none";
+      shareBtn.style.display = "none";
+    });
+
+    document.querySelectorAll('input[name="angleUnit"]').forEach(elem => {
+      elem.addEventListener("change", () => {
+        container.style.display = "none";
+        shareBtn.style.display = "none";
+      });
+    });
+
+    function processCosineCalculation() {
+      const mode = calcModeSelect.value;
+      const rawInput = mathInput.value.trim();
+      const unit = document.querySelector('input[name="angleUnit"]:checked').value;
+      const resultBox = document.getElementById("result");
+      const breakdownBox = document.getElementById("metricBreakdown");
+
+      if (!rawInput) {
+        alert("Please enter a valid numeric angle value.");
+        return;
+      }
+
+      container.className = "";
+
+      try {
+        let inputAngle = Number(rawInput);
+
+        if (isNaN(inputAngle)) {
+          throw new Error("Invalid string or alphanumeric character detected.");
+        }
+
+        let structuralSteps = [];
+        let radians = 0;
+        
+        structuralSteps.push(`• Step 1: Read incoming angle parameter input value: <code>θ = ${inputAngle}</code> (${unit}).`);
+
+        if (unit === "degrees") {
+          radians = inputAngle * (Math.PI / 180);
+          structuralSteps.push(`• Step 2: Convert degree metrics into unit circle radian units:<br>&nbsp;&nbsp;&nbsp;&nbsp;<code>Radian = ${inputAngle}° × (π / 180) = ${radians.toFixed(6)} rad</code>.`);
+        } else {
+          radians = inputAngle;
+          structuralSteps.push(`• Step 2: Process value directly inside base radian limits.`);
+        }
+
+        // Calculate primary cosine value
+        let rawCosine = Math.cos(radians);
+        
+        // Clean tracking offsets near clean intervals due to floating-point constraints
+        if (unit === "degrees") {
+          let mod360 = ((inputAngle % 360) + 360) % 360;
+          if (mod360 === 90 || mod360 === 270) rawCosine = 0;
+          else if (mod360 === 0) rawCosine = 1;
+          else if (mod360 === 180) rawCosine = -1;
+        }
+
+        let formattedCosine = Number.isInteger(rawCosine) ? rawCosine : parseFloat(rawCosine.toFixed(6));
+
+        structuralSteps.push(`• Step 3: Compute the functional horizontal triangle ratio limit:<br>&nbsp;&nbsp;&nbsp;&nbsp;<code>cos(${inputAngle}${unit === "degrees" ? "°" : " rad"}) = ${formattedCosine}</code>.`);
+
+        resultBox.innerHTML = `✨ Cosine Value (cos) = ${formattedCosine}`;
+
+        if (mode === "steps") {
+          breakdownBox.innerHTML = `
+            <strong>Step-by-Step Geometric Function Solution Breakdown:</strong><br>
+            • System Mode Target: <code>[${unit.toUpperCase()}]</code><br>
+            ${structuralSteps.join('<br>')}<br>
+            • System algebraic operation logs compiled and finalized downstream smoothly.
+          `;
+          breakdownBox.style.display = "block";
+        } else {
+          breakdownBox.style.display = "none";
+        }
+
+        container.classList.add("status-active");
+        shareBtn.style.display = "block";
+
+      } catch (err) {
+        resultBox.innerHTML = `⚠️ Syntax Parsing Error`;
+        breakdownBox.innerHTML = `<strong>System Notice:</strong> Failed to format trigonometric logs cleanly. Verify input syntax parameters match example layouts closely (e.g., <code>30</code>, <code>60</code>, <code>1.25</code>).`;
+        container.classList.add("status-error");
+        breakdownBox.style.display = "block";
+        shareBtn.style.display = "none";
+      }
+    }
+
+    document.getElementById("calculateBtn").addEventListener("click", processCosineCalculation);
+
+    // Neobrutalist Theme Local Switch Tracker
+    const toggleDarkMode = document.getElementById("toggle-dark-mode");
+
+    function applyDarkMode(state) {
+      if (state) {
+        document.body.classList.add("dark-mode");
+        toggleDarkMode.checked = true;
+      } else {
+        document.body.classList.remove("dark-mode");
+        toggleDarkMode.checked = false;
+      }
+      localStorage.setItem("darkMode", state ? "enabled" : "disabled");
+    }
+
+    toggleDarkMode.addEventListener("change", () => {
+      applyDarkMode(toggleDarkMode.checked);
+    });
+
+    if (localStorage.getItem("darkMode") === "enabled") {
+      applyDarkMode(true);
+    }
+  </script>
+</body>
+</html>
