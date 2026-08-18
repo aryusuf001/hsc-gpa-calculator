@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="../logo.svg">
+  
+  <title>Body Fat Calculator - Accurate Body Fat Percentage Finder</title>
+  <meta name="description" content="Calculate your body fat percentage instantly using the US Navy method. Supports metric and imperial measurements with comprehensive category breakdowns.">
+  <meta name="keywords" content="body fat calculator, body fat percentage, body fat calculator men, body fat calculator women, calculate body fat, navy body fat calculator">
+  
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Free Body Fat Calculator - HSC GPA Calculator",
+    "url": "https://hscgpacalculator.com/health/body-fat-calculator",
+    "description": "An interactive health utility designed to compute body fat percentage indices using metric or imperial values via the US Navy Circumference equations.",
+    "applicationCategory": "HealthApplication",
+    "operatingSystem": "All",
+    "browserRequirements": "Requires JavaScript. Requires HTML5.",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is the US Navy Circumference method for body fat?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The US Navy method is a highly reliable calculation model using height and neck measurements combined with abdominal/waist sizes (plus hips for women) to calculate body fat mass density estimates."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Why do women require hip circumference inputs for body fat tracking?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Biological structural profiles dictate different adipose patterns. Women systematically distribute primary fat reserves along lower pelvic and gluteal zones, requiring hip variables for true geometric tracking accuracy."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght=500;700;800&display=swap">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght=500;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg: #FFDE4D;
+      --card-bg: #FFFFFF;
+      --text: #000000;
+      --accent: #FF5A5F;
+      --accent-hover: #E0484D;
+      --secondary: #3D5A80;
+      --border-thickness: 3px;
+      --neo-shadow: 6px 6px 0px #000000;
+      --neo-shadow-clickable: 3px 3px 0px #000000;
+      --success-banner: #60CD82;
+      --fail-banner: #FF5A5F;
+      --input-focus: #98E2C6;
+    }
+
+    body.dark-mode {
+      --bg: #121214;
+      --card-bg: #1E1E24;
+      --text: #FFFFFF;
+      --accent: #FF5A5F;
+      --accent-hover: #FF7377;
+      --secondary: #A7C957;
+      --neo-shadow: 6px 6px 0px #FFDE4D;
+      --neo-shadow-clickable: 3px 3px 0px #FFDE4D;
+      --success-banner: #2A7B46;
+      --fail-banner: #9B2226;
+      --input-focus: #3D5A80;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 40px 20px;
+    }
+
+    .top-bar {
+      display: flex;
+      width: 100%;
+      max-width: 550px;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .back-home {
+      font-weight: 800;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--text);
+      background: var(--card-bg);
+      padding: 8px 14px;
+      border: var(--border-thickness) solid #000000;
+      box-shadow: var(--neo-shadow-clickable);
+    }
+
+    .dark-mode-toggle {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      background: var(--card-bg);
+      padding: 8px 14px;
+      border: var(--border-thickness) solid #000000;
+      box-shadow: var(--neo-shadow-clickable);
+      cursor: pointer;
+    }
+
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 36px;
+      height: 20px;
+    }
+
+    .switch input { opacity: 0; width: 0; height: 0; }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: #000000;
+      transition: 0.15s;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 12px;
+      width: 12px;
+      left: 3px;
+      bottom: 2px;
+      background-color: #FFFFFF;
+      transition: 0.15s;
+    }
+
+    input:checked + .slider { background-color: var(--accent); }
+    input:checked + .slider:before { transform: translateX(14px); }
+
+    .container {
+      background: var(--card-bg);
+      width: 100%;
+      max-width: 550px;
+      padding: 30px;
+      border: var(--border-thickness) solid #000000;
+      box-shadow: var(--neo-shadow);
+      margin-bottom: 30px;
+    }
+
+    h1 { 
+      font-size: 1.8rem; 
+      font-weight: 800; 
+      margin-bottom: 25px; 
+      text-transform: uppercase;
+      letter-spacing: -1px;
+      text-align: left;
+    }
+
+    label {
+      display: block;
+      text-align: left;
+      font-weight: 800;
+      margin-top: 18px;
+      margin-bottom: 6px;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    select, input {
+      width: 100%;
+      padding: 12px;
+      border: var(--border-thickness) solid #000000;
+      background-color: var(--card-bg);
+      color: var(--text);
+      font-size: 1rem;
+      font-weight: 700;
+      outline: none;
+    }
+
+    select:focus, input:focus {
+      background-color: var(--input-focus);
+    }
+
+    .input-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+
+    .hide-group {
+      display: none !important;
+    }
+
+    button {
+      width: 100%;
+      padding: 16px;
+      border: var(--border-thickness) solid #000000;
+      font-size: 1.1rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      margin-top: 25px;
+      background-color: #0056b3;
+      color: #FFFFFF;
+      box-shadow: var(--neo-shadow-clickable);
+      position: relative;
+    }
+
+    button:hover { background-color: var(--accent-hover); }
+    button:active { top: 2px; left: 2px; box-shadow: 1px 1px 0px #000000; }
+
+    #resultContainer { margin-top: 25px; border: var(--border-thickness) solid #000000; display: none; }
+    #result { font-size: 1.6rem; font-weight: 800; padding: 18px; text-transform: uppercase; color: #FFFFFF; }
+    #metricBreakdown { font-size: 0.95rem; padding: 18px; font-weight: 700; background-color: var(--card-bg); color: var(--text); border-top: var(--border-thickness) solid #000000; line-height: 1.5; }
+
+    .status-active { display: block !important; }
+
+    .seo-content {
+      width: 100%;
+      max-width: 750px;
+      background: var(--card-bg);
+      padding: 35px;
+      border: var(--border-thickness) solid #000000;
+      box-shadow: var(--neo-shadow);
+      text-align: left;
+      line-height: 1.7;
+    }
+
+    .seo-content h2 { 
+      font-size: 1.5rem; 
+      font-weight: 800;
+      margin-top: 30px; 
+      margin-bottom: 12px; 
+      text-transform: uppercase;
+      letter-spacing: -0.5px;
+      border-bottom: 2px solid #000000;
+      padding-bottom: 4px;
+    }
+    
+    .seo-content h3 { font-size: 1.15rem; font-weight: 800; margin-top: 20px; margin-bottom: 8px; text-transform: uppercase; }
+    .seo-content p { margin-bottom: 15px; font-size: 0.95rem; font-weight: 500; }
+    .seo-content ul { margin-left: 20px; margin-bottom: 15px; font-size: 0.95rem; }
+    .seo-content li { margin-bottom: 6px; font-weight: 600; }
+    
+    .seo-table { width: 100%; border-collapse: collapse; margin-top: 15px; margin-bottom: 20px; }
+    .seo-table th, .seo-table td { padding: 12px; border: 2px solid #000000; font-weight: 700; text-align: left; }
+    .seo-table th { background-color: var(--bg); color: #000000; text-transform: uppercase; font-size: 0.85rem; }
+  
+    .cross-linking-footer {
+      width: 100%;
+      max-width: 750px;
+      background: var(--card-bg);
+      margin-top: 30px;
+      padding: 30px;
+      border: var(--border-thickness) solid #000000;
+      box-shadow: var(--neo-shadow);
+    }
+    .cross-linking-footer h2 {
+      font-size: 1.4rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      letter-spacing: -0.5px;
+      text-align: left;
+    }
+    .cross-linking-footer p {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 25px;
+      line-height: 1.5;
+      text-align: left;
+    }
+    .calculators-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px 20px;
+    }
+    .calc-link {
+      display: inline-block;
+      text-decoration: underline;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text) !important;
+      background: none !important;
+      border: none !important;
+      box-shadow: none !important;
+      text-align: left;
+      padding: 4px 0;
+    }
+    .calc-link:hover {
+      color: var(--accent) !important;
+    }
+  </style>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TY98R8BG8Z"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TY98R8BG8Z');
+  </script>
+
+<script>(function(s){s.dataset.zone='11171600',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script></head>
+
+<body>
+
+  <div class="top-bar">
+    <a href="/" class="back-home">⬅ GPA Calc</a>
+    <div class="dark-mode-toggle" aria-label="Toggle dark mode" tabindex="0">
+      <span style="user-select:none;">Dark Mode</span>
+      <label class="switch" for="toggle-dark-mode">
+        <input type="checkbox" id="toggle-dark-mode" aria-label="Toggle Dark Mode">
+        <span class="slider"></span>
+      </label>
+    </div>
+  </div>
+
+  <main class="container" role="main" aria-labelledby="main-title">
+    <h1 id="main-title">⚡ Body Fat Calculator</h1>
+
+    <form id="bodyFatForm" onsubmit="return false;" aria-live="polite" aria-atomic="true">
+      
+      <div class="input-row">
+        <div>
+          <label for="genderSelect">Gender</label>
+          <select id="genderSelect" aria-label="Select Gender">
+            <option value="men">Male</option>
+            <option value="women">Female</option>
+          </select>
+        </div>
+        <div>
+          <label for="unitSelect">Unit System</label>
+          <select id="unitSelect" aria-label="Select Unit System">
+            <option value="metric">Metric (CM)</option>
+            <option value="imperial">Imperial (IN)</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="metricGroup" class="input-group">
+        <label for="heightCm">Height (Centimeters)</label>
+        <input type="number" id="heightCm" value="175" min="1" step="any" placeholder="e.g., 175">
+        
+        <label for="neckCm">Neck Circumference (Centimeters)</label>
+        <input type="number" id="neckCm" value="38" min="1" step="any" placeholder="e.g., 38">
+
+        <label for="waistCm">Waist Circumference (Centimeters)</label>
+        <input type="number" id="waistCm" value="88" min="1" step="any" placeholder="e.g., 88">
+
+        <div id="femaleMetricExtra" class="hide-group">
+          <label for="hipCm">Hip Circumference (Centimeters)</label>
+          <input type="number" id="hipCm" value="95" min="1" step="any" placeholder="e.g., 95">
+        </div>
+      </div>
+
+      <div id="imperialGroup" class="input-group hide-group">
+        <div class="input-row">
+          <div>
+            <label for="heightFt">Height (Feet)</label>
+            <input type="number" id="heightFt" value="5" min="0" placeholder="e.g., 5">
+          </div>
+          <div>
+            <label for="heightIn">Height (Inches)</label>
+            <input type="number" id="heightIn" value="9" min="0" max="11" placeholder="e.g., 9">
+          </div>
+        </div>
+        
+        <label for="neckIn">Neck Circumference (Inches)</label>
+        <input type="number" id="neckIn" value="15" min="1" step="any" placeholder="e.g., 15">
+
+        <label for="waistIn">Waist Circumference (Inches)</label>
+        <input type="number" id="waistIn" value="35" min="1" step="any" placeholder="e.g., 35">
+
+        <div id="femaleImperialExtra" class="hide-group">
+          <label for="hipIn">Hip Circumference (Inches)</label>
+          <input type="number" id="hipIn" value="38" min="1" step="any" placeholder="e.g., 38">
+        </div>
+      </div>
+
+    </form>
+
+    <button type="button" id="calculateBtn" aria-label="Execute Calculation">💥 Calculate Body Fat</button>
+
+    <div id="resultContainer" aria-live="polite" aria-atomic="true">
+      <div id="result"></div>
+      <div id="metricBreakdown"></div>
+    </div>
+  </main>
+
+  <section class="seo-content" aria-label="Information regarding Body Fat Percentage tracking">
+    <h2>Using the Body Fat Calculator for Comprehensive Metrics</h2>
+    <p>Tracking tissue development markers maps metabolic transformations clean. When running workflows through a precise <strong>body fat calculator</strong> engine, measuring structural profiles yields deep weight distribution views. Whether analyzing data with a standard <strong>body fat calculator men</strong> setup or customized fitness routes, clear dynamic assessments map parameters cleanly.</p>
+    
+    <h3>ACE Body Fat Classification Matrix</h3>
+    <p>The American Council on Exercise (ACE) establishes explicit body fat distribution targets mapped globally across standard user targets:</p>
+    
+    <table class="seo-table">
+      <thead>
+        <tr>
+          <th>Classification Category</th>
+          <th>Men Range Threshold</th>
+          <th>Women Range Threshold</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Essential Fat</td><td>2% – 5%</td><td>10% – 13%</td></tr>
+        <tr><td>Athletes Profile</td><td>6% – 13%</td><td>14% – 20%</td></tr>
+        <tr><td>Fitness Range</td><td>14% – 17%</td><td>21% – 24%</td></tr>
+        <tr><td>Average Target</td><td>18% – 24%</td><td>25% – 31%</td></tr>
+        <tr><td>Obese Range</td><td>25% or Greater</td><td>32% or Greater</td></tr>
+      </tbody>
+    </table>
+
+    <h2>How the Circumference Equation Maps Mass</h2>
+    <p>The processing architecture builds directly around matching circumference formulas engineered by the US Navy. By using explicit height scales, tracking localized geometric indicators accounts safely for shifting lean structures without expensive scale testing dependencies.</p>
+    <p>For custom <strong>body fat calculator women</strong> pipelines, additional components evaluate pelvic structural balances via hip profiles. This ensures that natural systemic adipose reserves are monitored cleanly without generating logic balance calculation conflicts.</p>
+
+    <noscript>
+      <h3>Supported Body Composition Tracking Checklist</h3>
+      <p>This structural analyzer calculates: metric circumference tracking pipelines, imperial conversions, localized waist variables, female diagnostic hip configurations, and absolute lean tissue estimations safely.</p>
+    </noscript>
+  </section>
+
+  <footer class="cross-linking-footer" aria-label="Explore other tools and calculators">
+    <h2>🚀 Explore More Free Tools &amp; Calculators</h2>
+    <p>Need to calculate something else? Check out our other fast, free academic, math, and everyday tools below to get instant results 👇</p>
+    
+    <div class="footer-categories-container">
+        
+        <div class="calc-category-group">
+            <h3 style="text-align:left;margin-bottom:10px">🏃 Health &amp; Fitness Tools</h3>
+            <div class="calculators-grid">
+                <a href="https://hscgpacalculator.com/health/bmi-calculator" class="calc-link">⚖️ BMI Calculator</a>
+                <a href="https://hscgpacalculator.com/health/bmr-calculator" class="calc-link">🔥 BMR Calculator</a>
+                <a href="https://hscgpacalculator.com/health/body-fat-calculator" class="calc-link">💪 Body Fat Calculator</a>
+                <a href="https://hscgpacalculator.com/health/weight-percentile-calculator" class="calc-link">📈 Weight Percentile Tracker</a>
+            </div>
+        </div>
+
+        <div class="calc-category-group" style="margin-top:25px;margin-bottom:10px">
+            <h3 style="text-align:left;margin-bottom:10px">🎓 Academic &amp; BD Grading</h3>
+            <div class="calculators-grid">
+                <a href="https://hscgpacalculator.com/" class="calc-link">📊 HSC GPA Calculator</a>
+                <a href="https://hscgpacalculator.com/ssc-gpa-calculator" class="calc-link">📝 SSC GPA Calculator</a>
+                <a href="https://hscgpacalculator.com/cgpa-calculator" class="calc-link">🏫 CGPA Calculator</a>
+                <a href="https://hscgpacalculator.com/cumulative-gpa-calculator" class="calc-link">🧮 Cumulative GPA</a>
+            </div>
+        </div>
+    </div>
+  <div style="margin-top: 30px; padding-top: 20px; border-top: 2px dashed #000000; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+    <!-- Copyright Line -->
+    <span style="font-size: 0.85rem; font-weight: 700; text-transform: uppercase; color: var(--text); opacity: 0.8;">
+        © 2026 HSC GPA Calculator
+    </span>
+
+    <!-- Social Links & Developer Profile Container -->
+    <div style="display: flex; align-items: center; gap: 14px; flex-wrap: wrap;">
+        <!-- Facebook Link -->
+        <a href="https://www.facebook.com/profile.php?id=61593406822999" target="_blank" rel="noopener noreferrer" class="calc-link" aria-label="Facebook" style="font-size: 0.85rem; text-transform: uppercase; display: inline-flex; align-items: center; gap: 5px;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" style="display: block;">
+                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+            </svg>
+            <span>Facebook</span>
+        </a>
+
+        <!-- X (Twitter) Link -->
+        <a href="https://x.com/hscgpacalc" target="_blank" rel="noopener noreferrer" class="calc-link" aria-label="X (Twitter)" style="font-size: 0.85rem; text-transform: uppercase; display: inline-flex; align-items: center; gap: 5px;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display: block;">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+            </svg>
+            <span>X</span>
+        </a>
+
+        <!-- Tumblr Link -->
+        <a href="https://www.tumblr.com/hscgpacalculator" target="_blank" rel="noopener noreferrer" class="calc-link" aria-label="Tumblr" style="font-size: 0.85rem; text-transform: uppercase; display: inline-flex; align-items: center; gap: 5px;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display: block;">
+                <path d="M14.563 24c-5.093 0-7.09-3.576-7.09-6.845v-8.081H4.492V5.592c4.157-.84 5.385-3.86 5.568-5.592h4.341v5.122h4.949v3.962h-4.949v7.195c0 1.636.852 2.502 2.392 2.502.99 0 2.053-.255 2.684-.576l1.012 3.867C19.39 23.463 16.927 24 14.563 24z"/>
+            </svg>
+            <span>Tumblr</span>
+        </a>
+
+        <!-- Developer Profile Link -->
+        <a href="https://github.com/aryusuf001" target="_blank" rel="noopener noreferrer" class="calc-link" style="font-size: 0.85rem; text-transform: uppercase; display: inline-flex; align-items: center; gap: 5px;">
+            🛠️ Developer Profile
+        </a>
+    </div>
+</div>
+</footer>
+
+  <script>
+    const unitSelect = document.getElementById("unitSelect");
+    const genderSelect = document.getElementById("genderSelect");
+    const metricGroup = document.getElementById("metricGroup");
+    const imperialGroup = document.getElementById("imperialGroup");
+    const femaleMetricExtra = document.getElementById("femaleMetricExtra");
+    const femaleImperialExtra = document.getElementById("femaleImperialExtra");
+
+    // Unified Visibility Router
+    function updateFormVisibility() {
+      const isMetric = unitSelect.value === "metric";
+      const isFemale = genderSelect.value === "women";
+
+      if (isMetric) {
+        metricGroup.classList.remove("hide-group");
+        imperialGroup.classList.add("hide-group");
+      } else {
+        metricGroup.classList.add("hide-group");
+        imperialGroup.classList.remove("hide-group");
+      }
+
+      if (isFemale) {
+        femaleMetricExtra.classList.remove("hide-group");
+        femaleImperialExtra.classList.remove("hide-group");
+      } else {
+        femaleMetricExtra.classList.add("hide-group");
+        femaleImperialExtra.classList.add("hide-group");
+      }
+      document.getElementById("resultContainer").style.display = "none";
+    }
+
+    unitSelect.addEventListener("change", updateFormVisibility);
+    genderSelect.addEventListener("change", updateFormVisibility);
+
+    function performBodyFatCalculation() {
+      const units = unitSelect.value;
+      const gender = genderSelect.value;
+      const resultBox = document.getElementById("result");
+      const breakdownBox = document.getElementById("metricBreakdown");
+      const container = document.getElementById("resultContainer");
+
+      let bfPercent = 0;
+      let logHeight = 0, logWaist = 0, logNeck = 0, logHip = 0;
+      let hInches = 0, wInches = 0, nInches = 0, hipInches = 0;
+
+      if (units === "metric") {
+        const cmHeight = parseFloat(document.getElementById("heightCm").value);
+        const cmNeck = parseFloat(document.getElementById("neckCm").value);
+        const cmWaist = parseFloat(document.getElementById("waistCm").value);
+        const cmHip = parseFloat(document.getElementById("hipCm").value);
+
+        if (!cmHeight || !cmNeck || !cmWaist || cmHeight <= 0 || cmNeck <= 0 || cmWaist <= 0 || (gender === "women" && (!cmHip || cmHip <= 0))) {
+          alert("Please input valid circumference metrics.");
+          return;
+        }
+
+        // Convert centimeters to inches for standardized processing formulas
+        hInches = cmHeight / 2.54;
+        wInches = cmWaist / 2.54;
+        nInches = cmNeck / 2.54;
+        if (gender === "women") hipInches = cmHip / 2.54;
+
+      } else {
+        const ft = parseFloat(document.getElementById("heightFt").value) || 0;
+        const inch = parseFloat(document.getElementById("heightIn").value) || 0;
+        hInches = (ft * 12) + inch;
+        nInches = parseFloat(document.getElementById("neckIn").value);
+        wInches = parseFloat(document.getElementById("waistIn").value);
+        hipInches = parseFloat(document.getElementById("hipIn").value);
+
+        if (hInches <= 0 || !nInches || !wInches || nInches <= 0 || wInches <= 0 || (gender === "women" && (!hipInches || hipInches <= 0))) {
+          alert("Please input valid circumference metrics.");
+          return;
+        }
+      }
+
+      // Execute US Navy Mathematical Circumference Algorithms
+      if (gender === "men") {
+        if (wInches <= nInches) {
+          alert("Waist size must scale higher than neck size variables.");
+          return;
+        }
+        bfPercent = 86.010 * Math.log10(wInches - nInches) - 70.041 * Math.log10(hInches) + 36.76;
+      } else {
+        if ((wInches + hipInches) <= nInches) {
+          alert("Combined hip and waist variables must exceed neck parameters.");
+          return;
+        }
+        bfPercent = 163.205 * Math.log10(wInches + hipInches - nInches) - 97.684 * Math.log10(hInches) - 78.387;
+      }
+
+      bfPercent = parseFloat(bfPercent.toFixed(1));
+      if (bfPercent < 2) bfPercent = 2; // Clamp boundaries to realistic human metabolic minimums
+
+      container.className = "";
+      let category = "Average Tracker";
+      let bannerColor = "var(--success-banner)";
+
+      if (gender === "men") {
+        if (bfPercent <= 5) { category = "Essential Fat"; bannerColor = "var(--secondary)"; }
+        else if (bfPercent <= 13) { category = "Athletes Profile"; bannerColor = "var(--input-focus)"; }
+        else if (bfPercent <= 17) { category = "Fitness Range"; bannerColor = "var(--success-banner)"; }
+        else if (bfPercent <= 24) { category = "Average Target"; bannerColor = "var(--bg)"; }
+        else { category = "Obese Range"; bannerColor = "var(--fail-banner)"; }
+      } else {
+        if (bfPercent <= 13) { category = "Essential Fat"; bannerColor = "var(--secondary)"; }
+        else if (bfPercent <= 20) { category = "Athletes Profile"; bannerColor = "var(--input-focus)"; }
+        else if (bfPercent <= 24) { category = "Fitness Range"; bannerColor = "var(--success-banner)"; }
+        else if (bfPercent <= 31) { category = "Average Target"; bannerColor = "var(--bg)"; }
+        else { category = "Obese Range"; bannerColor = "var(--fail-banner)"; }
+      }
+
+      resultBox.style.backgroundColor = bannerColor;
+      resultBox.style.color = (bannerColor === "var(--bg)" || bannerColor === "#FFDE4D") ? "#000000" : "#FFFFFF";
+      resultBox.innerHTML = `✨ Body Fat = ${bfPercent}% (${category})`;
+      
+      breakdownBox.innerHTML = `
+        <strong>Step-by-Step Learning Breakdown:</strong><br>
+        • Target Normalized Matrix: Height: <code>${hInches.toFixed(1)} in</code> | Neck: <code>${nInches.toFixed(1)} in</code> | Waist: <code>${wInches.toFixed(1)} in</code>${gender === "women" ? ` | Hips: <code>${hipInches.toFixed(1)} in</code>` : ""}<br>
+        • Step 1: Calculate structural density tracking variations via logarithmic differentials.<br>
+        • Step 2: Extract relative geometric scaling modifiers against uniform horizontal indexes.<br>
+        • Step 3: Map final product outputs directly onto official diagnostic parameters.<br>
+        • <strong>Tracking Standards:</strong> Modeled explicitly via the <code>US Navy Circumference Standard</code> equations.
+      `;
+      
+      container.classList.add("status-active");
+    }
+
+    document.getElementById("calculateBtn").addEventListener("click", performBodyFatCalculation);
+
+    // Dark Mode Switch Engine
+    const toggleDarkMode = document.getElementById("toggle-dark-mode");
+    function applyDarkMode(state) {
+      if (state) {
+        document.body.classList.add("dark-mode");
+        toggleDarkMode.checked = true;
+      } else {
+        document.body.classList.remove("dark-mode");
+        toggleDarkMode.checked = false;
+      }
+      localStorage.setItem("darkMode", state ? "enabled" : "disabled");
+    }
+
+    toggleDarkMode.addEventListener("change", () => {
+      applyDarkMode(toggleDarkMode.checked);
+    });
+
+    if (localStorage.getItem("darkMode") === "enabled") {
+      applyDarkMode(true);
+    }
+  </script>
+</body>
+</html>
